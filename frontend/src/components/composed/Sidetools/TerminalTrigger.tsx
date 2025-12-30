@@ -8,7 +8,7 @@ export default function TerminalTrigger() {
         <button
           type="button"
           popoverTarget="cli-popover"
-          className="bg-primary text-background-dark flex h-14 w-14 cursor-pointer items-center justify-center rounded-full shadow-[0_0_15px_rgba(57,255,20,0.3)] transition-all duration-300 hover:opacity-90 hover:shadow-[0_0_25px_rgba(57,255,20,0.6)] active:brightness-90"
+          className="bg-primary text-background-dark flex size-14 cursor-pointer items-center justify-center rounded-full shadow-[0_0_15px_rgba(57,255,20,0.3)] transition-all duration-300 hover:opacity-90 hover:shadow-[0_0_25px_rgba(57,255,20,0.6)] active:brightness-90 xl:size-16"
         >
           <span className="material-symbols-outlined text-2xl font-bold">
             terminal

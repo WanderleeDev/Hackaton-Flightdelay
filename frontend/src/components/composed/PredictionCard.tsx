@@ -79,7 +79,6 @@ export default function PredictionCard({
         <span className="text-text-muted font-mono text-xs italic">#{id}</span>
       </div>
 
-      {/* Route Section */}
       <div className="mb-6 flex items-center justify-between">
         <div className="text-center">
           <p className="text-text-muted text-[10px] font-bold uppercase">
@@ -101,7 +100,6 @@ export default function PredictionCard({
         </div>
       </div>
 
-      {/* Details Grid */}
       <div className="border-border-dark space-y-3 border-t pt-4">
         <div className="flex items-center justify-between text-xs">
           <span className="text-text-muted flex items-center gap-2">
