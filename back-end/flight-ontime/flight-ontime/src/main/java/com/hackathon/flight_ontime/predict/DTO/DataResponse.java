@@ -1,4 +1,4 @@
-package com.hackathon.flight_ontime.DTO;
+package com.hackathon.flight_ontime.predict.DTO;
 
 public record DataResponse(
         Double probability,
