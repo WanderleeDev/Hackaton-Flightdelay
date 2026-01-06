@@ -13,16 +13,16 @@ export default function AboutFooter() {
         Join us in our mission to make global air travel more predictable and
         safer for everyone.
       </p>
-      <div className="flex justify-center gap-4 relative z-10">
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 relative z-10 w-full px-4 sm:px-0">
         <Link
           href="/"
-          className="px-8 py-3 bg-primary text-primary-foreground font-bold rounded-2xl hover:shadow-lg hover:shadow-primary/20 transition-all active:scale-95 block"
+          className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-primary text-primary-foreground font-bold rounded-2xl hover:shadow-lg hover:shadow-primary/20 transition-all active:scale-95 block text-center"
         >
           Try it out
         </Link>
         <Link
           href="/"
-          className="px-8 py-3 bg-background border border-border font-bold rounded-2xl hover:bg-secondary/50 transition-all active:scale-95 block"
+          className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-background border border-border font-bold rounded-2xl hover:bg-secondary/50 transition-all active:scale-95 block text-center"
         >
           Read Documentation
         </Link>

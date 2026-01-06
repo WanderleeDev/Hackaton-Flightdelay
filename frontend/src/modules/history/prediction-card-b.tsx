@@ -68,7 +68,10 @@ export default function PredictionCardB({
   const WeatherIcon = atmospheric.icon;
 
   return (
-    <div className="bg-card/50 backdrop-blur-sm border border-border rounded-3xl p-6 transition-all duration-300 hover:border-primary/50 hover:shadow-2xl">
+    <div
+      className="bg-card/50 backdrop-blur-sm border border-border rounded-3xl p-6 transition-all duration-300 hover:border-primary/50 hover:shadow-2xl focus-within:border-primary/50 focus-within:shadow-2xl"
+      tabIndex={1}
+    >
       <div className="flex justify-between items-center mb-6">
         <span
           className={cn(

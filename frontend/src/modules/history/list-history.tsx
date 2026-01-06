@@ -4,6 +4,11 @@ import { motion } from "motion/react";
 import PredictionCardA from "./prediction-card-a";
 import { match } from "ts-pattern";
 import SectionHeader from "@/components/shared/section-header";
+import { cn } from "@/src/lib/utils";
+
+interface ListHistoryProps {
+  className?: string;
+}
 
 const mock = [
   {
@@ -32,9 +37,14 @@ const mock = [
   },
 ];
 
-export default function ListHistory() {
+export default function ListHistory({ className }: ListHistoryProps) {
   return (
-    <aside className="h-[600px] lg:h-[600px] flex flex-col gap-4 overflow-y-auto">
+    <aside
+      className={cn(
+        "h-[600px] lg:h-[600px] flex flex-col gap-4 overflow-y-auto",
+        className
+      )}
+    >
       <SectionHeader
         title="Recent"
         accentText="Predictions"

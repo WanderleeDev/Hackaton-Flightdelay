@@ -1,3 +1,4 @@
+import GradientOverlayCard from "@/components/shared/gradient-overlay-card";
 import {
   AtmosphericType,
   PredictionStatus,
@@ -5,11 +6,18 @@ import {
 import PredictionCardB from "@/src/modules/history/prediction-card-b";
 import { Metadata } from "next";
 
+const TITLE = "History";
 export const metadata: Metadata = {
-  title: "History",
+  title: TITLE,
   description: "History of predictions.",
   alternates: {
     canonical: "/history",
+  },
+  openGraph: {
+    title: TITLE,
+  },
+  twitter: {
+    title: TITLE,
   },
 };
 
@@ -68,11 +76,12 @@ const HISTORY_DATA = [
 
 export default function HistoryPage() {
   return (
-    <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-12 bg-card/40 rounded-[40px] border border-border p-8 md:p-12 overflow-hidden shadow-sm group">
-      <div className="absolute inset-0 bg-linear-to-b from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[32px] pointer-events-none" />
-      {HISTORY_DATA.map((item) => (
-        <PredictionCardB key={item.id} {...item} />
-      ))}
-    </div>
+    <GradientOverlayCard>
+      <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {HISTORY_DATA.map((item) => (
+          <PredictionCardB key={item.id} {...item} />
+        ))}
+      </div>
+    </GradientOverlayCard>
   );
 }

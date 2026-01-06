@@ -5,11 +5,18 @@ import AboutFooter from "@/src/modules/about/about-footer";
 import { COLLABORATORS } from "@/src/modules/shared/data/collaborators";
 import CollaboratorCard from "@/src/modules/about/collaborator-card";
 
+const TITLE = "About Us";
 export const metadata = {
-  title: "About Us",
+  title: TITLE,
   description: "Learn more about the Flight Search Engine and our team.",
   alternates: {
     canonical: "/about",
+  },
+  openGraph: {
+    title: TITLE,
+  },
+  twitter: {
+    title: TITLE,
   },
 };
 

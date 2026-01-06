@@ -3,11 +3,18 @@ import { Lote } from "@/src/modules/history/interfaces";
 import PredictionCardB from "@/src/modules/history/prediction-card-b";
 import { Metadata } from "next";
 
+const TITLE = "History By Lote";
 export const metadata: Metadata = {
-  title: "History By Lote",
+  title: TITLE,
   description: "History of predictions by lote.",
   alternates: {
     canonical: "/history/byLote",
+  },
+  openGraph: {
+    title: TITLE,
+  },
+  twitter: {
+    title: TITLE,
   },
 };
 

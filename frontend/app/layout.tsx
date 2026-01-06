@@ -29,7 +29,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider attribute="class">
-          <main className="flex flex-col justify-between gap-4 select-none pt-24">
+          <main className="flex flex-col justify-between gap-4 select-none pt-20">
             <HeaderPage />
             {children}
             <FooterPage />
