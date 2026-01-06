@@ -4,7 +4,7 @@ import GlobalMap from "@/src/modules/prediction/components/global-map";
 import ListHistory from "@/src/modules/history/list-history";
 
 export const metadata: Metadata = {
-  title: "Search Engine",
+  title: "Search Engine | Flight Prediction",
   description: "Home page of Flight Search Engine.",
   alternates: {
     canonical: "/",
