@@ -9,6 +9,9 @@ export const METADATA: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
   ),
+  icons: {
+    icon: "/favicon.svg",
+  },
   title: titleTemplate,
   description: "AI-powered flight route and safety prediction engine.",
   alternates: {
