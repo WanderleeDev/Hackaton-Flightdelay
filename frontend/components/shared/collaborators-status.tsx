@@ -13,6 +13,7 @@ export function CollaboratorsStatus() {
               <img
                 src={collaborator.avatar}
                 alt={collaborator.name}
+                loading="lazy"
                 className="size-8 rounded-full border-2 border-background object-cover bg-muted transition-all duration-300 group-hover:border-primary/50"
               />
               <span className="absolute left-1/2 -translate-x-1/2 top-full mt-1 text-[9px] font-medium text-foreground bg-background/90 backdrop-blur-sm px-1.5 py-0.5 rounded shadow-sm opacity-0 scale-95 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100 whitespace-nowrap pointer-events-none">

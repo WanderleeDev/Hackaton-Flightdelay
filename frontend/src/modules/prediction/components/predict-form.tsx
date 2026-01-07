@@ -226,9 +226,9 @@ export default function PredictForm() {
                     <span className="sr-only">(required)</span>
                   </FieldLabel>
 
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <div className="relative">
+                  <div className="relative">
+                    <Popover>
+                      <PopoverTrigger asChild>
                         <Button
                           id="departure-date"
                           type="button"
@@ -252,35 +252,35 @@ export default function PredictForm() {
                             <span>Select a date</span>
                           )}
                         </Button>
-                        {fieldState.isDirty && (
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            className="absolute top-1/2 end-0 -translate-y-1/2 rounded-full"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              form.resetField("departureDate");
-                            }}
-                            aria-label="Clear departure date"
-                          >
-                            <X aria-hidden="true" />
-                          </Button>
-                        )}
-                      </div>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={selectedDate}
-                        onSelect={(newDate) => {
-                          form.setValue(field.name, newDate!, {
-                            shouldDirty: true,
-                          });
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={selectedDate}
+                          onSelect={(newDate) => {
+                            form.setValue(field.name, newDate!, {
+                              shouldDirty: true,
+                            });
+                          }}
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    {fieldState.isDirty && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="absolute top-1/2 end-0 -translate-y-1/2 rounded-full"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          form.resetField("departureDate");
                         }}
-                      />
-                    </PopoverContent>
-                  </Popover>
+                        aria-label="Clear departure date"
+                      >
+                        <X aria-hidden="true" />
+                      </Button>
+                    )}
+                  </div>
                   {fieldState.invalid && (
                     <FieldError
                       id="departure-date-error"

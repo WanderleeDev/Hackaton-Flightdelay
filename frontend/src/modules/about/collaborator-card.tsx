@@ -31,6 +31,7 @@ export default function CollaboratorCard({
           <img
             src={avatar}
             alt={name}
+            loading="lazy"
             className="relative w-full h-full object-cover rounded-3xl"
           />
         </div>
