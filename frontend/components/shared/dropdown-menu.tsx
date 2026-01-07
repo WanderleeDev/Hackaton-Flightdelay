@@ -33,6 +33,15 @@ const sections = [
   },
 ] as const;
 
+const activeStyle =
+  "bg-primary/80 font-semibold text-primary-foreground transition-all duration-300 pointer-events-none";
+
+function isActiveRoute(pathname: string, href: string): boolean {
+  if (href === "/") return pathname === "/";
+
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function DropdownMenuDialog() {
   const pathname = usePathname();
 
@@ -46,25 +55,26 @@ export function DropdownMenuDialog() {
       <DropdownMenuContent className="w-40" align="end">
         <DropdownMenuLabel>Sections</DropdownMenuLabel>
         <DropdownMenuGroup>
-          {sections.map((section) => (
-            <DropdownMenuItem key={section.name} asChild>
-              <Link
-                href={section.href}
-                className={`flex items-center gap-2 transition-all duration-300 ${
-                  pathname === section.href
-                    ? "bg-primary/80 font-semibold text-primary-foreground"
-                    : ""
-                }`}
-              >
-                <section.icon
-                  className={`hover:text-current ${
-                    pathname === section.href ? "text-primary-foreground" : ""
+          {sections.map((section) => {
+            const isActive = isActiveRoute(pathname, section.href);
+            return (
+              <DropdownMenuItem key={section.name} asChild>
+                <Link
+                  href={section.href}
+                  className={`flex items-center gap-2 transition-all duration-300 cursor-pointer ${
+                    isActive ? activeStyle : ""
                   }`}
-                />
-                <span>{section.name}</span>
-              </Link>
-            </DropdownMenuItem>
-          ))}
+                >
+                  <section.icon
+                    className={`hover:text-current ${
+                      isActive ? "text-primary-foreground" : ""
+                    }`}
+                  />
+                  <span>{section.name}</span>
+                </Link>
+              </DropdownMenuItem>
+            );
+          })}
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

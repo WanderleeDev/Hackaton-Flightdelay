@@ -11,9 +11,6 @@ export const METADATA: Metadata = {
   ),
   title: titleTemplate,
   description: "AI-powered flight route and safety prediction engine.",
-  icons: {
-    icon: "/favicon.svg",
-  },
   alternates: {
     canonical: "/",
   },
@@ -21,20 +18,14 @@ export const METADATA: Metadata = {
   openGraph: {
     title: titleTemplate,
     description: "AI-powered flight route and safety prediction engine.",
-    images: [
-      {
-        url: "/screen.webp",
-        width: 1200,
-        height: 630,
-        alt: "Flight Search Engine Preview",
-      },
-    ],
     type: "website",
+    siteName: "Flight Prediction",
+    locale: "en_US",
+    images: ["/opengraph.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: titleTemplate,
     description: "AI-powered flight route and safety prediction engine.",
-    images: ["/screen.webp"],
   },
 };

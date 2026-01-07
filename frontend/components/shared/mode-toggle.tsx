@@ -1,7 +1,8 @@
 "use client";
 
-import { Moon, Sun, Check } from "lucide-react";
+import { Moon, Sun, Check, Monitor } from "lucide-react";
 import { useTheme } from "next-themes";
+import { LucideIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +12,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/src/lib/utils";
+
+type ThemeOption = {
+  value: string;
+  label: string;
+  icon: LucideIcon;
+};
+
+const themeOptions: ThemeOption[] = [
+  { value: "light", label: "Light", icon: Sun },
+  { value: "dark", label: "Dark", icon: Moon },
+  { value: "system", label: "System", icon: Monitor },
+];
+
+const activeStyle =
+  "bg-primary/80 font-semibold text-primary-foreground transition-all duration-300 pointer-events-none";
+const checkStyle = "size-4 stroke-3 text-background";
 
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
@@ -25,36 +42,22 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-32">
-        <DropdownMenuItem
-          onClick={() => setTheme("light")}
-          className={cn(
-            "flex items-center justify-between",
-            theme === "light" && "text-primary font-bold bg-primary/5"
-          )}
-        >
-          <span>Light</span>
-          {theme === "light" && <Check className="size-3.5" />}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme("dark")}
-          className={cn(
-            "flex items-center justify-between",
-            theme === "dark" && "text-primary font-bold bg-primary/5"
-          )}
-        >
-          <span>Dark</span>
-          {theme === "dark" && <Check className="size-3.5" />}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme("system")}
-          className={cn(
-            "flex items-center justify-between",
-            theme === "system" && "text-primary font-bold bg-primary/5"
-          )}
-        >
-          <span>System</span>
-          {theme === "system" && <Check className="size-3.5" />}
-        </DropdownMenuItem>
+        {themeOptions.map((option) => (
+          <DropdownMenuItem
+            key={option.value}
+            onClick={() => setTheme(option.value)}
+            className={cn(
+              "flex items-center justify-between cursor-pointer",
+              theme === option.value && activeStyle
+            )}
+          >
+            <div className="flex items-center gap-2">
+              <option.icon className="size-4 text-current" />
+              <span>{option.label}</span>
+            </div>
+            {theme === option.value && <Check className={checkStyle} />}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -45,6 +45,8 @@
 
   --radius: 0.25rem;
 
+  --header-reveal-bg: color-mix(in oklab, var(--primary) 10%, transparent);
+
   --shadow-2xs: 0px 1px 3px 0px oklch(0.35 0.05 163.02 / 0.02);
   --shadow-xs: 0px 1px 3px 0px oklch(0.35 0.05 163.02 / 0.02);
   --shadow-sm: 0px 1px 3px 0px oklch(0.35 0.05 163.02 / 0.04),
@@ -92,6 +94,8 @@
   --sidebar-accent-foreground: oklch(0.95 0.01 238.46);
   --sidebar-border: oklch(0.95 0.01 238.46 / 15%);
   --sidebar-ring: oklch(0.67 0.17 153.85);
+
+  --header-reveal-bg: rgba(16, 185, 129, 0.4);
 
   --shadow-2xs: 0px 1px 2px 0px oklch(0 0 0 / 0.01);
   --shadow-xs: 0px 1px 2px 0px oklch(0 0 0 / 0.01);
@@ -200,6 +204,6 @@
   to {
     position: fixed;
     transform: translateY(0);
-    background-color: rgba(0, 128, 0, 0.219);
+    background-color: var(--header-reveal-bg);
   }
 }

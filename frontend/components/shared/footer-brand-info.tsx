@@ -1,12 +1,10 @@
-import { Plane } from "lucide-react";
+import PlaneIconBox from "./plane-icon-box";
 
-export function Brand() {
+export function FooterBrandInfo() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-2 cursor-default">
-        <div className="p-1.5 rounded-lg bg-primary/10">
-          <Plane className="size-4 text-primary" />
-        </div>
+        <PlaneIconBox variant="sm" design="ghost" />
         <span className="text-lg font-black tracking-tight capitalize">
           Flight Prediction
         </span>

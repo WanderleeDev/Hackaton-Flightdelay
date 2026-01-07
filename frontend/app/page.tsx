@@ -10,9 +10,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  openGraph: {
-    title: TITLE,
-  },
+
   twitter: {
     title: TITLE,
   },

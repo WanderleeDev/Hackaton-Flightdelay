@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Brand } from "./brand";
+import { FooterBrandInfo } from "./footer-brand-info";
 import { CollaboratorsStatus } from "./collaborators-status";
 import { SocialLinks } from "./social-links";
 
@@ -10,7 +10,7 @@ export default function FooterPage() {
     <footer className="border-t border-muted/40 bg-background/50 backdrop-blur-sm mt-8">
       <div className="container mx-auto py-10 px-4 sm:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
-          <Brand />
+          <FooterBrandInfo />
           <CollaboratorsStatus />
           <SocialLinks />
         </div>
