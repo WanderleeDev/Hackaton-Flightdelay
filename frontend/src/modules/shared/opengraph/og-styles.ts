@@ -1,40 +1,29 @@
 import { CSSProperties } from "react";
 
-// Colores del tema (equivalentes a Tailwind)
 export const ogColors = {
-  // Slate
   slate900: "#0f172a",
   slate800: "#1e293b",
   slate700: "#334155",
   slate600: "#475569",
   slate500: "#64748b",
   slate400: "#94a3b8",
-  // Emerald/Green
   emerald600: "#059669",
   emerald500: "#10b981",
-  // Cyan
   cyan400: "#22d3ee",
-  // Sky
   sky500: "#0ea5e9",
   sky400: "#38bdf8",
-  // Purple/Violet
   violet600: "#7c3aed",
   violet500: "#8b5cf6",
   violet400: "#a855f7",
   violet300: "#c084fc",
-  // Status colors
   green500: "#22c55e",
   amber500: "#f59e0b",
   red500: "#ef4444",
-  // Teal
   teal800: "#134e4a",
-  // Base
   white: "#ffffff",
 } as const;
 
-// Estilos base reutilizables
 export const ogBaseStyles = {
-  // Contenedor principal
   container: {
     height: "100%",
     width: "100%",
@@ -47,7 +36,6 @@ export const ogBaseStyles = {
     position: "relative",
   } as CSSProperties,
 
-  // Patrón de grid decorativo
   gridPattern: {
     position: "absolute",
     inset: 0,
@@ -58,7 +46,6 @@ export const ogBaseStyles = {
     backgroundSize: "60px 60px",
   } as CSSProperties,
 
-  // Título principal
   title: {
     fontSize: 64,
     fontWeight: 700,
@@ -67,7 +54,6 @@ export const ogBaseStyles = {
     textShadow: "0 4px 30px rgba(0,0,0,0.3)",
   } as CSSProperties,
 
-  // Subtítulo
   subtitle: {
     fontSize: 24,
     fontWeight: 600,
@@ -75,7 +61,6 @@ export const ogBaseStyles = {
     textTransform: "uppercase",
   } as CSSProperties,
 
-  // Descripción
   description: {
     fontSize: 20,
     color: ogColors.slate400,
@@ -85,7 +70,6 @@ export const ogBaseStyles = {
     lineHeight: 1.5,
   } as CSSProperties,
 
-  // Footer
   footer: {
     position: "absolute",
     bottom: 40,
@@ -101,7 +85,6 @@ export const ogBaseStyles = {
   } as CSSProperties,
 } as const;
 
-// Función para crear el contenedor del icono
 export const createIconContainer = (
   gradientFrom: string,
   gradientTo: string,
@@ -118,7 +101,6 @@ export const createIconContainer = (
   marginBottom: 32,
 });
 
-// Función para crear un dot/indicador
 export const createDot = (color: string, size = 8): CSSProperties => ({
   width: size,
   height: size,
@@ -126,7 +108,6 @@ export const createDot = (color: string, size = 8): CSSProperties => ({
   background: color,
 });
 
-// Función para crear una card/pill
 export const createCard = (
   options: { padding?: string; borderRadius?: number } = {}
 ): CSSProperties => ({
@@ -139,7 +120,6 @@ export const createCard = (
   border: "1px solid rgba(255,255,255,0.1)",
 });
 
-// Función para crear un pill con color
 export const createColoredPill = (
   color: string,
   options: { opacity?: number } = {}
@@ -153,7 +133,6 @@ export const createColoredPill = (
   border: `1px solid rgba(${hexToRgb(color)}, 0.3)`,
 });
 
-// Helper para convertir hex a rgb
 function hexToRgb(hex: string): string {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   if (!result) return "255, 255, 255";

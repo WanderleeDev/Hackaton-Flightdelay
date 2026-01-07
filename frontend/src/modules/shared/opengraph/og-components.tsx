@@ -6,13 +6,11 @@ import {
   createDot,
 } from "./og-styles";
 
-// Tamaño estándar para OG images
 export const OG_SIZE = {
   width: 1200,
   height: 630,
 };
 
-// Props para el contenedor principal
 interface OgContainerProps {
   children: ReactNode;
 }
@@ -26,12 +24,10 @@ export function OgContainer({ children }: OgContainerProps) {
   );
 }
 
-// Patrón de grid decorativo
 export function OgGridPattern() {
   return <div style={ogBaseStyles.gridPattern} />;
 }
 
-// Contenedor del icono principal
 interface OgIconBoxProps {
   children: ReactNode;
   variant?: "green" | "purple" | "cyan" | "amber";
@@ -65,7 +61,6 @@ export function OgIconBox({ children, variant = "green" }: OgIconBoxProps) {
   return <div style={createIconContainer(from, to, shadow)}>{children}</div>;
 }
 
-// Título principal
 interface OgTitleProps {
   children: ReactNode;
 }
@@ -74,7 +69,6 @@ export function OgTitle({ children }: OgTitleProps) {
   return <div style={ogBaseStyles.title}>{children}</div>;
 }
 
-// Subtítulo
 interface OgSubtitleProps {
   children: ReactNode;
   color?: string;
@@ -87,7 +81,6 @@ export function OgSubtitle({
   return <div style={{ ...ogBaseStyles.subtitle, color }}>{children}</div>;
 }
 
-// Descripción
 interface OgDescriptionProps {
   children: ReactNode;
 }
@@ -96,7 +89,6 @@ export function OgDescription({ children }: OgDescriptionProps) {
   return <div style={ogBaseStyles.description}>{children}</div>;
 }
 
-// Contenedor del título (título + subtítulo)
 interface OgTitleGroupProps {
   children: ReactNode;
 }
@@ -116,7 +108,6 @@ export function OgTitleGroup({ children }: OgTitleGroupProps) {
   );
 }
 
-// Footer con badge
 interface OgFooterProps {
   text?: string;
   dotColor?: string;
@@ -134,7 +125,6 @@ export function OgFooter({
   );
 }
 
-// Card de preview (para rutas de vuelo, lotes, etc.)
 interface OgPreviewCardProps {
   children: ReactNode;
   statusColor?: string;
@@ -162,7 +152,6 @@ export function OgPreviewCard({
   );
 }
 
-// Contenedor para cards de preview
 interface OgPreviewGroupProps {
   children: ReactNode;
   marginTop?: number;
@@ -185,7 +174,6 @@ export function OgPreviewGroup({
   );
 }
 
-// Iconos SVG reutilizables
 export const OgIcons = {
   Airplane: () => (
     <svg
@@ -251,5 +239,4 @@ export const OgIcons = {
   ),
 };
 
-// Re-exportar colores para uso directo
 export { ogColors };
