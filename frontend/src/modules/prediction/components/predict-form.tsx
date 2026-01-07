@@ -71,6 +71,8 @@ export default function PredictForm() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, stiffness: 300, damping: 25 }}
           className="h-full py-6 px-3"
+          role="status"
+          aria-live="polite"
         >
           <motion.div
             initial={{ scale: 0.5 }}
@@ -82,6 +84,7 @@ export default function PredictForm() {
               damping: 15,
             }}
             className="mb-4 flex justify-center border rounded-full w-fit mx-auto p-2"
+            aria-hidden="true"
           >
             <Check className="size-8" />
           </motion.div>
@@ -100,6 +103,8 @@ export default function PredictForm() {
       <form
         onSubmit={handleSubmit}
         className="@container p-2 sm:p-5 md:p-8 w-full rounded-md gap-2 border max-w-3xl mx-auto overflow-y-scroll custom-scrollbar"
+        aria-label="Flight prediction form"
+        noValidate
       >
         <FieldGroup className="grid @md:grid-cols-6 gap-4 mb-6">
           <FieldSeparator className="my-4 col-span-full">
@@ -121,10 +126,21 @@ export default function PredictForm() {
                   data-invalid={fieldState.invalid}
                   className="gap-1 @md:col-span-3"
                 >
-                  <FieldLabel htmlFor="origin">Origin *</FieldLabel>
+                  <FieldLabel htmlFor="origin">
+                    Origin <span aria-hidden="true">*</span>
+                    <span className="sr-only">(required)</span>
+                  </FieldLabel>
 
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger
+                      id="origin"
+                      className="w-full"
+                      aria-required="true"
+                      aria-invalid={fieldState.invalid}
+                      aria-describedby={
+                        fieldState.invalid ? "origin-error" : undefined
+                      }
+                    >
                       <SelectValue placeholder="Select an origin" />
                     </SelectTrigger>
                     <SelectContent>
@@ -136,7 +152,7 @@ export default function PredictForm() {
                     </SelectContent>
                   </Select>
                   {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
+                    <FieldError id="origin-error" errors={[fieldState.error]} />
                   )}
                 </Field>
               );
@@ -159,11 +175,22 @@ export default function PredictForm() {
                   data-invalid={fieldState.invalid}
                   className="gap-1 @md:col-span-3"
                 >
-                  <FieldLabel htmlFor="destination">Destination *</FieldLabel>
+                  <FieldLabel htmlFor="destination">
+                    Destination <span aria-hidden="true">*</span>
+                    <span className="sr-only">(required)</span>
+                  </FieldLabel>
 
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select an destination" />
+                    <SelectTrigger
+                      id="destination"
+                      className="w-full"
+                      aria-required="true"
+                      aria-invalid={fieldState.invalid}
+                      aria-describedby={
+                        fieldState.invalid ? "destination-error" : undefined
+                      }
+                    >
+                      <SelectValue placeholder="Select a destination" />
                     </SelectTrigger>
                     <SelectContent>
                       {options.map((option) => (
@@ -174,7 +201,10 @@ export default function PredictForm() {
                     </SelectContent>
                   </Select>
                   {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
+                    <FieldError
+                      id="destination-error"
+                      errors={[fieldState.error]}
+                    />
                   )}
                 </Field>
               );
@@ -192,21 +222,38 @@ export default function PredictForm() {
                   className="col-span-full"
                 >
                   <FieldLabel htmlFor="departure-date">
-                    Departure Date *
+                    Departure Date <span aria-hidden="true">*</span>
+                    <span className="sr-only">(required)</span>
                   </FieldLabel>
 
                   <Popover>
                     <PopoverTrigger asChild>
                       <div className="relative">
                         <Button
+                          id="departure-date"
                           type="button"
                           variant="outline"
+                          aria-required="true"
+                          aria-invalid={fieldState.invalid}
+                          aria-describedby={
+                            fieldState.invalid
+                              ? "departure-date-error"
+                              : undefined
+                          }
+                          aria-label={
+                            selectedDate
+                              ? `Departure date: ${format(
+                                  selectedDate,
+                                  "dd MMM, yyyy"
+                                )}`
+                              : "Select departure date"
+                          }
                           className={cn(
                             "w-full justify-start text-start font-normal active:scale-none",
                             !selectedDate && "text-muted-foreground"
                           )}
                         >
-                          <CalendarIcon className="size-4" />
+                          <CalendarIcon className="size-4" aria-hidden="true" />
                           {selectedDate ? (
                             <>{format(selectedDate, "dd MMM, yyyy")}</>
                           ) : (
@@ -223,8 +270,9 @@ export default function PredictForm() {
                               e.stopPropagation();
                               form.resetField("departureDate");
                             }}
+                            aria-label="Clear departure date"
                           >
-                            <X />
+                            <X aria-hidden="true" />
                           </Button>
                         )}
                       </div>
@@ -242,7 +290,10 @@ export default function PredictForm() {
                     </PopoverContent>
                   </Popover>
                   {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
+                    <FieldError
+                      id="departure-date-error"
+                      errors={[fieldState.error]}
+                    />
                   )}
                 </Field>
               );
@@ -268,12 +319,21 @@ export default function PredictForm() {
                   className="gap-1 col-span-full"
                 >
                   <FieldLabel htmlFor="aircraft-model">
-                    Aircraft Model *
+                    Aircraft Model <span aria-hidden="true">*</span>
+                    <span className="sr-only">(required)</span>
                   </FieldLabel>
 
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select an model" />
+                    <SelectTrigger
+                      id="aircraft-model"
+                      className="w-full"
+                      aria-required="true"
+                      aria-invalid={fieldState.invalid}
+                      aria-describedby={
+                        fieldState.invalid ? "aircraft-model-error" : undefined
+                      }
+                    >
+                      <SelectValue placeholder="Select a model" />
                     </SelectTrigger>
                     <SelectContent>
                       {options.map((option) => (
@@ -284,7 +344,10 @@ export default function PredictForm() {
                     </SelectContent>
                   </Select>
                   {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
+                    <FieldError
+                      id="aircraft-model-error"
+                      errors={[fieldState.error]}
+                    />
                   )}
                 </Field>
               );
@@ -302,31 +365,54 @@ export default function PredictForm() {
                 >
                   <FieldContent className="mb-2 gap-1">
                     <FieldLabel
-                      htmlFor={field.name}
+                      htmlFor="flight-distance"
                       className="flex justify-between items-center w-full"
                     >
-                      Flight Distance *
-                      <span className="text-sm">
+                      <span>
+                        Flight Distance <span aria-hidden="true">*</span>
+                        <span className="sr-only">(required)</span>
+                      </span>
+                      <span className="text-sm" aria-live="polite">
                         {formatDistance(field.value || MIN_DISTANCE, false)}
                       </span>
                     </FieldLabel>
                   </FieldContent>
                   <Slider
                     {...field}
+                    id="flight-distance"
                     value={[field.value || MIN_DISTANCE]}
                     defaultValue={[MIN_DISTANCE]}
                     onValueChange={(newValue) => field.onChange(newValue[0])}
+                    aria-required="true"
                     aria-invalid={fieldState.invalid}
+                    aria-describedby={
+                      fieldState.invalid
+                        ? "flight-distance-error"
+                        : "flight-distance-range"
+                    }
+                    aria-valuemin={MIN_DISTANCE}
+                    aria-valuemax={MAX_DISTANCE}
+                    aria-valuenow={field.value || MIN_DISTANCE}
+                    aria-valuetext={formatDistance(
+                      field.value || MIN_DISTANCE,
+                      false
+                    )}
                     min={MIN_DISTANCE}
                     max={MAX_DISTANCE}
                     step={10}
                   />
-                  <div className="flex justify-between">
-                    <span>{formatDistance(MIN_DISTANCE)}</span>
-                    <span>{formatDistance(MAX_DISTANCE)}</span>
+                  <div
+                    id="flight-distance-range"
+                    className="flex justify-between text-xs text-muted-foreground"
+                  >
+                    <span>Min: {formatDistance(MIN_DISTANCE)}</span>
+                    <span>Max: {formatDistance(MAX_DISTANCE)}</span>
                   </div>
                   {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
+                    <FieldError
+                      id="flight-distance-error"
+                      errors={[fieldState.error]}
+                    />
                   )}
                 </Field>
               );
@@ -353,30 +439,36 @@ export default function PredictForm() {
                   data-invalid={fieldState.invalid}
                   className="gap-1 [&_p]:pb-2 col-span-full"
                 >
-                  <FieldLabel htmlFor="atmospherics">Atmospherics </FieldLabel>
+                  <FieldLabel htmlFor="atmospherics" id="atmospherics-label">
+                    Atmospherics
+                  </FieldLabel>
 
                   <RadioGroup
                     value={field.value}
                     onValueChange={field.onChange}
                     aria-invalid={fieldState.invalid}
+                    aria-labelledby="atmospherics-label"
+                    aria-describedby={
+                      fieldState.invalid ? "atmospherics-error" : undefined
+                    }
                     className="grid grid-cols-2 @md:grid-cols-4 gap-3"
                   >
                     {options.map(({ label, value, icon: Icon }) => (
                       <div key={value}>
                         <RadioGroupItem
                           value={value}
-                          id={value}
+                          id={`atmospherics-${value}`}
                           className="sr-only"
                         />
                         <Label
-                          htmlFor={value}
+                          htmlFor={`atmospherics-${value}`}
                           className={cn(
                             "flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 border-muted bg-popover hover:bg-accent hover:text-accent-foreground cursor-pointer transition-all duration-200",
                             field.value === value &&
                               "border-primary bg-primary/5 text-primary shadow-sm"
                           )}
                         >
-                          <Icon className="size-6" />
+                          <Icon className="size-6" aria-hidden="true" />
                           <span className="text-xs font-semibold capitalize">
                             {label}
                           </span>
@@ -385,7 +477,10 @@ export default function PredictForm() {
                     ))}
                   </RadioGroup>
                   {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
+                    <FieldError
+                      id="atmospherics-error"
+                      errors={[fieldState.error]}
+                    />
                   )}
                 </Field>
               );
@@ -393,16 +488,24 @@ export default function PredictForm() {
           />
         </FieldGroup>
         <div className="flex flex-col items-center w-full justify-center gap-2">
-          <Button size="lg" className="w-full" disabled={isExecuting}>
+          <Button
+            size="lg"
+            type="submit"
+            className="w-full"
+            disabled={isExecuting}
+          >
             {isExecuting ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Submitting...
+                <Loader2
+                  className="mr-2 h-4 w-4 animate-spin"
+                  aria-hidden="true"
+                />
+                <span>Submitting...</span>
               </>
             ) : (
               <>
-                <Send className="mr-2 h-4 w-4" />
-                Submit
+                <Send className="mr-2 h-4 w-4" aria-hidden="true" />
+                <span>Submit</span>
               </>
             )}
           </Button>
@@ -414,8 +517,8 @@ export default function PredictForm() {
             type="reset"
             onClick={() => form.reset()}
           >
-            <RotateCcw className="mr-2 h-4 w-4" />
-            Reset
+            <RotateCcw className="mr-2 h-4 w-4" aria-hidden="true" />
+            <span>Reset</span>
           </Button>
         </div>
       </form>

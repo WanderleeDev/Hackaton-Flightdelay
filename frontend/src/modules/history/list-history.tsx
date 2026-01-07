@@ -15,25 +15,25 @@ const mock = [
     origin: "JFK",
     destination: "LAX",
     status: "delayed",
-    createdAt: new Date(),
+    createdAt: "2026-01-07T10:30:00",
   },
   {
     origin: "LHR",
     destination: "CDG",
     status: "on time",
-    createdAt: new Date(),
+    createdAt: "2026-01-07T09:15:00",
   },
   {
     origin: "HND",
     destination: "SFO",
     status: "delayed",
-    createdAt: new Date(),
+    createdAt: "2026-01-06T22:45:00",
   },
   {
     origin: "DXB",
     destination: "SIN",
     status: "on time",
-    createdAt: new Date(),
+    createdAt: "2026-01-06T18:00:00",
   },
 ];
 

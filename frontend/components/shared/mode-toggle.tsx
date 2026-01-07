@@ -42,22 +42,25 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-32">
-        {themeOptions.map((option) => (
-          <DropdownMenuItem
-            key={option.value}
-            onClick={() => setTheme(option.value)}
-            className={cn(
-              "flex items-center justify-between cursor-pointer",
-              theme === option.value && activeStyle
-            )}
-          >
-            <div className="flex items-center gap-2">
-              <option.icon className="size-4 text-current" />
-              <span>{option.label}</span>
-            </div>
-            {theme === option.value && <Check className={checkStyle} />}
-          </DropdownMenuItem>
-        ))}
+        {themeOptions.map((option) => {
+          const isActive = theme === option.value;
+          return (
+            <DropdownMenuItem
+              key={option.value}
+              onClick={() => setTheme(option.value)}
+              className={cn(
+                "flex items-center justify-between cursor-pointer",
+                isActive && activeStyle
+              )}
+            >
+              <div className="flex items-center gap-2">
+                <option.icon className="size-4 text-current" />
+                <span>{option.label}</span>
+              </div>
+              {isActive && <Check className={checkStyle} />}
+            </DropdownMenuItem>
+          );
+        })}
       </DropdownMenuContent>
     </DropdownMenu>
   );

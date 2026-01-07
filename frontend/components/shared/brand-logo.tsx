@@ -33,6 +33,7 @@ export function BrandLogo({
             {subtitle}
           </span>
           <Badge
+            aria-hidden="true"
             variant="outline"
             className="h-4 px-1.5 text-[8px] font-black border-primary/30 bg-primary/5 text-primary uppercase select-none"
           >

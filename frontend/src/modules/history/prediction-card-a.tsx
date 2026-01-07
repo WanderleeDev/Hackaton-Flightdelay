@@ -8,7 +8,7 @@ interface PredictionCardAProps {
   origin: string;
   destination: string;
   status: string;
-  createdAt: Date;
+  createdAt: string;
 }
 
 export default function PredictionCardA({
@@ -29,7 +29,7 @@ export default function PredictionCardA({
           </Badge>
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
             <Clock className="size-3.5" />
-            {format(createdAt, "HH:mm")}
+            {format(new Date(createdAt), "HH:mm")}
           </div>
         </div>
 
@@ -77,7 +77,7 @@ export default function PredictionCardA({
             <MapPin className="size-3" />
             <span>Trans-Atlantic Route</span>
           </div>
-          <span>{format(createdAt, "MMM dd, yyyy")}</span>
+          <span>{format(new Date(createdAt), "MMM dd, yyyy")}</span>
         </div>
       </CardContent>
     </Card>

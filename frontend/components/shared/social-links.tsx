@@ -4,9 +4,9 @@ import { ActionIcon } from "./action-icon";
 export function SocialLinks() {
   return (
     <div className="flex flex-col gap-4 md:items-end">
-      <h3 className="text-xs font-bold uppercase tracking-widest text-foreground/70">
+      <p className="text-xs font-bold uppercase tracking-widest text-foreground/70">
         Connect with us
-      </h3>
+      </p>
       <div className="flex items-center gap-2">
         <ActionIcon
           href="#"
