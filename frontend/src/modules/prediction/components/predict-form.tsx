@@ -233,24 +233,16 @@ export default function PredictForm() {
                           id="departure-date"
                           type="button"
                           variant="outline"
-                          aria-required="true"
+                          aria-haspopup="dialog"
                           aria-invalid={fieldState.invalid}
                           aria-describedby={
                             fieldState.invalid
                               ? "departure-date-error"
                               : undefined
                           }
-                          aria-label={
-                            selectedDate
-                              ? `Departure date: ${format(
-                                  selectedDate,
-                                  "dd MMM, yyyy"
-                                )}`
-                              : "Select departure date"
-                          }
                           className={cn(
                             "w-full justify-start text-start font-normal active:scale-none",
-                            !selectedDate && "text-muted-foreground"
+                            !selectedDate && "text-muted-foreground font-medium"
                           )}
                         >
                           <CalendarIcon className="size-4" aria-hidden="true" />
@@ -383,20 +375,13 @@ export default function PredictForm() {
                     value={[field.value || MIN_DISTANCE]}
                     defaultValue={[MIN_DISTANCE]}
                     onValueChange={(newValue) => field.onChange(newValue[0])}
-                    aria-required="true"
+                    aria-label="Flight distance"
                     aria-invalid={fieldState.invalid}
                     aria-describedby={
                       fieldState.invalid
                         ? "flight-distance-error"
                         : "flight-distance-range"
                     }
-                    aria-valuemin={MIN_DISTANCE}
-                    aria-valuemax={MAX_DISTANCE}
-                    aria-valuenow={field.value || MIN_DISTANCE}
-                    aria-valuetext={formatDistance(
-                      field.value || MIN_DISTANCE,
-                      false
-                    )}
                     min={MIN_DISTANCE}
                     max={MAX_DISTANCE}
                     step={10}
