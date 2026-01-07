@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.hackathon</groupId>
-	<artifactId>flight-ontime</artifactId>
+	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Flight-ontime</name>
 	<description>API REST para predicción de retrasos de vuelos en tiempo real</description>
