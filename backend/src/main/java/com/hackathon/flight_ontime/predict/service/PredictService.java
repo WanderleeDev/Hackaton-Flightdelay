@@ -3,10 +3,12 @@ package com.hackathon.flight_ontime.predict.service;
 import com.hackathon.flight_ontime.predict.DTO.DataRequest;
 import com.hackathon.flight_ontime.predict.DTO.DataResponse;
 import com.hackathon.flight_ontime.predict.DTO.FastApiRequest;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PredictService {
 
-    public static DataResponse getPrediction(DataRequest request){
+    public DataResponse getPrediction(DataRequest request){
         FastApiRequest fastApiRequest = convertToFastApiRequest(request);
 
         Double probability = 0.55;
@@ -14,7 +16,7 @@ public class PredictService {
         return new DataResponse(probability, forecast);
     }
 
-    public static FastApiRequest convertToFastApiRequest(DataRequest request) {
+    public FastApiRequest convertToFastApiRequest(DataRequest request) {
         return new FastApiRequest(
                 request.airline(),
                 request.origin(),
