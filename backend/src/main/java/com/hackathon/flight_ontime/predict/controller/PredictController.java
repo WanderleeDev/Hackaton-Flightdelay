@@ -10,9 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class PredictController {
+    private PredictService predictService;
+
+    public PredictController(PredictService predictService) {
+        this.predictService = predictService;
+    }
+
     @PostMapping("/predict")
     public ResponseEntity<DataResponse> predictionResult(@RequestBody DataRequest request){
-        DataResponse prediction = PredictService.getPrediction(request);
+        DataResponse prediction = predictService.getPrediction(request);
         return ResponseEntity.ok().body(prediction);
     }
 }
