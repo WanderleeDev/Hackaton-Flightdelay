@@ -8,7 +8,7 @@ public record DataRequest(
         @NotNull String airline,
         @NotNull String origin,
         @NotNull String destination,
-        OffsetDateTime departureDate,
+        @NotNull OffsetDateTime departureDate,
         Double distanceKm
 ) {
 }
