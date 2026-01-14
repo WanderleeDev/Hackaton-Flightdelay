@@ -1,5 +1,7 @@
 ![banner](/Assets/banner.jpg)
 
+---
+
 ## **Flujo del Modelo de Machine Learning**
 
 1. ### **Ingreso de datos:**
@@ -60,7 +62,7 @@
    - **Información adicional de utilidad** para su posterior consumo en el backend
 
 ---
-## **Uso del sistema de Predicción**
+##  **Uso del sistema de Predicción**
 El modelo está desplegado como un servicio web utilizando FastAPI. Esto permite realizar predicciones enviando peticiones HTTP desde cualquier aplicación.
 
 ---
@@ -109,6 +111,9 @@ print(response.json())
 *Consistencia:* Es obligatorio usar scikit-learn==1.6.1 tanto en el entrenamiento como en el servicio para evitar errores de incompatibilidad al deserializar el modelo.
 
 ---
+
+## **  Estructura del proyecto**
+
 ```text
 Hackthon-FlightDelay - Data Science/
 ├── 📂 data/  
@@ -129,9 +134,12 @@ Hackthon-FlightDelay - Data Science/
 ├── requirements.txt
 
 ```
+
+---
+
 ## **🛠 Tech Stack**
 
-### Lenguaje principal y Librerias
+### 🐍Lenguaje principal y Librerias
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
@@ -141,7 +149,9 @@ Hackthon-FlightDelay - Data Science/
 ![gdown](https://img.shields.io/badge/gdown-4285F4?style=for-the-badge)
 ![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)
 
-### Modelos de Machine Learning Utilizados
+---
+
+### 🤖 Modelos de Machine Learning Utilizados
 
 ![Random Forest](https://img.shields.io/badge/Random%20Forest-228B22?style=for-the-badge)
 ![Logistic Regression](https://img.shields.io/badge/Logistic%20Regression-8B0000?style=for-the-badge)
