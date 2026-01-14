@@ -40,13 +40,21 @@
 ---
 ```text
 Hackthon-FlightDelay - Data Science/
-├── DataScience_flight/
-│   ├── Hackathon_Equipo_36.ipynb
-│   └── flights_analysis.ipynb
-├── model/
-│   └── predictor_delay.pkl
-├── main.py
+├── 📂 data/  
+|    └── [cleaned_data](https://drive.google.com/file/d/1_8Uzy9vxZr8Vl1328jWufiw4NsK_XxjN/view?usp=drive_link)
+├── 📂 notebooks/
+│   ├── complete_ML.ipynb
+│   ├── flights_analysis.ipynb
+|   └── 📂 modelos adicionales/
+|	      ├── xgboost_training.ipynb
+|	      └── catboost_training
+|	
+├── 📂 model/
+│   ├── predictor_delay.pkl
+|	├── main.py
+|	└──  schemas.py
+|
+├── README.md
 ├── requirements.txt
-├── schemas.py
-└── README.md
 
+```
