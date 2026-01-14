@@ -1,16 +1,28 @@
 ![banner](/Assets/banner.jpg)
 
 <h2>
-<b> Flujo del Modelo de Machine Learning</b>
+<b> 
+Flujo del Modelo de Machine Learning
+</b>
 <h2>
 
 <ol>
+
 <li>
-<h4>Ingreso de datos:</h4>
-<p>Los datos pueden ser recibidos de dos formas: </p>
+
+<h3>
+Ingreso de datos:
+</h3>
+
+<p>
+Los datos pueden ser recibidos de dos formas: 
+</p>
 - De manera **unitaria:** Es decir una sola predicción
 - De manera **compuesta:** Es decir multiples predicciones de manera simultanea a través de un archivo ".CSV"
-<p>Cada nuevo registro deberá contener información relevante como:</p>
+
+<p>
+Cada nuevo registro deberá contener información relevante como:
+</p>
 
 - **Aerolinea**
 - **Origen**
@@ -23,38 +35,67 @@
 
 <li>
 
-<h4>Validación de los datos:</h4>
-<p>Antes de poder procesar la información obtenida tendremos que verificar lo siguiente: </p>
+<h3>
+Validación de los datos:
+</h3>
+
+<p>
+Antes de poder procesar la información obtenida tendremos que verificar lo siguiente: 
+</p>
 
 - Que **Todas las columnas requeridas** se encuentren presentes dentro del documento
 - Los tipos de datos utilizados sean los correctos
 - Que los valores esten bien definidos dentro de los rangos asignados 
 
-<p> Esta validación se gestiona a través del archivo <b>schemas.py</b></p>
+<p> Esta validación se gestiona a través del archivo 
+<b>
+schemas.py
+</b>
+</p>
 
 </li>
     
 <li>
-<h4>Preprocesamiento de los datos:</h4>
-<p>Los datos correctamente validados pasan por el mismo proceso que utilizamos durante el entrenamiento de machine learning. Se encuentra distrubuido de la siguente forma:</p>
+
+<h3>
+Preprocesamiento de los datos:
+</h3>
+
+<p>
+Los datos correctamente validados pasan por el mismo proceso que utilizamos durante el entrenamiento de machine learning. Se encuentra distrubuido de la siguente forma:
+</p>
 
 - Se codifican las **variables categoricas**
 - En nuestro caso, al ser elegido el modelo de **Regresión Logisitica** le aplicamos un escalado de datos
 - Un correcto formato y orden de nuestras variables
 
-<p>De esta manera podemos garantizar una consitencia entre lo que fue entrenado y nuestra predicción</p>
+<p>
+De esta manera podemos garantizar una consitencia entre lo que fue entrenado y nuestra predicción
+</p>
 
 </li>
 
 <li>
-<h4>Carga del Modelo:</h4>
-<p>Se carga nuestro modelo de Machine Learning (Logistic Regression) el cual fue previamente entrenado y posteriormente almacenado para su uso en un formato ".pkl"</p>
+
+<h3>
+Carga del Modelo:
+</h3>
+
+<p>
+Se carga nuestro modelo de Machine Learning (Logistic Regression) el cual fue previamente entrenado y posteriormente almacenado para su uso en un formato ".pkl"
+</p>
 </li>
 
 <li>
-<h4>Predicción:</h4>
-<p>Nuesto modelo calcula la probabilidad de restraso, del o los vuelos asignados, 
-esto en base a una entrada definida, donde se genera dos posibles respuestas:</p>
+
+<h3>
+Predicción:
+</h3>
+
+<p>
+Nuesto modelo calcula la probabilidad de restraso, del o los vuelos asignados, 
+esto en base a una entrada definida, donde se genera dos posibles respuestas:
+</p>
 
 - **Delay**
 - **No delay**
@@ -62,8 +103,14 @@ esto en base a una entrada definida, donde se genera dos posibles respuestas:</p
 </li>
 
 <li>
-<h4>Respuesta:</h4>
-<p>El servicio de predicción de delay devuelve la predicción en un formato ".JSON" el cual incluye lo siguiente:</p>
+
+<h3>
+Respuesta:
+</h3>
+
+<p>
+El servicio de predicción de delay devuelve la predicción en un formato ".JSON" el cual incluye lo siguiente:
+</p>
 
 - **Probabilidad de retraso** (en porcentaje)
 - **Resultado final de la prediccion** (Binario) donde **0** es no retraso y **1** es retraso
