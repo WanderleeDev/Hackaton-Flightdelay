@@ -1,12 +1,11 @@
-# Data Science
+![banner](H12-25-L-Equipo-36/Hackaton-Flightdelay/Assets/banner.jpg)
+# **Data Science**
 
+## **Flujo de trabajo**
 
-## Flujo de trabajo
 ---
-## Uso del sistema de Predicción
----
+## **Uso del sistema de Predicción**
 
-## Estructura del proyecto
 ---
 ```text
 Hackthon-FlightDelay - Data Science/
@@ -19,3 +18,4 @@ Hackthon-FlightDelay - Data Science/
 ├── requirements.txt
 ├── schemas.py
 └── README.md
+
