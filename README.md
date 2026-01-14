@@ -1,4 +1,4 @@
-![banner](H12-25-L-Equipo-36/Hackaton-Flightdelay/Assets/banner.jpg)
+![banner](/Assets/banner.jpg)
 # **Data Science**
 
 ## **Flujo de trabajo**
