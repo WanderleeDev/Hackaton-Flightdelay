@@ -112,7 +112,7 @@ print(response.json())
 
 ---
 
-## **  Estructura del proyecto**
+## **Estructura del proyecto**
 
 ```text
 Hackthon-FlightDelay - Data Science/
@@ -137,9 +137,9 @@ Hackthon-FlightDelay - Data Science/
 
 ---
 
-## **🛠 Tech Stack**
+## **🛠Tech Stack**
 
-### 🐍Lenguaje principal y Librerias
+### **🐍Lenguaje principal y Librerias**
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
@@ -151,7 +151,7 @@ Hackthon-FlightDelay - Data Science/
 
 ---
 
-### 🤖 Modelos de Machine Learning Utilizados
+### **🤖 Modelos de Machine Learning Utilizados**
 
 ![Random Forest](https://img.shields.io/badge/Random%20Forest-228B22?style=for-the-badge)
 ![Logistic Regression](https://img.shields.io/badge/Logistic%20Regression-8B0000?style=for-the-badge)
