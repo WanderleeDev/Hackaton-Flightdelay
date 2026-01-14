@@ -1,123 +1,63 @@
 ![banner](/Assets/banner.jpg)
 
-<h2>
-<b> 
-Flujo del Modelo de Machine Learning
-</b>
-<h2>
+## **Flujo del Modelo de Machine Learning**
 
-<ol>
+1. ### **Ingreso de datos:**
 
-<li>
+   Los datos pueden ser recibidos de dos formas:
 
-<h3>
-Ingreso de datos:
-</h3>
+   - De manera **unitaria:** Es decir, una sola predicción  
+   - De manera **compuesta:** Es decir, múltiples predicciones de manera simultánea a través de un archivo `.CSV`
 
-<p>
-Los datos pueden ser recibidos de dos formas: 
-</p>
-- De manera **unitaria:** Es decir una sola predicción
-- De manera **compuesta:** Es decir multiples predicciones de manera simultanea a través de un archivo ".CSV"
+   Cada nuevo registro deberá contener información relevante como:
 
-<p>
-Cada nuevo registro deberá contener información relevante como:
-</p>
+   - **Aerolínea**
+   - **Origen**
+   - **Destino**
+   - **Día de la semana**
+   - **Hora**
+   - **Distancia en KM**
 
-- **Aerolinea**
-- **Origen**
-- **Destino**
-- **Día de la semana**
-- **Hora**
-- **Distancia en KM**
+2. ### **Validación de los datos:**
 
-</li>
+   Antes de poder procesar la información obtenida, se verifica lo siguiente:
 
-<li>
+   - Que **todas las columnas requeridas** se encuentren presentes dentro del documento
+   - Que los **tipos de datos** utilizados sean los correctos
+   - Que los **valores estén bien definidos** dentro de los rangos asignados
 
-<h3>
-Validación de los datos:
-</h3>
+   Esta validación se gestiona a través del archivo **`schemas.py`**.
 
-<p>
-Antes de poder procesar la información obtenida tendremos que verificar lo siguiente: 
-</p>
+3. ### **Preprocesamiento de los datos:**
 
-- Que **Todas las columnas requeridas** se encuentren presentes dentro del documento
-- Los tipos de datos utilizados sean los correctos
-- Que los valores esten bien definidos dentro de los rangos asignados 
+   Los datos correctamente validados pasan por el mismo proceso utilizado durante el entrenamiento del modelo de Machine Learning, el cual se distribuye de la siguiente forma:
 
-<p> Esta validación se gestiona a través del archivo 
-<b>
-schemas.py
-</b>
-</p>
+   - Codificación de las **variables categóricas**
+   - Aplicación de **escalado de datos**, ya que el modelo seleccionado es **Regresión Logística**
+   - Correcto **formato y orden** de las variables
 
-</li>
-    
-<li>
+   De esta manera, se garantiza la **consistencia** entre los datos utilizados en el entrenamiento y los datos usados para la predicción.
 
-<h3>
-Preprocesamiento de los datos:
-</h3>
+4. ### **Carga del modelo:**
 
-<p>
-Los datos correctamente validados pasan por el mismo proceso que utilizamos durante el entrenamiento de machine learning. Se encuentra distrubuido de la siguente forma:
-</p>
+   Se carga el modelo de Machine Learning (**Logistic Regression**), el cual fue previamente entrenado y almacenado en un archivo con formato `.pkl` para su uso posterior.
 
-- Se codifican las **variables categoricas**
-- En nuestro caso, al ser elegido el modelo de **Regresión Logisitica** le aplicamos un escalado de datos
-- Un correcto formato y orden de nuestras variables
+5. ### **Predicción:**
 
-<p>
-De esta manera podemos garantizar una consitencia entre lo que fue entrenado y nuestra predicción
-</p>
+   El modelo calcula la **probabilidad de retraso** del o los vuelos asignados, en función de la información de entrada, generando dos posibles resultados:
 
-</li>
+   - **Delay**
+   - **No delay**
 
-<li>
+6. ### **Respuesta:**
 
-<h3>
-Carga del Modelo:
-</h3>
+   El servicio de predicción devuelve la respuesta en formato `.JSON`, el cual incluye:
 
-<p>
-Se carga nuestro modelo de Machine Learning (Logistic Regression) el cual fue previamente entrenado y posteriormente almacenado para su uso en un formato ".pkl"
-</p>
-</li>
-
-<li>
-
-<h3>
-Predicción:
-</h3>
-
-<p>
-Nuesto modelo calcula la probabilidad de restraso, del o los vuelos asignados, 
-esto en base a una entrada definida, donde se genera dos posibles respuestas:
-</p>
-
-- **Delay**
-- **No delay**
-
-</li>
-
-<li>
-
-<h3>
-Respuesta:
-</h3>
-
-<p>
-El servicio de predicción de delay devuelve la predicción en un formato ".JSON" el cual incluye lo siguiente:
-</p>
-
-- **Probabilidad de retraso** (en porcentaje)
-- **Resultado final de la prediccion** (Binario) donde **0** es no retraso y **1** es retraso
-- **Información adicional de utilidad** para su posterior consumo en backend
-
-</li>
-</ol>
+   - **Probabilidad de retraso** (expresada en porcentaje)
+   - **Resultado final de la predicción** (binario), donde:
+     - **0** = No retraso  
+     - **1** = Retraso
+   - **Información adicional de utilidad** para su posterior consumo en el backend
 
 ---
 ## **Uso del sistema de Predicción**
