@@ -9,7 +9,8 @@ public record FastApiRequest(
         @JsonProperty("airline") @NotNull String airline,
         @JsonProperty("origin") @NotNull String origin,
         @JsonProperty("destination") @NotNull String destination,
-        @JsonProperty("departure_date") OffsetDateTime departureDate,
-        @JsonProperty("distance_km") Double distanceKm
+        @JsonProperty("distance_km") Double distanceKm,
+        @JsonProperty("day_of_week") int dayOfWeek,
+        @JsonProperty("hour") int hour
 ) {
 }
