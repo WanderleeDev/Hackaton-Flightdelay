@@ -11,9 +11,6 @@ dependencies = [
     "slowapi>=0.1.9",
 ]
 
-[tool.uv]
-packages = ["src"]
-
 [tool.pyrefly]
 project-includes = [
     "**/*.py*",

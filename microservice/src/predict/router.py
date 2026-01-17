@@ -5,6 +5,10 @@ from src.predict.di import Prediction_DI
 
 predict_router = APIRouter(tags=["Prediction to flight"], prefix="/predict")
 
+@predict_router.get("/")
+async def status():
+    return {"prediction": "ok"}
+
 @predict_router.post("/", response_model=ResponsePrediction)
 @limiter.limit("5/minute")
 async def predict(request: Request , prediction_service: Prediction_DI) -> ResponsePrediction:
