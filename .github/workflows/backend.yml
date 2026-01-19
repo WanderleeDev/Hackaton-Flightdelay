@@ -1,0 +1,54 @@
+name: Backend CI/CD
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "backend/**"
+      - ".github/workflows/backend.yml"
+    tags:
+      - "backend-v*" # Escucha tags como: backend-v1.0.0
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version tag (optional)"
+        required: false
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Generate version
+        id: version
+        run: |
+          if [[ $GITHUB_REF == refs/tags/backend-v* ]]; then
+            # Opción 1: Es un Tag (backend-v1.0.0 -> v1.0.0)
+            VERSION=${GITHUB_REF#refs/tags/backend-}
+            echo "🏷️ Tag Release Detected: $VERSION"
+            
+          elif [[ -n "${{ github.event.inputs.version }}" ]]; then
+            # Opción 2: Manual Dispatch
+            VERSION="${{ github.event.inputs.version }}"
+            echo "📦 Manual Input: $VERSION"
+            
+          else
+            # Opción 3: Push automático (SHA)
+            VERSION="$(date +%Y%m%d)-${GITHUB_SHA::7}"
+            echo "🚀 Auto Gen: $VERSION"
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build and Deploy
+        uses: ./.github/actions/docker-deploy
+        with:
+          service-name: backend
+          docker-image: ${{ secrets.DOCKER_USERNAME }}/backend-api
+          service-path: ./backend
+          version: ${{ steps.version.outputs.VERSION }}
+          docker-username: ${{ secrets.DOCKER_USERNAME }}
+          docker-password: ${{ secrets.DOCKER_PASSWORD }}
+          dokploy-token: ${{ secrets.DOKPLOY_TOKEN }}
