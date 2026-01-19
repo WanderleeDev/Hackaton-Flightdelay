@@ -8,11 +8,14 @@ import {
   X,
   CheckCircle2,
   AlertCircle,
+  Download,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/src/lib/utils";
-import SectionHeader from "@/components/shared/section-header";
+import { batchPredictionAction } from "@/app/actions/batch-prediction.action";
+import { downloadCSVTemplate } from "@/src/lib/csv-template";
+import { BatchPredictionResponse } from "@/src/modules/prediction/types/batch-prediction.types";
 
 export default function CSVBatchPredictor() {
   const [dragActive, setDragActive] = useState(false);
@@ -20,6 +23,8 @@ export default function CSVBatchPredictor() {
   const [status, setStatus] = useState<
     "idle" | "uploading" | "success" | "error"
   >("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [result, setResult] = useState<BatchPredictionResponse | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleDrag = (e: React.DragEvent) => {
@@ -55,9 +60,10 @@ export default function CSVBatchPredictor() {
     ) {
       setFile(selectedFile);
       setStatus("idle");
+      setErrorMessage("");
     } else {
       setStatus("error");
-      // Optional: Show error message for invalid file type
+      setErrorMessage("Invalid file type. Please upload a CSV file.");
     }
   };
 
@@ -69,17 +75,36 @@ export default function CSVBatchPredictor() {
     if (!file) return;
 
     setStatus("uploading");
+    setErrorMessage("");
 
-    // Simulate upload/processing
-    setTimeout(() => {
-      setStatus("success");
-      // In a real app, you would send the file to a server action
-    }, 2000);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await batchPredictionAction(formData);
+
+      if (response.success && response.data) {
+        setStatus("success");
+        setResult(response.data);
+      } else {
+        setStatus("error");
+        setErrorMessage(response.error || "Failed to process batch predictions");
+      }
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(error instanceof Error ? error.message : "Unknown error occurred");
+    }
   };
 
   const removeFile = () => {
     setFile(null);
     setStatus("idle");
+    setErrorMessage("");
+    setResult(null);
+  };
+
+  const handleDownloadTemplate = () => {
+    downloadCSVTemplate();
   };
 
   return (
@@ -91,7 +116,8 @@ export default function CSVBatchPredictor() {
             dragActive
               ? "border-primary bg-primary/5 scale-[0.99]"
               : "border-border hover:border-primary/50",
-            status === "success" && "border-emerald-500/50 bg-emerald-500/5"
+            status === "success" && "border-emerald-500/50 bg-emerald-500/5",
+            status === "error" && "border-destructive/50 bg-destructive/5"
           )}
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
@@ -107,12 +133,12 @@ export default function CSVBatchPredictor() {
           />
 
           <AnimatePresence mode="wait">
-            {status === "success" ? (
+            {status === "success" && result ? (
               <motion.div
                 key="success"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="flex flex-col items-center gap-3 text-center"
+                className="flex flex-col items-center gap-3 text-center w-full"
               >
                 <div className="p-3 rounded-full bg-emerald-500/10 text-emerald-500">
                   <CheckCircle2 className="size-10" />
@@ -122,8 +148,18 @@ export default function CSVBatchPredictor() {
                     Batch Processed!
                   </h3>
                   <p className="text-xs text-muted-foreground">
-                    Your batch simulations have been created.
+                    Processed {result.totalProcessed} flights
                   </p>
+                  <div className="flex gap-4 justify-center mt-2 text-xs">
+                    <span className="text-emerald-500 font-bold">
+                      ✓ {result.successCount} Success
+                    </span>
+                    {result.errorCount > 0 && (
+                      <span className="text-destructive font-bold">
+                        ✗ {result.errorCount} Errors
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <Button
                   variant="outline"
@@ -160,6 +196,13 @@ export default function CSVBatchPredictor() {
                     <X className="size-4" />
                   </Button>
                 </div>
+
+                {status === "error" && errorMessage && (
+                  <div className="flex items-center gap-2 text-destructive text-xs font-bold p-3 rounded-lg bg-destructive/10 w-full">
+                    <AlertCircle className="size-4" />
+                    {errorMessage}
+                  </div>
+                )}
 
                 <Button
                   className="w-full font-bold"
@@ -213,10 +256,10 @@ export default function CSVBatchPredictor() {
                 >
                   Select File
                 </Button>
-                {status === "error" && (
+                {status === "error" && errorMessage && (
                   <div className="flex items-center gap-1.5 text-destructive mt-2 text-[10px] font-bold uppercase tracking-wider">
                     <AlertCircle className="size-3" />
-                    Invalid file type. Please use CSV.
+                    {errorMessage}
                   </div>
                 )}
               </motion.div>
@@ -226,11 +269,109 @@ export default function CSVBatchPredictor() {
 
         <div className="mt-4 flex items-center justify-between text-[10px] font-bold text-muted-foreground uppercase tracking-widest px-1">
           <span>Max 100 routes</span>
-          <button className="hover:text-primary transition-colors cursor-pointer">
+          <button
+            onClick={handleDownloadTemplate}
+            className="hover:text-primary transition-colors cursor-pointer flex items-center gap-1"
+          >
+            <Download className="size-3" />
             Download Template
           </button>
         </div>
       </div>
+
+      {/* Results Display */}
+      {result && result.predictions.length > 0 && (
+        <div className="p-4 sm:p-6 w-full rounded-2xl border bg-card/40 backdrop-blur-sm">
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
+                Prediction Results
+              </h3>
+              <div className="flex gap-2 text-xs">
+                <span className="px-2 py-1 rounded-md bg-emerald-500/10 text-emerald-500 font-bold">
+                  {result.successCount} Success
+                </span>
+                {result.errorCount > 0 && (
+                  <span className="px-2 py-1 rounded-md bg-destructive/10 text-destructive font-bold">
+                    {result.errorCount} Errors
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <div className="space-y-2 max-h-[500px] overflow-y-auto">
+              {result.predictions.map((prediction, index) => (
+                <div
+                  key={index}
+                  className={cn(
+                    "p-4 rounded-xl border transition-all",
+                    prediction.error
+                      ? "bg-destructive/5 border-destructive/20"
+                      : prediction.forecast === "Delayed"
+                        ? "bg-amber-500/5 border-amber-500/20"
+                        : "bg-emerald-500/5 border-emerald-500/20"
+                  )}
+                >
+                  {prediction.error ? (
+                    <div className="flex items-start gap-3">
+                      <AlertCircle className="size-4 text-destructive mt-0.5 flex-shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-bold text-destructive">Error</p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {prediction.error}
+                        </p>
+                        {prediction.airline && (
+                          <p className="text-[10px] text-muted-foreground mt-1">
+                            {prediction.airline} • {prediction.origin} → {prediction.destination}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-bold">
+                            {prediction.airline}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {prediction.origin} → {prediction.destination}
+                          </span>
+                        </div>
+                        <span
+                          className={cn(
+                            "text-xs font-bold px-2 py-1 rounded-md",
+                            prediction.forecast === "Delayed"
+                              ? "bg-amber-500/20 text-amber-600 dark:text-amber-400"
+                              : "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+                          )}
+                        >
+                          {prediction.forecast}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-4 text-[10px] text-muted-foreground">
+                        <span>
+                          Distance: {prediction.distanceKm?.toLocaleString()} km
+                        </span>
+                        {prediction.probability !== null && (
+                          <span>
+                            Probability: {(prediction.probability * 100).toFixed(1)}%
+                          </span>
+                        )}
+                        {prediction.departureDate && (
+                          <span>
+                            {new Date(prediction.departureDate).toLocaleDateString()}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
