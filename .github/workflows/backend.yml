@@ -46,7 +46,7 @@ jobs:
         uses: ./.github/actions/docker-deploy
         with:
           service-name: backend
-          docker-image: wanderlee/backend-api
+          docker-image: ${{ secrets.DOCKER_USERNAME }}/backend-api
           service-path: ./backend
           version: ${{ steps.version.outputs.VERSION }}
           docker-username: ${{ secrets.DOCKER_USERNAME }}

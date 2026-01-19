@@ -44,7 +44,7 @@ jobs:
         uses: ./.github/actions/docker-deploy
         with:
           service-name: microservice
-          docker-image: wanderlee/fastapi-service
+          docker-image: ${{ secrets.DOCKER_USERNAME }}/fastapi-service
           service-path: ./microservice
           version: ${{ steps.version.outputs.VERSION }}
           docker-username: ${{ secrets.DOCKER_USERNAME }}
