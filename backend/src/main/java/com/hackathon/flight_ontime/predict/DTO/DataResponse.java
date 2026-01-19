@@ -10,10 +10,6 @@ public record DataResponse(
 
         @Schema(description = "Probability of delay", example = "0.85")
         @JsonProperty("delay_probability") 
-        Double delayProbability,
-
-        @Schema(description = "Threshold used by the model", example = "0.5")
-        @JsonProperty("treshold_used") 
-        Double tresholdUsed
+        Double delayProbability
 ) {
 }

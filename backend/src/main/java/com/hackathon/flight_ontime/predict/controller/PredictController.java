@@ -24,7 +24,7 @@ public class PredictController {
 
     @PostMapping("/predict")
     public ResponseEntity<DataResponse> predictionResult(@RequestBody @Valid DataRequest request){
-        DataResponse prediction = predictService.getPrediction(request);
+        DataResponse prediction = predictService.getPredictionAndSave(request);
         return ResponseEntity.ok().body(prediction);
     }
 
