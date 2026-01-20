@@ -146,7 +146,7 @@ public class PredictService {
                     DataRequest dataRequest = new DataRequest(
                             airline, origin, destination, departureDate, distanceKm);
 
-                    DataResponse prediction = getPrediction(dataRequest);
+                    DataResponse prediction = getPredictionAndSave(dataRequest);
 
                     // Map prediction to forecast string
                     String forecast = (prediction.delayPrediction() != null && prediction.delayPrediction() > 0.5)

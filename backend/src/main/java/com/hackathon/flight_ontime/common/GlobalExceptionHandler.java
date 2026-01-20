@@ -1,4 +1,4 @@
-package com.hackathon.flight_ontime.exception;
+package com.hackathon.flight_ontime.common;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

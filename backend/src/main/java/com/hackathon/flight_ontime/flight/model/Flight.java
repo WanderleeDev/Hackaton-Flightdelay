@@ -1,8 +1,8 @@
 package com.hackathon.flight_ontime.flight.model;
 
+import com.hackathon.flight_ontime.common.BaseModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,9 +18,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "flights")
-public class Flight {
-    @Id
-    String id;
+public class Flight extends BaseModel {
 
     @Column(name = "origin_iata", nullable = false)
     String originIata;

@@ -1,5 +1,6 @@
 package com.hackathon.flight_ontime.airport.model;
 
+import com.hackathon.flight_ontime.common.BaseModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -18,10 +19,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "airports")
-public class Airport {
-    @Id
-    String id;
-
+public class Airport extends BaseModel {
     @Column(nullable = false)
     String name;
 

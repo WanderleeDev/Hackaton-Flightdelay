@@ -1,5 +1,6 @@
 package com.hackathon.flight_ontime.predict.model;
 
+import com.hackathon.flight_ontime.common.BaseModel;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,17 +9,13 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "Predictions")
-public class PredictEntity {
-    @Id
-    @Column(nullable = false, updatable = false)
-    private UUID id;
+@Table(name = "predictions")
+public class PredictEntity extends BaseModel {
 
     @Column(nullable = false)
     String airline;
@@ -49,7 +46,6 @@ public class PredictEntity {
 
     @PrePersist
     public void assignDefaultValues(){
-        this.id = UUID.randomUUID();
         this.dateTime = ZonedDateTime.now();
     }
 
