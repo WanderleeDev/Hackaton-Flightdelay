@@ -5,44 +5,32 @@ import PredictionCardA from "./prediction-card-a";
 import { match } from "ts-pattern";
 import SectionHeader from "@/components/shared/section-header";
 import { cn } from "@/src/lib/utils";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { getApiBaseUrl } from "../shared/utils/getEnv";
 
 interface ListHistoryProps {
   className?: string;
 }
 
-const mock = [
-  {
-    origin: "JFK",
-    destination: "LAX",
-    status: "delayed",
-    createdAt: "2026-01-07T10:30:00",
-  },
-  {
-    origin: "LHR",
-    destination: "CDG",
-    status: "on time",
-    createdAt: "2026-01-07T09:15:00",
-  },
-  {
-    origin: "HND",
-    destination: "SFO",
-    status: "delayed",
-    createdAt: "2026-01-06T22:45:00",
-  },
-  {
-    origin: "DXB",
-    destination: "SIN",
-    status: "on time",
-    createdAt: "2026-01-06T18:00:00",
-  },
-];
+interface Prediction {
+  origin: string;
+  destination: string;
+  status: string;
+  createdAt: string;
+}
 
 export default function ListHistory({ className }: ListHistoryProps) {
+  const { data } = useSuspenseQuery<Prediction[]>({
+    queryKey: ["history"],
+    queryFn: async () =>
+      await fetch(`${getApiBaseUrl()}/predict/all`).then((res) => res.json()),
+  });
+
   return (
     <aside
       className={cn(
         "h-[600px] lg:h-[600px] flex flex-col gap-4 overflow-y-auto",
-        className
+        className,
       )}
     >
       <SectionHeader
@@ -54,9 +42,9 @@ export default function ListHistory({ className }: ListHistoryProps) {
       />
 
       <div className="flex-1 overflow-y-auto space-y-3 custom-scrollbar  p-2 w-full rounded-md gap-2 border max-w-3xl mx-auto">
-        {match(!mock.length)
+        {match(data && !data.length)
           .with(false, () =>
-            mock.map((item, idx) => (
+            data?.map((item, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 10 }}
@@ -65,7 +53,7 @@ export default function ListHistory({ className }: ListHistoryProps) {
               >
                 <PredictionCardA {...item} />
               </motion.div>
-            ))
+            )),
           )
           .otherwise(() => (
             <div className="flex flex-col items-center justify-center py-12 text-center h-full">

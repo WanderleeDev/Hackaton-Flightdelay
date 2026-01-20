@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import HeaderPage from "@/components/shared/header-page";
 import FooterPage from "@/components/shared/footer-page";
 import { METADATA } from "@/src/modules/shared/data/metadata";
+import { QueryProvider } from "@/components/providers/query-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,11 +30,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider attribute="class">
-          <main className="flex flex-col justify-between gap-4 select-none pt-20">
-            <HeaderPage />
-            {children}
-            <FooterPage />
-          </main>
+          <QueryProvider>
+            <main className="flex flex-col justify-between gap-4 select-none pt-20">
+              <HeaderPage />
+              {children}
+              <FooterPage />
+            </main>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>
