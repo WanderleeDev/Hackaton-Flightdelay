@@ -7,6 +7,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @Tag(name = "Health", description = "System health checks")
 public class HealthController {
+    @GetMapping("/")
+    public String root(){
+        return "Flight On Time";
+    }
+
     @GetMapping("/health")
     public String systemStatus(){
         return "OK";

@@ -5,6 +5,9 @@ import com.hackathon.flight_ontime.predict.DTO.DataRequest;
 import com.hackathon.flight_ontime.predict.DTO.DataResponse;
 import com.hackathon.flight_ontime.predict.service.PredictService;
 import lombok.AllArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
 @Tag(name = "Predict Controller", description = "Delay prediction endpoint")
@@ -47,4 +52,10 @@ public class PredictController {
         BatchPredictionResponse response = predictService.processBatchPredictions(file);
         return ResponseEntity.ok().body(response);
     }
+
+    @GetMapping("/predict/all")
+    public ResponseEntity<List> getAllPredictions() {
+        return ResponseEntity.ok(List.of());
+    }
+    
 }
