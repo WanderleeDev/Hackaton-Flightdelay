@@ -1,4 +1,3 @@
-"use client";
 import {
   Calendar,
   Plane,
@@ -50,7 +49,7 @@ const atmosphericConfig = {
   live: { label: "Live", icon: CloudRain },
   storm: { label: "Storm", icon: CloudLightning },
   tailwind: { label: "Tailwind", icon: Wind },
-  none: { label: "None", icon: CircleOff },
+  none: { label: "N/A", icon: CircleOff },
 };
 
 export default function PredictionCardB({
@@ -64,7 +63,7 @@ export default function PredictionCardB({
   atmospherics,
 }: HistoryCardProps) {
   const config = statusConfig[status];
-  const atmospheric = atmosphericConfig[atmospherics];
+  const atmospheric = atmosphericConfig[atmospherics ?? "none"];
   const WeatherIcon = atmospheric.icon;
 
   return (
@@ -76,11 +75,11 @@ export default function PredictionCardB({
         <span
           className={cn(
             "px-3 py-1 rounded-full text-[10px] font-bold tracking-wider",
-            config.bg,
-            config.text
+            config?.bg ?? "",
+            config?.text ?? "",
           )}
         >
-          {config.label}
+          {config?.label ?? ""}
         </span>
         <span className="text-gray-500 text-xs font-mono">{id}</span>
       </div>
@@ -97,7 +96,7 @@ export default function PredictionCardB({
 
         <div className="flex-1 flex items-center gap-2 mb-[-12px]">
           <div className="h-[2px] flex-1 border-b border-dashed border-border/50"></div>
-          <Plane className={cn("size-5", config.planeColor)} />
+          <Plane className={cn("size-5", config?.planeColor ?? "")} />
           <div className="h-[2px] flex-1 border-b border-dashed border-border/50"></div>
         </div>
 

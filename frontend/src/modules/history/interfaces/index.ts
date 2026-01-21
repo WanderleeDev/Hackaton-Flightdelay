@@ -15,8 +15,19 @@ export interface Prediction {
 
 export interface Lote {
   id: string;
-  title: string;
-  date: string;
-  simulationsCount: number;
-  predictions: Prediction[];
+  batchName: string;
+  histories: Prediction[];
+  serialNumber: number;
+  total: number;
+  createdAt: string;
+}
+
+export interface Pagination<T> {
+  content: T[];
+  pageNumber: number;
+  pageSize: number;
+  totalElements: number;
+  totalPages: number;
+  last: boolean;
+  first: boolean;
 }

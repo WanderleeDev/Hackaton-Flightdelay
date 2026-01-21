@@ -25,7 +25,7 @@ export default function CollaboratorCard({
     <div className="group relative bg-card/40 rounded-[40px] border border-border overflow-hidden transition-all duration-500 hover:border-primary/30">
       <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] -z-10 group-hover:bg-primary/10 transition-colors duration-500" />
 
-      <div className="p-8 space-y-6">
+      <div className="p-8 space-y-6 flex flex-col min-h-full">
         <div className="relative w-24 h-24">
           <div className="absolute inset-0 bg-primary/20 rounded-3xl rotate-6 group-hover:rotate-12 transition-transform duration-500" />
           <img
@@ -49,7 +49,7 @@ export default function CollaboratorCard({
           {description || DEFAULT_DESCRIPTION(role)}
         </p>
 
-        <div className="flex items-center gap-4 pt-4 border-t border-border/50">
+        <div className="flex items-center gap-4 pt-4 border-t border-border/50 mt-auto">
           <ActionIcon href={github} icon={Github} />
           <ActionIcon href={linkedin} icon={Linkedin} />
           <ActionIcon

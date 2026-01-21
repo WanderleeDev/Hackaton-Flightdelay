@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import PredictionSidebar from "@/src/modules/prediction/components/prediction-sidebar";
 import GlobalMap from "@/src/modules/prediction/components/global-map";
-import RecentPredictions from "@/src/modules/history/recent-predictions";
+import RecentPredictions from "@/src/modules/history/components/recent-predictions";
 
 const TITLE = "Search Engine | Flight Prediction";
 export const metadata: Metadata = {

@@ -1,4 +1,4 @@
-import HistoryHeader from "@/src/modules/history/history-header";
+import HistoryHeader from "@/src/modules/history/components/history-header";
 import { PropsWithChildren } from "react";
 
 export default function HistoryLayout({ children }: PropsWithChildren) {

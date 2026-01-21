@@ -7,7 +7,6 @@ export default function ListHistorySkeleton() {
       {[...Array(3)].map((_, i) => (
         <Card key={i} className="overflow-hidden border-muted/50 shadow-sm">
           <CardContent className="p-4">
-            {/* Header: Status and Time */}
             <div className="flex justify-between items-center mb-4">
               <Skeleton className="h-5 w-16 rounded-full" />
               <div className="flex items-center gap-1.5">
@@ -16,9 +15,7 @@ export default function ListHistorySkeleton() {
               </div>
             </div>
 
-            {/* Body: Origin - Path - Destination */}
             <div className="flex items-center justify-between gap-2">
-              {/* Origin */}
               <div className="flex flex-col gap-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <Skeleton className="h-8 w-8 rounded-full" />
@@ -27,7 +24,6 @@ export default function ListHistorySkeleton() {
                 <Skeleton className="h-2 w-10 ml-1" />
               </div>
 
-              {/* Flight Path */}
               <div className="flex-1 flex flex-col items-center gap-1 px-4">
                 <div className="w-full relative flex items-center">
                   <Skeleton className="h-[1px] w-full" />
@@ -36,7 +32,6 @@ export default function ListHistorySkeleton() {
                 <Skeleton className="h-2 w-16 mt-1" />
               </div>
 
-              {/* Destination */}
               <div className="flex flex-col gap-1 items-end min-w-0">
                 <div className="flex items-center gap-2">
                   <Skeleton className="h-5 w-12" />
@@ -48,7 +43,6 @@ export default function ListHistorySkeleton() {
 
             <Skeleton className="my-4 h-[1px] w-full" />
 
-            {/* Footer */}
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <Skeleton className="h-3 w-3" />

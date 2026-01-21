@@ -4,7 +4,7 @@ import { Inbox } from "lucide-react";
 import { motion } from "motion/react";
 import PredictionCardA from "./prediction-card-a";
 import { match } from "ts-pattern";
-import { useHistoryPredictions } from "./hooks/useHistoryPredictions";
+import { useHistoryPredictions } from "../hooks/useHistoryPredictions";
 
 export default function ListHistory() {
   const { data } = useHistoryPredictions();
