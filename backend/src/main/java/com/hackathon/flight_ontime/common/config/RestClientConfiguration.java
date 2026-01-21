@@ -1,4 +1,4 @@
-package com.hackathon.flight_ontime.config;
+package com.hackathon.flight_ontime.common.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

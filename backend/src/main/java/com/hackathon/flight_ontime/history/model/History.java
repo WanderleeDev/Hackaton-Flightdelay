@@ -1,22 +1,21 @@
-package com.hackathon.flight_ontime.predict.model;
+package com.hackathon.flight_ontime.history.model;
 
 import com.hackathon.flight_ontime.common.model.BaseModel;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.OffsetDateTime;
-import java.time.ZonedDateTime;
 
 @Entity
+@Table(name = "histories")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "predictions")
-public class PredictEntity extends BaseModel {
-
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+public class History extends BaseModel {
     @Column(nullable = false)
     String airline;
 
@@ -38,15 +37,7 @@ public class PredictEntity extends BaseModel {
     @Column(nullable = false)
     Double delayProbability;
 
-    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    private ZonedDateTime dateTime;
-
-    public PredictEntity() {
-    }
-
-    @PrePersist
-    public void assignDefaultValues(){
-        this.dateTime = ZonedDateTime.now();
-    }
-
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "batch_id")
+    HistoryBatch batch;
 }

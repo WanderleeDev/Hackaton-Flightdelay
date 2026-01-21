@@ -1,9 +1,8 @@
 package com.hackathon.flight_ontime.airport.model;
 
-import com.hackathon.flight_ontime.common.BaseModel;
+import com.hackathon.flight_ontime.common.model.BaseModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -14,8 +14,9 @@ import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/src/lib/utils";
 import { batchPredictionAction } from "@/app/actions/batch-prediction.action";
-import { downloadCSVTemplate } from "@/src/lib/csv-template";
 import { BatchPredictionResponse } from "@/src/modules/prediction/types/batch-prediction.types";
+import Link from "next/link";
+import { getApiBaseUrl } from "../../shared/utils/getEnv";
 
 export default function CSVBatchPredictor() {
   const [dragActive, setDragActive] = useState(false);
@@ -88,11 +89,15 @@ export default function CSVBatchPredictor() {
         setResult(response.data);
       } else {
         setStatus("error");
-        setErrorMessage(response.error || "Failed to process batch predictions");
+        setErrorMessage(
+          response.error || "Failed to process batch predictions",
+        );
       }
     } catch (error) {
       setStatus("error");
-      setErrorMessage(error instanceof Error ? error.message : "Unknown error occurred");
+      setErrorMessage(
+        error instanceof Error ? error.message : "Unknown error occurred",
+      );
     }
   };
 
@@ -101,10 +106,6 @@ export default function CSVBatchPredictor() {
     setStatus("idle");
     setErrorMessage("");
     setResult(null);
-  };
-
-  const handleDownloadTemplate = () => {
-    downloadCSVTemplate();
   };
 
   return (
@@ -117,7 +118,7 @@ export default function CSVBatchPredictor() {
               ? "border-primary bg-primary/5 scale-[0.99]"
               : "border-border hover:border-primary/50",
             status === "success" && "border-emerald-500/50 bg-emerald-500/5",
-            status === "error" && "border-destructive/50 bg-destructive/5"
+            status === "error" && "border-destructive/50 bg-destructive/5",
           )}
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
@@ -269,13 +270,14 @@ export default function CSVBatchPredictor() {
 
         <div className="mt-4 flex items-center justify-between text-[10px] font-bold text-muted-foreground uppercase tracking-widest px-1">
           <span>Max 100 routes</span>
-          <button
-            onClick={handleDownloadTemplate}
+          <Link
             className="hover:text-primary transition-colors cursor-pointer flex items-center gap-1"
+            href={`${getApiBaseUrl()}/flight_batch_template.csv`}
+            download="flight_batch_template.csv"
           >
-            <Download className="size-3" />
-            Download Template
-          </button>
+            <span>Download Template</span>
+            <Download className="size-3 mb-0.5" />
+          </Link>
         </div>
       </div>
 
@@ -309,20 +311,23 @@ export default function CSVBatchPredictor() {
                       ? "bg-destructive/5 border-destructive/20"
                       : prediction.forecast === "Delayed"
                         ? "bg-amber-500/5 border-amber-500/20"
-                        : "bg-emerald-500/5 border-emerald-500/20"
+                        : "bg-emerald-500/5 border-emerald-500/20",
                   )}
                 >
                   {prediction.error ? (
                     <div className="flex items-start gap-3">
                       <AlertCircle className="size-4 text-destructive mt-0.5 flex-shrink-0" />
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-bold text-destructive">Error</p>
+                        <p className="text-xs font-bold text-destructive">
+                          Error
+                        </p>
                         <p className="text-xs text-muted-foreground mt-1">
                           {prediction.error}
                         </p>
                         {prediction.airline && (
                           <p className="text-[10px] text-muted-foreground mt-1">
-                            {prediction.airline} • {prediction.origin} → {prediction.destination}
+                            {prediction.airline} • {prediction.origin} →{" "}
+                            {prediction.destination}
                           </p>
                         )}
                       </div>
@@ -343,7 +348,7 @@ export default function CSVBatchPredictor() {
                             "text-xs font-bold px-2 py-1 rounded-md",
                             prediction.forecast === "Delayed"
                               ? "bg-amber-500/20 text-amber-600 dark:text-amber-400"
-                              : "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+                              : "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400",
                           )}
                         >
                           {prediction.forecast}
@@ -355,12 +360,15 @@ export default function CSVBatchPredictor() {
                         </span>
                         {prediction.probability !== null && (
                           <span>
-                            Probability: {(prediction.probability * 100).toFixed(1)}%
+                            Probability:{" "}
+                            {(prediction.probability * 100).toFixed(1)}%
                           </span>
                         )}
                         {prediction.departureDate && (
                           <span>
-                            {new Date(prediction.departureDate).toLocaleDateString()}
+                            {new Date(
+                              prediction.departureDate,
+                            ).toLocaleDateString()}
                           </span>
                         )}
                       </div>

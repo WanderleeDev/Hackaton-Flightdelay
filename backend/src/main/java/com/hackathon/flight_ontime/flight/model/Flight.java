@@ -1,6 +1,6 @@
 package com.hackathon.flight_ontime.flight.model;
 
-import com.hackathon.flight_ontime.common.BaseModel;
+import com.hackathon.flight_ontime.common.model.BaseModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

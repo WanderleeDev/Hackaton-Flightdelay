@@ -1,4 +1,4 @@
-package com.hackathon.flight_ontime.config;
+package com.hackathon.flight_ontime.common.config;
 
 import java.util.Arrays;
 

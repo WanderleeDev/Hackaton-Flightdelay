@@ -1,8 +1,7 @@
 import { Metadata } from "next";
 import PredictionSidebar from "@/src/modules/prediction/components/prediction-sidebar";
 import GlobalMap from "@/src/modules/prediction/components/global-map";
-import ListHistory from "@/src/modules/history/list-history";
-import { Suspense } from "react";
+import RecentPredictions from "@/src/modules/history/recent-predictions";
 
 const TITLE = "Search Engine | Flight Prediction";
 export const metadata: Metadata = {
@@ -27,9 +26,7 @@ export default function Home() {
         <GlobalMap className="md:sticky md:top-16" />
       </div>
       <div className="hidden lg:block lg:order-3">
-        <Suspense fallback={<div>Loading...</div>}>
-          <ListHistory className="md:sticky md:top-16" />
-        </Suspense>
+        <RecentPredictions className="md:sticky md:top-16" />
       </div>
     </section>
   );

@@ -11,33 +11,29 @@ export const COLLABORATORS = [
       "Graduate of the Oracle Next Education program (Backend Developer)",
   },
   {
-    name: "Alex Rivera",
-    role: "Lead Software Engineer",
-    avatar:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&h=200&auto=format&fit=crop",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    description:
-      "Architecting scalable systems and cloud infrastructure for flight simulation.",
-  },
-  {
-    name: "Elena Petrov",
+    name: "Aynara Bendaña",
     role: "Data Scientist",
-    avatar:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&h=200&auto=format&fit=crop",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
+    avatar: "https://github.com/aynara-codes.png",
+    github: "https://github.com/aynara-codes/",
+    linkedin: "https://www.linkedin.com/in/aynarabendana/",
     description:
-      "Specializing in predictive modeling and atmospheric data analysis.",
+      "Passionate about Python and artificial intelligence; dedicated to extracting value from data and optimizing machine learning models.",
   },
   {
-    name: "Marcus Chen",
-    role: "UI/UX Designer",
+    name: "Nils Pérez",
+    role: "Backend Developer",
+    avatar: "https://avatars.githubusercontent.com/u/196546316?v=4",
+    github: "https://github.com/Mortrer",
+    linkedin: "https://www.linkedin.com/in/nilsperez",
+    description: "Graduate of the Oracle Next Education program",
+  },
+  {
+    name: "Santiago Camelo",
+    role: "Backend Developer",
     avatar:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&auto=format&fit=crop",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    description:
-      "Crafting intuitive and aesthetically pleasing interfaces for complex data.",
+      "https://media.licdn.com/dms/image/v2/D5603AQFb5DH-xXhmGA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1686277775260?e=1770249600&v=beta&t=U1IFNPQEfDb8v0tTHOa0zR5KwOqLDJy1o4cwJ1amUJM",
+    github: "https://github.com/scamelo520",
+    linkedin: "https://www.linkedin.com/in/santiago-camelo-68b1ab27a/",
+    description: "Graduate of the Oracle Next Education program",
   },
 ];
