@@ -7,9 +7,10 @@ export interface Prediction {
   status: PredictionStatus;
   origin: string;
   destination: string;
-  date: string;
-  aircraft: string;
-  distance: string;
+  departureDate: string;
+  airline: string;
+  distanceKm: string;
+  delayProbability: number;
   atmospherics: AtmosphericType;
 }
 

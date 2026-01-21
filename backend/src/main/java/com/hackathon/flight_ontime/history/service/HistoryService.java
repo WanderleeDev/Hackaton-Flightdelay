@@ -60,11 +60,12 @@ public class HistoryService implements IHistoryService {
             Page<History> historyPreview = historyRepository.findByBatch_Id(batch.getId(), historyPageable);
 
             return new BatchHistoryResponseDto(
-                    batch.getBatchName(),
-                    historyMapper.toDtoList(historyPreview.getContent()),
-                    batch.getSeralNumber(),
-                    (int) historyPreview.getTotalElements(),
-                    historyMapper.mapDepartureDate(batch.getCreatedAt())
+                batch.getId(),
+                batch.getBatchName(),
+                historyMapper.toDtoList(historyPreview.getContent()),
+                batch.getSeralNumber(),
+                (int) historyPreview.getTotalElements(),
+                historyMapper.mapDepartureDate(batch.getCreatedAt())
             );
         }).toList();
 

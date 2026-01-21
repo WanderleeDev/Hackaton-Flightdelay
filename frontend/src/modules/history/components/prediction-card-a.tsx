@@ -3,19 +3,17 @@ import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Clock, PlaneTakeoff, PlaneLanding, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
+import { Prediction } from "../interfaces";
+import { formatDelayProbability } from "@/src/lib/utils";
 
-interface PredictionCardAProps {
-  origin: string;
-  destination: string;
-  status: string;
-  createdAt: string;
-}
+type PredictionCardAProps = Prediction;
 
 export default function PredictionCardA({
   origin,
   destination,
   status,
-  createdAt,
+  departureDate,
+  delayProbability,
 }: PredictionCardAProps) {
   return (
     <Card className="overflow-hidden border-muted/50 hover:border-primary/50 transition-colors duration-300 shadow-sm hover:shadow-md">
@@ -25,11 +23,14 @@ export default function PredictionCardA({
             variant={status === "delayed" ? "destructive" : "secondary"}
             className="font-medium px-2 py-0.5"
           >
-            {status.toUpperCase()}
+            {status.toUpperCase()} -{" "}
+            <span className="font-bold">
+              {formatDelayProbability(delayProbability)}
+            </span>
           </Badge>
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
             <Clock className="size-3.5" />
-            {format(new Date(createdAt), "HH:mm")}
+            {format(departureDate, "HH:mm")}
           </div>
         </div>
 
@@ -77,7 +78,7 @@ export default function PredictionCardA({
             <MapPin className="size-3" />
             <span>Trans-Atlantic Route</span>
           </div>
-          <span>{format(new Date(createdAt), "MMM dd, yyyy")}</span>
+          <span>{format(departureDate, "MMM dd, yyyy")}</span>
         </div>
       </CardContent>
     </Card>

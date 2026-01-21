@@ -14,3 +14,7 @@ export function formatDistance(distance: number, short = true) {
 
   return `${distance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} km`;
 }
+
+export function formatDelayProbability(delayProbability: number) {
+  return `${Math.round(delayProbability * 100)}%`;
+}

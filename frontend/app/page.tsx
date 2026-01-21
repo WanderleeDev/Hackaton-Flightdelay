@@ -4,6 +4,9 @@ import GlobalMap from "@/src/modules/prediction/components/global-map";
 import RecentPredictions from "@/src/modules/history/components/recent-predictions";
 
 const TITLE = "Search Engine | Flight Prediction";
+
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: TITLE,
   description: "Home page of Flight Search Engine.",

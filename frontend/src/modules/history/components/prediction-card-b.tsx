@@ -7,22 +7,16 @@ import {
   Wind,
   Armchair,
   CircleOff,
+  Percent,
 } from "lucide-react";
-import { cn } from "@/src/lib/utils";
+import { cn, formatDelayProbability } from "@/src/lib/utils";
+import { Prediction } from "../interfaces";
+import { format } from "date-fns";
 
 export type PredictionStatus = "succeeded" | "delayed" | "failed";
 export type AtmosphericType = "live" | "storm" | "tailwind" | "none";
 
-interface HistoryCardProps {
-  id: string;
-  status: PredictionStatus;
-  origin: string;
-  destination: string;
-  date: string;
-  aircraft: string;
-  distance: string;
-  atmospherics: AtmosphericType;
-}
+type HistoryCardProps = Prediction;
 
 const statusConfig = {
   succeeded: {
@@ -57,9 +51,10 @@ export default function PredictionCardB({
   status,
   origin,
   destination,
-  date,
-  aircraft,
-  distance,
+  airline,
+  delayProbability,
+  departureDate,
+  distanceKm,
   atmospherics,
 }: HistoryCardProps) {
   const config = statusConfig[status];
@@ -75,13 +70,15 @@ export default function PredictionCardB({
         <span
           className={cn(
             "px-3 py-1 rounded-full text-[10px] font-bold tracking-wider",
-            config?.bg ?? "",
-            config?.text ?? "",
+            config.bg,
+            config.text,
           )}
         >
-          {config?.label ?? ""}
+          {config.label}
         </span>
-        <span className="text-gray-500 text-xs font-mono">{id}</span>
+        <span className="text-gray-500 text-xs font-mono">
+          #{id.slice(0, 8)}
+        </span>
       </div>
 
       <div className="flex items-center justify-between gap-4 mb-8">
@@ -96,7 +93,7 @@ export default function PredictionCardB({
 
         <div className="flex-1 flex items-center gap-2 mb-[-12px]">
           <div className="h-[2px] flex-1 border-b border-dashed border-border/50"></div>
-          <Plane className={cn("size-5", config?.planeColor ?? "")} />
+          <Plane className={cn("size-5", config.planeColor)} />
           <div className="h-[2px] flex-1 border-b border-dashed border-border/50"></div>
         </div>
 
@@ -114,9 +111,11 @@ export default function PredictionCardB({
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2 text-muted-foreground">
             <Calendar className="size-4" />
-            <span className="text-xs font-medium">Date</span>
+            <span className="text-xs font-medium">Departure Date</span>
           </div>
-          <span className="text-xs font-bold text-foreground">{date}</span>
+          <span className="text-xs font-bold text-foreground">
+            {format(departureDate, "yyyy-MM-dd")}
+          </span>
         </div>
 
         <div className="flex justify-between items-center">
@@ -124,7 +123,17 @@ export default function PredictionCardB({
             <Armchair className="size-4" />
             <span className="text-xs font-medium">Aircraft</span>
           </div>
-          <span className="text-xs font-bold text-foreground">{aircraft}</span>
+          <span className="text-xs font-bold text-foreground">{airline}</span>
+        </div>
+
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Percent className="size-4" />
+            <span className="text-xs font-medium">Delay Probability</span>
+          </div>
+          <span className="text-xs font-bold text-foreground">
+            {formatDelayProbability(delayProbability)}
+          </span>
         </div>
 
         <div className="flex justify-between items-center">
@@ -133,8 +142,7 @@ export default function PredictionCardB({
             <span className="text-xs font-medium">Distance</span>
           </div>
           <span className="text-xs font-bold text-foreground">
-            {distance}{" "}
-            <span className="text-muted-foreground font-medium">km</span>
+            {distanceKm} km
           </span>
         </div>
 

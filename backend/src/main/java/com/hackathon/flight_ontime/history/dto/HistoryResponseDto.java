@@ -4,12 +4,13 @@ import java.util.UUID;
 
 public record HistoryResponseDto(
         UUID id,
-        String airline,
+        String status,
         String origin,
         String destination,
         String departureDate,
+        String airline,
         Double distanceKm,
-        Double delayPrediction,
-        Double delayProbability
+        Double delayProbability,
+        String atmospherics
 ) {
 }

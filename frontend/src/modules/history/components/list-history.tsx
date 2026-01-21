@@ -4,25 +4,32 @@ import { Inbox } from "lucide-react";
 import { motion } from "motion/react";
 import PredictionCardA from "./prediction-card-a";
 import { match } from "ts-pattern";
-import { useHistoryPredictions } from "../hooks/useHistoryPredictions";
+import { useInfinitePrediction } from "../hooks/useInfinitePrediction";
+import LoaderObserver from "@/components/shared/loader-observer";
 
 export default function ListHistory() {
-  const { data } = useHistoryPredictions();
+  const {
+    data: { pages },
+    hasNextPage,
+    fetchNextPage,
+  } = useInfinitePrediction();
 
   return (
     <div className="flex-1 overflow-y-auto space-y-3 custom-scrollbar  p-2 w-full rounded-md gap-2 border max-w-3xl mx-auto">
-      {match(data && !data.length)
+      {match(!pages.length)
         .with(false, () =>
-          data?.map((item, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-            >
-              <PredictionCardA {...item} />
-            </motion.div>
-          )),
+          pages.map((page, idx) =>
+            page.content.map((item) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+              >
+                <PredictionCardA {...item} />
+              </motion.div>
+            )),
+          ),
         )
         .otherwise(() => (
           <div className="flex flex-col items-center justify-center py-12 text-center h-full">
@@ -32,6 +39,8 @@ export default function ListHistory() {
             </p>
           </div>
         ))}
+
+      {hasNextPage && <LoaderObserver action={fetchNextPage} />}
     </div>
   );
 }

@@ -15,6 +15,7 @@ import java.util.List;
 public interface HistoryMapper {
 
     @Mapping(target = "departureDate", source = "departureDate", qualifiedByName = "mapDepartureDate")
+    @Mapping(target = "status", source = "delayPrediction", qualifiedByName = "mapStatus")
     HistoryResponseDto toDto(History history);
 
     List<HistoryResponseDto> toDtoList(List<History> historyList);
@@ -26,5 +27,10 @@ public interface HistoryMapper {
     @Named("mapDepartureDate")
     default String mapDepartureDate(LocalDateTime value) {
         return value != null ? value.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null;
+    }
+
+    @Named("mapStatus")
+    default String mapStatus(Integer value) {
+        return value == 1 ? "delayed" : "succeeded";
     }
 }

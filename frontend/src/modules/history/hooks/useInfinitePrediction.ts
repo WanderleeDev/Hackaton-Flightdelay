@@ -10,6 +10,7 @@ const fetchPrediction = async ({
   const res = await fetch(
     `${getApiBaseUrl()}/history?page=${pageParam}&size=8`,
   );
+
   return res.json();
 };
 
