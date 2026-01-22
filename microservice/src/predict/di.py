@@ -1,7 +1,10 @@
 from fastapi import Depends
 from typing import Annotated
+from src.predict.service import PredictService
 
-from src.predict.schema import ResponsePrediction
-from src.predict.service import predict_flight_service
+predict_service = PredictService()
 
-Prediction_DI = Annotated[ResponsePrediction, Depends(predict_flight_service)]
+def get_predict_service():
+    return predict_service
+
+Prediction_DI = Annotated[PredictService, Depends(get_predict_service)]
