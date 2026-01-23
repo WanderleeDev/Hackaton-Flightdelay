@@ -21,6 +21,7 @@ def csv_error_handler(request: Request, exc: CSVValidationException):
 def request_validation_error_handler(request: Request, exc: RequestValidationError):
     return base_pydantic_error_handler(request, exc)
 
+
 def validation_error_handler(request: Request, exc: ValidationError):
     return base_pydantic_error_handler(request, exc)
 
