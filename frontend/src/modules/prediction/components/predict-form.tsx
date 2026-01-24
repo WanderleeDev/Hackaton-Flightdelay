@@ -46,7 +46,6 @@ import { toast } from "sonner";
 import { AIRLINES } from "../../shared/data/airlines";
 import { AIRPORTS } from "../../shared/data/airports";
 import { useMapSelection } from "../context/map-context";
-import { useEffect } from "react";
 
 const MIN_DISTANCE = 3_000;
 const MAX_DISTANCE = 13_500;
@@ -75,6 +74,8 @@ export default function PredictForm() {
     mutate(formData, {
       onSuccess: () => {
         setIsDialogOpen(true);
+        setOrigin(null);
+        setDestination(null);
       },
       onError: (error) => {
         toast.error(error.message, {
@@ -87,6 +88,14 @@ export default function PredictForm() {
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
     setSubmittedData(null);
+    setOrigin(null);
+    setDestination(null);
+    form.reset();
+  };
+
+  const handleReset = () => {
+    setOrigin(null);
+    setDestination(null);
     form.reset();
   };
   return (
@@ -501,7 +510,7 @@ export default function PredictForm() {
             variant={"secondary"}
             disabled={isPending}
             type="reset"
-            onClick={() => form.reset()}
+            onClick={handleReset}
           >
             <RotateCcw className="mr-2 h-4 w-4" aria-hidden="true" />
             <span>Reset</span>

@@ -10,8 +10,6 @@ import { PredictionResponse } from "../hooks/useprediction";
 import { Schema } from "../schemas/form.schema";
 import {
   Plane,
-  Clock,
-  MapPin,
   AlertCircle,
   CheckCircle2,
   Calendar as CalendarIcon,
@@ -60,8 +58,12 @@ export default function PredictionResultDialog({
   const AtmosphericIcon = getAtmosphericIcon(formData.atmospherics);
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md bg-stone-950 border-stone-800 text-stone-100 overflow-hidden p-0">
+    <Dialog open={open} onOpenChange={onOpenChange} modal>
+      <DialogContent
+        className="sm:max-w-md bg-stone-950 border-stone-800 text-stone-100 overflow-hidden p-0"
+        onInteractOutside={(e) => e.preventDefault()}
+        onEscapeKeyDown={(e) => e.preventDefault()}
+      >
         <div
           className={cn(
             "absolute inset-0 opacity-10 pointer-events-none bg-gradient-to-br",
@@ -95,7 +97,6 @@ export default function PredictionResultDialog({
         </DialogHeader>
 
         <div className="p-6 space-y-6 relative z-10">
-          {/* Main Visual Result */}
           <div className="flex flex-col items-center justify-center p-8 rounded-2xl bg-stone-900/40 border border-stone-800/50">
             <div className="relative mb-4">
               <div
@@ -134,7 +135,6 @@ export default function PredictionResultDialog({
             </div>
           </div>
 
-          {/* Flight Summary */}
           <div className="space-y-4">
             <div className="flex items-center justify-between px-2">
               <div className="flex flex-col">
@@ -193,7 +193,7 @@ export default function PredictionResultDialog({
             className="w-full bg-stone-100 text-stone-900 hover:bg-white font-bold"
             onClick={() => onOpenChange(false)}
           >
-            Acknowledge
+            New Prediction
           </Button>
           <p className="text-center text-[10px] text-stone-500 px-4">
             Internal evaluation system. Results are probabilistic based on
