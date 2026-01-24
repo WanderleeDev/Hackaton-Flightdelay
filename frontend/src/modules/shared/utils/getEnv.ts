@@ -15,7 +15,7 @@ export const getEnv = (key: keyof Env): string => {
 };
 
 export const getApiBaseUrl = () => {
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV === "production") {
     return getEnv("API_BASE_URL");
   }
 
