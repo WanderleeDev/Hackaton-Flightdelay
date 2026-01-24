@@ -21,7 +21,7 @@ public class CorsConfig implements WebMvcConfigurer {
     var source = new UrlBasedCorsConfigurationSource();
     var config = new CorsConfiguration();
 
-    config.setAllowCredentials(true);
+    config.setAllowCredentials(false);
 
     Arrays.stream(allowedOrigins.split(","))
       .forEach(config::addAllowedOrigin);
