@@ -6,12 +6,14 @@ interface LoteSectionProps {
   title: string;
   date: string;
   simulationsCount: number;
+  serialNumber: number;
 }
 
 export default function LoteSection({
   title,
   date,
   simulationsCount,
+  serialNumber,
   children,
 }: PropsWithChildren<LoteSectionProps>) {
   return (
@@ -19,8 +21,9 @@ export default function LoteSection({
       <div className="flex flex-col gap-4 mb-10 relative z-10">
         <div className="flex items-center gap-4">
           <div className="w-1.5 h-8 bg-primary rounded-full animate-pulse shadow-[0_0_15px_var(--primary)]" />
-          <h3 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
-            {title}
+          <h3 className=" flex gap-6 text-2xl md:text-3xl font-bold text-foreground tracking-tight">
+            <span className="capitalize">{title}</span>
+            <span>#{serialNumber.toString().padStart(4, "0")}</span>
           </h3>
         </div>
 

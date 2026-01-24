@@ -17,6 +17,7 @@ export default function ListByLote() {
             date={lote.createdAt}
             title={lote.batchName}
             simulationsCount={lote.total}
+            serialNumber={lote.serialNumber}
           >
             {lote.histories.map((prediction) => (
               <PredictionCardB key={prediction.id} {...prediction} />
