@@ -1,5 +1,6 @@
 package com.hackathon.flight_ontime.common.exception;
 
+import com.hackathon.flight_ontime.predict.exceptions.CsvInvalidException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

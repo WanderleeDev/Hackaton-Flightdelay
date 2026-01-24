@@ -3,7 +3,7 @@ package com.hackathon.flight_ontime.history.service;
 import com.hackathon.flight_ontime.common.dto.PageResponseDto;
 import com.hackathon.flight_ontime.history.dto.BatchHistoryResponseDto;
 import com.hackathon.flight_ontime.history.dto.HistoryResponseDto;
-import com.hackathon.flight_ontime.history.mapper.HistoryMapper;
+import com.hackathon.flight_ontime.history.mapper.HistoryRecordMapper;
 import com.hackathon.flight_ontime.history.model.History;
 import com.hackathon.flight_ontime.history.model.HistoryBatch;
 import com.hackathon.flight_ontime.history.repository.IBatchHistoryRepository;
@@ -26,7 +26,7 @@ public class HistoryService implements IHistoryService {
 
     static final int MAX_PREVIEW = 4;
     private final IHistoryRepository historyRepository;
-    private final HistoryMapper historyMapper;
+    private final HistoryRecordMapper historyMapper;
     private final IBatchHistoryRepository batchHistoryRepository;
 
     @Override
@@ -63,7 +63,7 @@ public class HistoryService implements IHistoryService {
                 batch.getId(),
                 batch.getBatchName(),
                 historyMapper.toDtoList(historyPreview.getContent()),
-                batch.getSeralNumber(),
+                batch.getSerialNumber(),
                 (int) historyPreview.getTotalElements(),
                 historyMapper.mapDepartureDate(batch.getCreatedAt())
             );

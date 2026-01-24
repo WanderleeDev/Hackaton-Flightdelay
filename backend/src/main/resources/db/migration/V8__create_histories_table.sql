@@ -7,6 +7,13 @@ CREATE TABLE histories (
     distance_km DOUBLE PRECISION,
     delay_prediction DOUBLE PRECISION NOT NULL,
     delay_probability DOUBLE PRECISION NOT NULL,
+    batch_id UUID,
     created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamp NULL
+    updated_at timestamp NULL,
+    CONSTRAINT fk_histories_batches
+        FOREIGN KEY (batch_id)
+        REFERENCES history_batches(id)
+        ON DELETE SET NULL
 );
+
+CREATE INDEX IF NOT EXISTS idx_histories_batch_id ON histories(batch_id);
