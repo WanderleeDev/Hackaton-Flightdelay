@@ -2,10 +2,8 @@
 import { formSchema, Schema } from "../schemas/form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
-import { useAction } from "next-safe-action/hooks";
-import { motion } from "motion/react";
+import { useState } from "react";
 import {
-  Check,
   Loader2,
   Send,
   RotateCcw,
@@ -42,62 +40,55 @@ import { Calendar as CalendarIcon, X } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { serverAction } from "@/app/actions";
+import { usePrediction } from "../hooks/useprediction";
+import PredictionResultDialog from "./prediction-result-dialog";
+import { toast } from "sonner";
+import { AIRLINES } from "../../shared/data/airlines";
+import { AIRPORTS } from "../../shared/data/airports";
+import { useMapSelection } from "../context/map-context";
+import { useEffect } from "react";
 
 const MIN_DISTANCE = 3_000;
 const MAX_DISTANCE = 13_500;
 
 export default function PredictForm() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [submittedData, setSubmittedData] = useState<Schema | null>(null);
+  const { setOrigin, setDestination } = useMapSelection();
+
   const form = useForm<Schema>({
     resolver: zodResolver(formSchema as any),
-  });
-  const formAction = useAction(serverAction, {
-    onSuccess: () => {
-      form.reset();
+    defaultValues: {
+      origin: "",
+      destination: "",
+      departureDate: new Date(new Date().setDate(new Date().getDate() + 1)),
+      flightDistance: 3_000,
+      airline: "",
+      atmospherics: "none",
     },
-    onError: () => {},
-  });
-  const handleSubmit = form.handleSubmit(async (data: Schema) => {
-    console.log(data);
-    formAction.execute(data);
   });
 
-  const { isExecuting, hasSucceeded } = formAction;
-  if (hasSucceeded) {
-    return (
-      <div className="p-2 sm:p-5 md:p-8 w-full rounded-md gap-2 border">
-        <motion.div
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, stiffness: 300, damping: 25 }}
-          className="h-full py-6 px-3"
-          role="status"
-          aria-live="polite"
-        >
-          <motion.div
-            initial={{ scale: 0.5 }}
-            animate={{ scale: 1 }}
-            transition={{
-              delay: 0.3,
-              type: "spring",
-              stiffness: 500,
-              damping: 15,
-            }}
-            className="mb-4 flex justify-center border rounded-full w-fit mx-auto p-2"
-            aria-hidden="true"
-          >
-            <Check className="size-8" />
-          </motion.div>
-          <h2 className="text-center text-2xl text-pretty font-bold mb-2">
-            Thank you
-          </h2>
-          <p className="text-center text-lg text-pretty text-muted-foreground">
-            Form submitted successfully, we will get back to you soon
-          </p>
-        </motion.div>
-      </div>
-    );
-  }
+  const { mutate, isPending, data } = usePrediction();
+
+  const handleSubmit = form.handleSubmit(async (formData: Schema) => {
+    setSubmittedData(formData);
+    mutate(formData, {
+      onSuccess: () => {
+        setIsDialogOpen(true);
+      },
+      onError: (error) => {
+        toast.error(error.message, {
+          position: "bottom-left",
+        });
+      },
+    });
+  });
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+    setSubmittedData(null);
+    form.reset();
+  };
   return (
     <aside className="flex flex-col gap-4">
       <form
@@ -115,12 +106,7 @@ export default function PredictForm() {
             name="origin"
             control={form.control}
             render={({ field, fieldState }) => {
-              const options = [
-                { value: "option-1", label: "Option 1" },
-                { value: "option-2", label: "Option 2" },
-                { value: "option-3", label: "Option 3" },
-                { value: "option-4", label: "Option 4" },
-              ];
+              const options = AIRPORTS;
               return (
                 <Field
                   data-invalid={fieldState.invalid}
@@ -131,7 +117,15 @@ export default function PredictForm() {
                     <span className="sr-only">(required)</span>
                   </FieldLabel>
 
-                  <Select value={field.value} onValueChange={field.onChange}>
+                  <Select
+                    value={field.value}
+                    onValueChange={(val) => {
+                      field.onChange(val);
+                      const airport =
+                        AIRPORTS.find((a) => a.value === val) || null;
+                      setOrigin(airport);
+                    }}
+                  >
                     <SelectTrigger
                       id="origin"
                       className="w-full"
@@ -146,7 +140,12 @@ export default function PredictForm() {
                     <SelectContent>
                       {options.map((option) => (
                         <SelectItem key={option.value} value={option.value}>
-                          {option.label}
+                          <span className="flex items-center justify-between w-full gap-2">
+                            <span>{option.label}</span>
+                            <span className="text-[10px] bg-muted px-1.5 py-0.5 rounded uppercase font-bold text-muted-foreground">
+                              {option.country}
+                            </span>
+                          </span>
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -163,13 +162,7 @@ export default function PredictForm() {
             name="destination"
             control={form.control}
             render={({ field, fieldState }) => {
-              const options = [
-                { value: "option-1", label: "Option 1" },
-                { value: "option-2", label: "Option 2" },
-                { value: "option-3", label: "Option 3" },
-                { value: "option-4", label: "Option 4" },
-                { value: "option_1767573558829", label: "Option 5" },
-              ];
+              const options = AIRPORTS;
               return (
                 <Field
                   data-invalid={fieldState.invalid}
@@ -180,7 +173,15 @@ export default function PredictForm() {
                     <span className="sr-only">(required)</span>
                   </FieldLabel>
 
-                  <Select value={field.value} onValueChange={field.onChange}>
+                  <Select
+                    value={field.value}
+                    onValueChange={(val) => {
+                      field.onChange(val);
+                      const airport =
+                        AIRPORTS.find((a) => a.value === val) || null;
+                      setDestination(airport);
+                    }}
+                  >
                     <SelectTrigger
                       id="destination"
                       className="w-full"
@@ -195,7 +196,12 @@ export default function PredictForm() {
                     <SelectContent>
                       {options.map((option) => (
                         <SelectItem key={option.value} value={option.value}>
-                          {option.label}
+                          <span className="flex items-center justify-between w-full gap-2">
+                            <span>{option.label}</span>
+                            <span className="text-[10px] bg-muted px-1.5 py-0.5 rounded uppercase font-bold text-muted-foreground">
+                              {option.country}
+                            </span>
+                          </span>
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -242,7 +248,8 @@ export default function PredictForm() {
                           }
                           className={cn(
                             "w-full justify-start text-start font-normal active:scale-none",
-                            !selectedDate && "text-muted-foreground font-medium"
+                            !selectedDate &&
+                              "text-muted-foreground font-medium",
                           )}
                         >
                           <CalendarIcon className="size-4" aria-hidden="true" />
@@ -292,40 +299,35 @@ export default function PredictForm() {
             }}
           />
           <FieldSeparator className="my-4 col-span-full">
-            Aircraft & Physics
+            Airline & Distance
           </FieldSeparator>
 
           <Controller
-            name="aircraftModel"
+            name="airline"
             control={form.control}
             render={({ field, fieldState }) => {
-              const options = [
-                { value: "option-1", label: "Option 1" },
-                { value: "option-2", label: "Option 2" },
-                { value: "option-3", label: "Option 3" },
-                { value: "option-4", label: "Option 4" },
-              ];
+              const options = AIRLINES;
               return (
                 <Field
                   data-invalid={fieldState.invalid}
                   className="gap-1 col-span-full"
                 >
-                  <FieldLabel htmlFor="aircraft-model">
-                    Aircraft Model <span aria-hidden="true">*</span>
+                  <FieldLabel htmlFor="airline">
+                    Airline <span aria-hidden="true">*</span>
                     <span className="sr-only">(required)</span>
                   </FieldLabel>
 
                   <Select value={field.value} onValueChange={field.onChange}>
                     <SelectTrigger
-                      id="aircraft-model"
+                      id="airline"
                       className="w-full"
                       aria-required="true"
                       aria-invalid={fieldState.invalid}
                       aria-describedby={
-                        fieldState.invalid ? "aircraft-model-error" : undefined
+                        fieldState.invalid ? "airline-error" : undefined
                       }
                     >
-                      <SelectValue placeholder="Select a model" />
+                      <SelectValue placeholder="Select an airline" />
                     </SelectTrigger>
                     <SelectContent>
                       {options.map((option) => (
@@ -337,7 +339,7 @@ export default function PredictForm() {
                   </Select>
                   {fieldState.invalid && (
                     <FieldError
-                      id="aircraft-model-error"
+                      id="airline-error"
                       errors={[fieldState.error]}
                     />
                   )}
@@ -372,8 +374,8 @@ export default function PredictForm() {
                   <Slider
                     {...field}
                     id="flight-distance"
-                    value={[field.value || MIN_DISTANCE]}
-                    defaultValue={[MIN_DISTANCE]}
+                    value={[field.value ?? 6_000]}
+                    defaultValue={[6_000]}
                     onValueChange={(newValue) => field.onChange(newValue[0])}
                     aria-label="Flight distance"
                     aria-invalid={fieldState.invalid}
@@ -410,7 +412,6 @@ export default function PredictForm() {
 
           <Controller
             name="atmospherics"
-            defaultValue="none"
             control={form.control}
             render={({ field, fieldState }) => {
               const options = [
@@ -450,7 +451,7 @@ export default function PredictForm() {
                           className={cn(
                             "flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 border-muted bg-popover hover:bg-accent hover:text-accent-foreground cursor-pointer transition-all duration-200",
                             field.value === value &&
-                              "border-primary bg-primary/5 text-primary shadow-sm"
+                              "border-primary bg-primary/5 text-primary shadow-sm",
                           )}
                         >
                           <Icon className="size-6" aria-hidden="true" />
@@ -477,9 +478,9 @@ export default function PredictForm() {
             size="lg"
             type="submit"
             className="w-full"
-            disabled={isExecuting}
+            disabled={isPending}
           >
-            {isExecuting ? (
+            {isPending ? (
               <>
                 <Loader2
                   className="mr-2 h-4 w-4 animate-spin"
@@ -498,7 +499,7 @@ export default function PredictForm() {
             size="lg"
             className="w-full"
             variant={"secondary"}
-            disabled={isExecuting}
+            disabled={isPending}
             type="reset"
             onClick={() => form.reset()}
           >
@@ -507,6 +508,13 @@ export default function PredictForm() {
           </Button>
         </div>
       </form>
+
+      <PredictionResultDialog
+        open={isDialogOpen}
+        onOpenChange={handleCloseDialog}
+        result={data ?? null}
+        formData={submittedData}
+      />
     </aside>
   );
 }

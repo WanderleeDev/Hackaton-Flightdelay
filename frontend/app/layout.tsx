@@ -6,6 +6,7 @@ import HeaderPage from "@/components/shared/header-page";
 import FooterPage from "@/components/shared/footer-page";
 import { METADATA } from "@/src/modules/shared/data/metadata";
 import { QueryProvider } from "@/components/providers/query-provider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function RootLayout({
               {children}
               <FooterPage />
             </main>
+            <Toaster richColors closeButton position="top-right" />
           </QueryProvider>
         </ThemeProvider>
       </body>

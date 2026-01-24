@@ -46,8 +46,15 @@ export default function CSVBatchPredictor() {
       <BatchResultsDialog
         open={isDialogOpen}
         onOpenChange={closeDialog}
-        data={data}
-      />
+        predictions={data?.histories || []}
+        title={data?.batchName || "Batch Results"}
+      >
+        {data && (
+          <span className="px-3 py-1 rounded-md bg-primary/10 text-primary font-bold text-sm">
+            Batch: {data.batchName}
+          </span>
+        )}
+      </BatchResultsDialog>
     </div>
   );
 }
