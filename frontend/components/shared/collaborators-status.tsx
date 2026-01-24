@@ -5,7 +5,7 @@ export function CollaboratorsStatus() {
     <div className="flex flex-col gap-4 md:items-center">
       <figure className="flex items-center gap-3">
         <div className="flex -space-x-2">
-          {COLLABORATORS.slice(0, 4).map((collaborator) => (
+          {COLLABORATORS.map((collaborator) => (
             <div
               key={collaborator.name}
               className="group relative transition-transform hover:scale-110 hover:z-10"
