@@ -49,7 +49,7 @@ export default function BatchDropZone({
           dragActive
             ? "border-primary bg-primary/5 scale-[0.99]"
             : "border-border hover:border-primary/50",
-          status === "success" && "border-emerald-500/50 bg-emerald-500/5",
+          status === "success" && "border-primary/50 bg-primary/5",
           status === "error" && "border-destructive/50 bg-destructive/5",
         )}
         onDragEnter={onDrag}

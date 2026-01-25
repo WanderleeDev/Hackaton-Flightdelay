@@ -29,7 +29,7 @@ export function BrandLogo({
           {title}
         </h1>
         <div className="hidden sm:flex items-center gap-2 mt-1">
-          <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest dark:text-foreground/75">
+          <span className="text-[10px] font-bold text-primary uppercase tracking-widest">
             {subtitle}
           </span>
           <Badge
