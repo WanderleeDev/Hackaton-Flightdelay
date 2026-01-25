@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { PlaneIconBox } from "./plane-icon-box";
+import Image from "next/image";
 
 interface BrandLogoProps {
   title?: string;
@@ -20,9 +20,12 @@ export function BrandLogo({
       href={href}
       className="flex items-center gap-2 sm:gap-3 group cursor-pointer"
     >
-      <PlaneIconBox
-        variant="md"
-        className="group-hover:bg-primary/80 transition-all duration-300 transform group-hover:rotate-12"
+      <Image
+        src="/logo.webp"
+        alt="Logo"
+        width={40}
+        height={40}
+        className="rounded-lg transition-all duration-300 transform group-hover:scale-105 size-12 md:size-16 lg:size-20"
       />
       <div className="flex flex-col">
         <h1 className="text-lg sm:text-xl font-black tracking-tight leading-none capitalize bg-linear-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">

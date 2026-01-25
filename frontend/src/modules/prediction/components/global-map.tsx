@@ -130,7 +130,14 @@ export default function GlobalMap({ className }: GlobalMapProps) {
           <MapMarker longitude={origin.lng} latitude={origin.lat}>
             <MarkerContent className="flex items-center justify-center">
               <div className="relative flex items-center justify-center">
-                <div className="relative size-3 bg-white rounded-full border-2 border-[var(--brand-base)] shadow-[0_0_10px_rgba(26,43,72,0.6)]" />
+                <div
+                  className={cn(
+                    "relative size-3 bg-white rounded-full border-2 shadow-md",
+                    resolvedTheme === "dark"
+                      ? "border-[var(--brand-surface)]"
+                      : "border-[var(--brand-base)]",
+                  )}
+                />
                 <span
                   className="absolute left-5 ml-1 text-white text-xs font-bold tracking-tight drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] whitespace-nowrap"
                   style={{ fontFamily: "Space Grotesk, sans-serif" }}

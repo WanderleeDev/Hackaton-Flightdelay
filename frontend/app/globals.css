@@ -79,19 +79,19 @@
 .dark {
   --brand-base: #1a2b48;
   --brand-accent: #00a8e8;
-  --brand-surface: #2a3b58;
+  --brand-surface: #f4f7f9;
 
-  --background: #0f172a; /* Slightly darker than brand-base for better depth */
+  --background: var(--brand-base);
   --foreground: var(--brand-surface);
-  --card: var(--brand-base);
+  --card: #223354;
   --card-foreground: var(--brand-surface);
-  --popover: var(--brand-base);
+  --popover: #223354;
   --popover-foreground: var(--brand-surface);
   --primary: var(--brand-accent);
   --primary-foreground: #ffffff;
-  --secondary: #223354;
+  --secondary: #2a3b58;
   --secondary-foreground: var(--brand-surface);
-  --muted: #1e293b;
+  --muted: #2a3b58;
   --muted-foreground: #94a3b8;
   --accent: var(--brand-accent);
   --accent-foreground: #ffffff;
