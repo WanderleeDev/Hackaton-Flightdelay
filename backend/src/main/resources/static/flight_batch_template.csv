@@ -1,4 +1,3 @@
-airline,origin,destination,departureDate,distance_Km
+airline,origin,destination,departureDate,distance_km
 AA,KJFK,KLAX,2026-01-20T10:00:00Z,3983
 DL,SKBO,EGLL,2026-01-21T14:30:00Z,8500
-UA,KSFO,KJFK,2026-01-22T08:15:00Z,4139
