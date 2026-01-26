@@ -4,7 +4,7 @@ import { Clock, PlaneTakeoff, PlaneLanding, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { Prediction } from "../interfaces";
-import { formatDelayProbability } from "@/src/lib/utils";
+import { formatDelayProbability } from "@/src/modules/shared/utils/formatDelayProbability";
 
 type PredictionCardAProps = Prediction;
 
@@ -28,8 +28,8 @@ export default function PredictionCardA({
               {formatDelayProbability(delayProbability)}
             </span>
           </Badge>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium whitespace-nowrap hidden @min-[200px]:block">
-            <Clock className="size-3.5 flex-shrink-0" />
+          <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium whitespace-nowrap @min-[200px]:block">
+            <Clock className="size-3.5 shrink-0" />
             {format(departureDate, "HH:mm")}
           </div>
         </div>
@@ -37,7 +37,7 @@ export default function PredictionCardA({
         <div className="flex items-center justify-between gap-2 min-w-0">
           <div className="flex flex-col gap-1 min-w-0 flex-1">
             <div className="flex items-center gap-2 min-w-0">
-              <div className="p-1.5 rounded-full bg-primary/10 flex-shrink-0">
+              <div className="p-1.5 rounded-full bg-primary/10 shrink-0">
                 <PlaneTakeoff className="size-3.5 text-primary" />
               </div>
               <span className="font-bold text-base truncate hidden @min-[200px]:block">
@@ -49,7 +49,7 @@ export default function PredictionCardA({
             </span>
           </div>
 
-          <div className="flex-shrink-0 flex flex-col items-center gap-1 px-2 sm:px-4">
+          <div className="shrink-0 flex flex-col items-center gap-1 px-2 sm:px-4">
             <div className="w-12 sm:w-16 h-px bg-linear-to-r from-transparent via-muted-foreground/30 to-transparent relative">
               <PlaneTakeoff className="size-3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-muted-foreground/40 rotate-90" />
             </div>

@@ -1,5 +1,6 @@
 const envs = {
   API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  API_BASE_URL_GITHUB: process.env.NEXT_PUBLIC_GITHUB_API,
 } as const;
 
 type Env = typeof envs;

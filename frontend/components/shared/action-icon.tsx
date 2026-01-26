@@ -1,4 +1,4 @@
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/src/modules/shared/utils/cn";
 import { type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { ComponentProps } from "react";
@@ -20,7 +20,7 @@ export function ActionIcon({
       rel="noopener noreferrer"
       className={cn(
         "p-2 rounded-xl bg-secondary/50 hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300 inline-flex items-center justify-center",
-        className
+        className,
       )}
       {...props}
     >

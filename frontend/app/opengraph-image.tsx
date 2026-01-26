@@ -19,59 +19,57 @@ export const contentType = "image/png";
 
 export default async function Image() {
   return new ImageResponse(
-    (
-      <OgContainer>
-        {/* Globe decoration */}
+    <OgContainer>
+      {/* Globe decoration */}
+      <div
+        style={{
+          position: "absolute",
+          right: 80,
+          top: "50%",
+          transform: "translateY(-50%)",
+          width: 300,
+          height: 300,
+          borderRadius: "50%",
+          border: `2px solid rgba(0, 168, 232, 0.2)`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <div
           style={{
-            position: "absolute",
-            right: 80,
-            top: "50%",
-            transform: "translateY(-50%)",
-            width: 300,
-            height: 300,
+            width: 200,
+            height: 200,
             borderRadius: "50%",
-            border: `2px solid rgba(16, 185, 129, 0.2)`,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            border: `2px solid rgba(0, 168, 232, 0.3)`,
           }}
-        >
-          <div
-            style={{
-              width: 200,
-              height: 200,
-              borderRadius: "50%",
-              border: `2px solid rgba(16, 185, 129, 0.3)`,
-            }}
-          />
-        </div>
+        />
+      </div>
 
-        <OgIconBox variant="green">
-          <OgIcons.Airplane />
-        </OgIconBox>
+      <OgIconBox variant="cyan">
+        <OgIcons.Airplane />
+      </OgIconBox>
 
-        <OgTitleGroup>
-          <OgTitle>Flight Prediction</OgTitle>
-          <OgSubtitle color={ogColors.cyan400}>AI-Powered Engine</OgSubtitle>
-        </OgTitleGroup>
+      <OgTitleGroup>
+        <OgTitle>Flight Prediction</OgTitle>
+        <OgSubtitle color={ogColors.brandAccent}>AI-Powered Engine</OgSubtitle>
+      </OgTitleGroup>
 
-        <OgDescription>
-          Predict flight delays and safety with cutting-edge artificial
-          intelligence and real-time atmospheric data
-        </OgDescription>
+      <OgDescription>
+        Predict flight delays and safety with cutting-edge artificial
+        intelligence and real-time atmospheric data
+      </OgDescription>
 
-        {/* Feature pills */}
-        <OgPreviewGroup>
-          <FeaturePill color={ogColors.emerald500} label="Real-time Data" />
-          <FeaturePill color={ogColors.cyan400} label="Delay Prediction" />
-          <FeaturePill color={ogColors.violet400} label="AI Analysis" />
-        </OgPreviewGroup>
+      {/* Feature pills */}
+      <OgPreviewGroup>
+        <FeaturePill color={ogColors.brandAccent} label="Real-time Data" />
+        <FeaturePill color={ogColors.cyan400} label="Delay Prediction" />
+        <FeaturePill color={ogColors.violet400} label="AI Analysis" />
+      </OgPreviewGroup>
 
-        <OgFooter dotColor={ogColors.emerald500} />
-      </OgContainer>
-    ),
-    { ...size }
+      <OgFooter dotColor={ogColors.emerald500} />
+    </OgContainer>,
+    { ...size },
   );
 }
 
@@ -99,6 +97,6 @@ function hexToRgb(hex: string): string {
   if (!result) return "255, 255, 255";
   return `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(
     result[3],
-    16
+    16,
   )}`;
 }

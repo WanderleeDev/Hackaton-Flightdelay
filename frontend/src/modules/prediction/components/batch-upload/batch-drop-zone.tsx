@@ -1,6 +1,6 @@
 import { AnimatePresence } from "motion/react";
 import { Download } from "lucide-react";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/src/modules/shared/utils/cn";
 import { Lote } from "@/src/modules/history/interfaces";
 import BatchUploadEmptyState from "./batch-upload-empty-state";
 import BatchUploadSuccess from "./batch-upload-success";

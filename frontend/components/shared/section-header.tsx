@@ -1,4 +1,4 @@
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/src/modules/shared/utils/cn";
 
 interface SectionHeaderProps {
   title: string;
@@ -53,14 +53,14 @@ export default function SectionHeader({
       <div
         className={cn(
           "flex items-center text-primary font-bold tracking-widest uppercase",
-          variant.label
+          variant.label,
         )}
       >
         {icon && (
           <div
             className={cn(
               "flex items-center justify-center shrink-0",
-              variant.icon
+              variant.icon,
             )}
           >
             {icon}
@@ -71,7 +71,7 @@ export default function SectionHeader({
       <Tag
         className={cn(
           "font-bold tracking-tight text-foreground leading-[1.1]",
-          variant.title
+          variant.title,
         )}
       >
         {title} <span className="text-primary italic">{accentText}</span>

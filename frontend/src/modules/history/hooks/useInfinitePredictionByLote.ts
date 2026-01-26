@@ -1,22 +1,13 @@
-import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
-import { getApiBaseUrl } from "../../shared/utils/getEnv";
-import { Lote, Pagination } from "../interfaces";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { Lote } from "../interfaces";
+import { useInfinityPagination } from "../../shared/hooks/useinfinityPagination";
+import { getPredictionsByLoteId } from "../services/getPredictionsByLoteId";
+import { getAllPredictionsLote } from "../services/getAllPredictionsLote";
 
-const fetchPredictionByLote = async ({
-  pageParam,
-}: {
-  pageParam: number;
-}): Promise<Pagination<Lote>> => {
-  const res = await fetch(
-    `${getApiBaseUrl()}/history/batch?page=${pageParam}&size=4`,
-  );
-  return res.json();
-};
-
-export function useInfinitePredictionByLote() {
-  return useSuspenseInfiniteQuery({
-    queryKey: ["history-lote"],
-    queryFn: fetchPredictionByLote,
+export const useInfinityPredictionByLoteById = (id: string) => {
+  return useInfiniteQuery({
+    queryKey: ["history-lote", id],
+    queryFn: () => getPredictionsByLoteId({ pageParam: 0, id }),
     initialPageParam: 0,
     getNextPageParam: ({ last, pageNumber }) => {
       const nextPage = !last ? pageNumber + 1 : undefined;
@@ -27,4 +18,10 @@ export function useInfinitePredictionByLote() {
       return previousPage;
     },
   });
-}
+};
+
+export const useInfinitePredictionByLote = () => {
+  return useInfinityPagination<Lote>(["history-lote"], () =>
+    getAllPredictionsLote({ pageParam: 0 }),
+  );
+};

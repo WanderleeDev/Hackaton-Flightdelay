@@ -25,31 +25,29 @@ const LOTE_PREVIEWS = [
 
 export default async function Image() {
   return new ImageResponse(
-    (
-      <OgContainer>
-        <OgIconBox variant="cyan">
-          <OgIcons.Layers />
-        </OgIconBox>
+    <OgContainer>
+      <OgIconBox variant="cyan">
+        <OgIcons.Layers />
+      </OgIconBox>
 
-        <OgTitleGroup>
-          <OgTitle>History by Lote</OgTitle>
-          <OgSubtitle color={ogColors.sky400}>Batch Predictions</OgSubtitle>
-        </OgTitleGroup>
+      <OgTitleGroup>
+        <OgTitle>History by Lote</OgTitle>
+        <OgSubtitle color={ogColors.brandAccent}>Batch Predictions</OgSubtitle>
+      </OgTitleGroup>
 
-        <OgDescription>
-          View and manage your flight predictions organized in batches
-        </OgDescription>
+      <OgDescription>
+        View and manage your flight predictions organized in batches
+      </OgDescription>
 
-        <OgPreviewGroup>
-          {LOTE_PREVIEWS.map((lote) => (
-            <LoteCard key={lote.id} {...lote} />
-          ))}
-        </OgPreviewGroup>
+      <OgPreviewGroup>
+        {LOTE_PREVIEWS.map((lote) => (
+          <LoteCard key={lote.id} {...lote} />
+        ))}
+      </OgPreviewGroup>
 
-        <OgFooter dotColor={ogColors.sky500} />
-      </OgContainer>
-    ),
-    { ...size }
+      <OgFooter dotColor={ogColors.sky500} />
+    </OgContainer>,
+    { ...size },
   );
 }
 

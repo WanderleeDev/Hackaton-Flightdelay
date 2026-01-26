@@ -20,36 +20,34 @@ export const contentType = "image/png";
 
 export default async function Image() {
   return new ImageResponse(
-    (
-      <OgContainer>
-        <OgIconBox variant="green">
-          <OgIcons.Clock />
-        </OgIconBox>
+    <OgContainer>
+      <OgIconBox variant="green">
+        <OgIcons.Clock />
+      </OgIconBox>
 
-        <OgTitleGroup>
-          <OgTitle>Prediction History</OgTitle>
-          <OgSubtitle color={ogColors.cyan400}>Flight Delay Tracker</OgSubtitle>
-        </OgTitleGroup>
+      <OgTitleGroup>
+        <OgTitle>Prediction History</OgTitle>
+        <OgSubtitle color={ogColors.brandAccent}>
+          Flight Delay Tracker
+        </OgSubtitle>
+      </OgTitleGroup>
 
-        <OgDescription>
-          Review your past flight predictions and track delay patterns over time
-        </OgDescription>
+      <OgDescription>
+        Review your past flight predictions and track delay patterns over time
+      </OgDescription>
 
-        <OgPreviewGroup>
-          <OgPreviewCard statusColor={ogColors.green500}>
-            SKBO → KJFK
-          </OgPreviewCard>
-          <OgPreviewCard statusColor={ogColors.amber500}>
-            EGLL → LEMD
-          </OgPreviewCard>
-          <OgPreviewCard statusColor={ogColors.red500}>
-            KMIA → TJSJ
-          </OgPreviewCard>
-        </OgPreviewGroup>
+      <OgPreviewGroup>
+        <OgPreviewCard statusColor={ogColors.green500}>
+          SKBO → KJFK
+        </OgPreviewCard>
+        <OgPreviewCard statusColor={ogColors.amber500}>
+          EGLL → LEMD
+        </OgPreviewCard>
+        <OgPreviewCard statusColor={ogColors.red500}>KMIA → TJSJ</OgPreviewCard>
+      </OgPreviewGroup>
 
-        <OgFooter dotColor={ogColors.emerald500} />
-      </OgContainer>
-    ),
-    { ...size }
+      <OgFooter dotColor={ogColors.emerald500} />
+    </OgContainer>,
+    { ...size },
   );
 }

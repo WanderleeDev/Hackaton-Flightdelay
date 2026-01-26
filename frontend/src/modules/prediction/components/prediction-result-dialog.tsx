@@ -20,7 +20,7 @@ import {
   CloudLightning,
   CircleSlash2,
 } from "lucide-react";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/src/modules/shared/utils/cn";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 

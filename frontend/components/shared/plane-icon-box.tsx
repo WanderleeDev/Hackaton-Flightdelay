@@ -1,5 +1,5 @@
 import { Plane } from "lucide-react";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/src/modules/shared/utils/cn";
 
 type PlaneIconBoxVariant = "sm" | "md" | "lg";
 type PlaneIconBoxDesign = "solid" | "ghost";

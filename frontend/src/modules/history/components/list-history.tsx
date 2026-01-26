@@ -8,17 +8,13 @@ import { useInfinitePrediction } from "../hooks/useInfinitePrediction";
 import LoaderObserver from "@/components/shared/loader-observer";
 
 export default function ListHistory() {
-  const {
-    data: { pages },
-    hasNextPage,
-    fetchNextPage,
-  } = useInfinitePrediction();
+  const { data, hasNextPage, fetchNextPage } = useInfinitePrediction();
 
   return (
     <div className="flex-1 overflow-y-auto space-y-3 custom-scrollbar  p-2 w-full rounded-md gap-2 border max-w-3xl mx-auto">
-      {match(!pages.length)
+      {match(!data?.pages.length)
         .with(false, () =>
-          pages.map((page, idx) =>
+          data?.pages.map((page, idx) =>
             page.content.map((item) => (
               <motion.div
                 key={item.id}

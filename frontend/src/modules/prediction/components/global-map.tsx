@@ -8,7 +8,7 @@ import {
   MarkerContent,
   MarkerTooltip,
 } from "@/components/ui/map";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/src/modules/shared/utils/cn";
 import { useMapSelection } from "../context/map-context";
 import { useEffect, useState, useMemo, useRef } from "react";
 import MapLibreGL from "maplibre-gl";

@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/src/modules/shared/utils/cn";
 
 type ThemeOption = {
   value: string;
@@ -50,7 +50,7 @@ export function ModeToggle() {
               onClick={() => setTheme(option.value)}
               className={cn(
                 "flex items-center justify-between cursor-pointer",
-                isActive && activeStyle
+                isActive && activeStyle,
               )}
             >
               <div className="flex items-center gap-2">

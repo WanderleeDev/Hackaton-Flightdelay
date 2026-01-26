@@ -1,6 +1,6 @@
 "use client";
 import { History, LayoutGrid, User } from "lucide-react";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/src/modules/shared/utils/cn";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SectionHeader from "@/components/shared/section-header";
@@ -36,14 +36,14 @@ export default function HistoryHeader() {
               "flex-1 md:flex-none flex items-center justify-center gap-2 px-4 md:px-6 py-2.5 md:py-2 rounded-xl md:rounded-full text-sm font-bold transition-all duration-300",
               pathname === link.href
                 ? "bg-accent text-primary shadow-lg shadow-primary/10"
-                : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                : "text-muted-foreground hover:text-foreground hover:bg-secondary/50",
             )}
           >
             {link.icon}
             <span
               className={cn(
                 "whitespace-nowrap",
-                pathname === link.href ? "" : "hidden sm:block"
+                pathname === link.href ? "" : "hidden sm:block",
               )}
             >
               {link.label}

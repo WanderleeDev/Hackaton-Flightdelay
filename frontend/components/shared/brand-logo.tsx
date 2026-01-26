@@ -23,8 +23,8 @@ export function BrandLogo({
       <Image
         src="/logo.webp"
         alt="Logo"
-        width={40}
-        height={40}
+        width={180}
+        height={180}
         className="rounded-lg transition-all duration-300 transform group-hover:scale-105 size-12 md:size-16 lg:size-20"
       />
       <div className="flex flex-col">

@@ -30,7 +30,7 @@ export function OgGridPattern() {
 
 interface OgIconBoxProps {
   children: ReactNode;
-  variant?: "green" | "purple" | "cyan" | "amber";
+  variant?: "green" | "purple" | "cyan" | "amber" | "logo";
 }
 
 const iconVariants = {
@@ -57,6 +57,20 @@ const iconVariants = {
 };
 
 export function OgIconBox({ children, variant = "green" }: OgIconBoxProps) {
+  if (variant === "logo") {
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: 32,
+        }}
+      >
+        {children}
+      </div>
+    );
+  }
   const { from, to, shadow } = iconVariants[variant];
   return <div style={createIconContainer(from, to, shadow)}>{children}</div>;
 }
@@ -236,6 +250,18 @@ export const OgIcons = {
       <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
       <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
     </svg>
+  ),
+  BrandLogo: ({ src, size = 120 }: { src: string; size?: number }) => (
+    <img
+      src={src}
+      alt="Logo"
+      width={size}
+      height={size}
+      style={{
+        borderRadius: size / 4,
+        boxShadow: "0 20px 40px rgba(0,0,0,0.5)",
+      }}
+    />
   ),
 };
 

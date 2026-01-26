@@ -1,6 +1,8 @@
 import { CSSProperties } from "react";
 
 export const ogColors = {
+  brandBase: "#1a2b48",
+  brandAccent: "#00a8e8",
   slate900: "#0f172a",
   slate800: "#1e293b",
   slate700: "#334155",
@@ -31,7 +33,7 @@ export const ogBaseStyles = {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    background: `linear-gradient(135deg, ${ogColors.slate900} 0%, ${ogColors.slate800} 50%, ${ogColors.teal800} 100%)`,
+    background: `linear-gradient(135deg, #1a2b48 0%, #0f172a 100%)`,
     fontFamily: "Inter, system-ui, sans-serif",
     position: "relative",
   } as CSSProperties,
@@ -88,7 +90,7 @@ export const ogBaseStyles = {
 export const createIconContainer = (
   gradientFrom: string,
   gradientTo: string,
-  shadowColor: string
+  shadowColor: string,
 ): CSSProperties => ({
   display: "flex",
   alignItems: "center",
@@ -109,7 +111,7 @@ export const createDot = (color: string, size = 8): CSSProperties => ({
 });
 
 export const createCard = (
-  options: { padding?: string; borderRadius?: number } = {}
+  options: { padding?: string; borderRadius?: number } = {},
 ): CSSProperties => ({
   display: "flex",
   alignItems: "center",
@@ -122,7 +124,7 @@ export const createCard = (
 
 export const createColoredPill = (
   color: string,
-  options: { opacity?: number } = {}
+  options: { opacity?: number } = {},
 ): CSSProperties => ({
   display: "flex",
   alignItems: "center",
@@ -138,6 +140,6 @@ function hexToRgb(hex: string): string {
   if (!result) return "255, 255, 255";
   return `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(
     result[3],
-    16
+    16,
   )}`;
 }

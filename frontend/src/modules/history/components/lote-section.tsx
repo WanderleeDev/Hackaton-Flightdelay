@@ -1,5 +1,6 @@
+import { ActionIcon } from "@/components/shared/action-icon";
 import GradientOverlayCard from "@/components/shared/gradient-overlay-card";
-import { Calendar, Layers } from "lucide-react";
+import { Calendar, ExternalLink, Layers } from "lucide-react";
 import { PropsWithChildren } from "react";
 
 interface LoteSectionProps {
@@ -21,10 +22,17 @@ export default function LoteSection({
       <div className="flex flex-col gap-4 mb-10 relative z-10">
         <div className="flex items-center gap-4">
           <div className="w-1.5 h-8 bg-primary rounded-full animate-pulse shadow-[0_0_15px_var(--primary)]" />
-          <h3 className=" flex gap-6 text-2xl md:text-3xl font-bold text-foreground tracking-tight">
+          <h3 className="flex gap-6 text-2xl md:text-3xl font-bold text-foreground tracking-tight">
             <span className="capitalize">{title}</span>
             <span>#{serialNumber.toString().padStart(4, "0")}</span>
           </h3>
+          <ActionIcon
+            href={`/history/byLote/${serialNumber}`}
+            target="_self"
+            icon={ExternalLink}
+            iconClassName="size-4"
+            className="ml-auto bg-primary text-primary-foreground hover:text-primary"
+          />
         </div>
 
         <div className="flex flex-wrap items-center gap-x-8 gap-y-4 text-muted-foreground/80">

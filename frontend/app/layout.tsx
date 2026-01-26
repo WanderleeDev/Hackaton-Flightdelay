@@ -4,7 +4,10 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import HeaderPage from "@/components/shared/header-page";
 import FooterPage from "@/components/shared/footer-page";
-import { METADATA } from "@/src/modules/shared/data/metadata";
+import {
+  METADATA,
+  viewport as VIEWPORT,
+} from "@/src/modules/shared/data/metadata";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { Toaster } from "sonner";
 
@@ -19,6 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = { ...METADATA };
+export const viewport = VIEWPORT;
 
 export default function RootLayout({
   children,

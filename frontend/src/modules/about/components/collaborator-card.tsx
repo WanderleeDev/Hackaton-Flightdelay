@@ -6,6 +6,7 @@ interface CollaboratorCardProps {
   role: string;
   avatar: string;
   github: string;
+  username: string;
   linkedin: string;
   description?: string;
 }
@@ -18,6 +19,7 @@ export default function CollaboratorCard({
   role,
   avatar,
   github,
+  username,
   linkedin,
   description,
 }: CollaboratorCardProps) {
@@ -53,7 +55,8 @@ export default function CollaboratorCard({
           <ActionIcon href={github} icon={Github} />
           <ActionIcon href={linkedin} icon={Linkedin} />
           <ActionIcon
-            href="#"
+            target="_blank"
+            href={`/about/${username}`}
             icon={ExternalLink}
             iconClassName="size-4"
             className="ml-auto"

@@ -1,6 +1,6 @@
 import SectionHeader from "@/components/shared/section-header";
 import { History } from "lucide-react";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/src/modules/shared/utils/cn";
 import ListHistory from "./list-history";
 import ListHistorySkeleton from "../skeletons/list-history-skeleton";
 import ErrorSuspenseBoundary from "@/components/shared/error-suspense-boundary";

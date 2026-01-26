@@ -1,9 +1,9 @@
 import { Users } from "lucide-react";
 import SectionHeaders from "@/components/shared/section-header";
 
-import AboutFooter from "@/src/modules/about/about-footer";
 import { COLLABORATORS } from "@/src/modules/shared/data/collaborators";
-import CollaboratorCard from "@/src/modules/about/collaborator-card";
+import CollaboratorCard from "@/src/modules/about/components/collaborator-card";
+import AboutFooter from "@/src/modules/about/components/about-footer";
 
 const TITLE = "About Us";
 export const metadata = {
