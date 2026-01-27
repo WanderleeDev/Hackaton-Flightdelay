@@ -1,14 +1,14 @@
 import { ActionIcon } from "@/components/shared/action-icon";
 import GradientOverlayCard from "@/components/shared/gradient-overlay-card";
 import { Calendar, ExternalLink, Layers } from "lucide-react";
-import { PropsWithChildren } from "react";
+import { HTMLAttributes, PropsWithChildren } from "react";
 
-interface LoteSectionProps {
+type LoteSectionProps = HTMLAttributes<HTMLDivElement> & {
   title: string;
   date: string;
   simulationsCount: number;
   serialNumber: number;
-}
+};
 
 export default function LoteSection({
   title,
@@ -16,9 +16,10 @@ export default function LoteSection({
   simulationsCount,
   serialNumber,
   children,
+  ...props
 }: PropsWithChildren<LoteSectionProps>) {
   return (
-    <GradientOverlayCard>
+    <GradientOverlayCard {...props}>
       <div className="flex flex-col gap-4 mb-10 relative z-10">
         <div className="flex items-center gap-4">
           <div className="w-1.5 h-8 bg-primary rounded-full animate-pulse shadow-[0_0_15px_var(--primary)]" />
@@ -55,7 +56,7 @@ export default function LoteSection({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 relative z-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
         {children}
       </div>
     </GradientOverlayCard>

@@ -1,7 +1,5 @@
 "use client";
 
-import { useRef } from "react";
-import { useVirtualizer } from "@tanstack/react-virtual";
 import { useInfinitePredictionByLote } from "@/src/modules/history/hooks/useInfinitePredictionByLote";
 import LoteSection from "@/src/modules/history/components/lote-section";
 import PredictionCardB from "@/src/modules/history/components/prediction-card-b";
@@ -9,20 +7,19 @@ import PredictionStatsHeader from "@/src/modules/history/components/VirtualGrid/
 import { Button } from "@/components/ui/button";
 import { ArrowUp } from "lucide-react";
 import LoaderObserver from "@/components/shared/loader-observer";
+import { useVirtualizer, useWindowVirtualizer } from "@tanstack/react-virtual";
 
 export default function ListByLote() {
   const { data, fetchNextPage, hasNextPage } = useInfinitePredictionByLote();
   const allLotes = data ? data.pages.flatMap((page) => page.content) : [];
-  const parentRef = useRef<HTMLDivElement>(null);
-  const virtualizer = useVirtualizer({
+  const virtualizer = useWindowVirtualizer({
     count: allLotes.length,
-    gap: 64,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 400,
-    overscan: 2,
+    estimateSize: () => 200,
+    overscan: 3,
   });
+  const virtualItems = virtualizer.getVirtualItems();
 
-  const handleScrollToTop = () => parentRef.current?.scrollTo({ top: 0 });
+  const handleScrollToTop = () => window.scrollTo({ top: 0 });
 
   return (
     <>
@@ -30,6 +27,7 @@ export default function ListByLote() {
         <PredictionStatsHeader
           totalCount={allLotes.length}
           isLoadingMore={hasNextPage}
+          className="sticky top-20 z-50"
         >
           <Button
             onClick={handleScrollToTop}
@@ -41,55 +39,49 @@ export default function ListByLote() {
           </Button>
         </PredictionStatsHeader>
       )}
-      <div
-        ref={parentRef}
-        className="flex flex-col gap-8 relative z-10 overflow-auto"
-        style={{ height: "calc(100vh - 280px)" }}
-      >
+      <div className="overflow-auto">
         <div
+          className="relative"
           style={{
             height: `${virtualizer.getTotalSize()}px`,
-            width: "100%",
-            position: "relative",
           }}
         >
-          {virtualizer.getVirtualItems().map((virtualItem) => {
-            const lote = allLotes[virtualItem.index];
-            if (!lote) return null;
-
-            return (
-              <div
-                key={virtualItem.key}
-                data-index={virtualItem.index}
-                ref={virtualizer.measureElement}
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  transform: `translateY(${virtualItem.start}px)`,
-                }}
-              >
-                <LoteSection
-                  date={lote.createdAt}
-                  title={lote.batchName}
-                  simulationsCount={lote.total}
-                  serialNumber={lote.serialNumber}
+          <div
+            className="absolute top left-0 w-full"
+            style={{
+              transform: `translateY(${virtualItems[0]?.start ?? 0}px)`,
+            }}
+          >
+            {virtualItems.map(({ index, key }) => {
+              const lote = allLotes[index];
+              return (
+                <div
+                  className="my-12"
+                  key={key}
+                  data-index={index}
+                  ref={virtualizer.measureElement}
                 >
-                  {lote.histories.map((prediction) => (
-                    <PredictionCardB key={prediction.id} {...prediction} />
-                  ))}
-                </LoteSection>
-              </div>
-            );
-          })}
+                  <LoteSection
+                    date={lote.createdAt}
+                    title={lote.batchName}
+                    simulationsCount={lote.total}
+                    serialNumber={lote.serialNumber}
+                  >
+                    {lote.histories.map((prediction) => (
+                      <PredictionCardB key={prediction.id} {...prediction} />
+                    ))}
+                  </LoteSection>
+                </div>
+              );
+            })}
+            {hasNextPage && (
+              <LoaderObserver
+                action={fetchNextPage}
+                label="loading more lotes..."
+              />
+            )}
+          </div>
         </div>
-        {hasNextPage && (
-          <LoaderObserver
-            action={fetchNextPage}
-            label="loading more lotes..."
-          />
-        )}
       </div>
     </>
   );
