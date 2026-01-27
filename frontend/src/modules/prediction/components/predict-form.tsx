@@ -103,7 +103,7 @@ export default function PredictForm() {
     <aside className="flex flex-col gap-4">
       <form
         onSubmit={handleSubmit}
-        className="@container p-2 sm:p-5 md:p-8 w-full rounded-md gap-2 border max-w-3xl mx-auto overflow-y-scroll custom-scrollbar"
+        className="@container p-2 sm:p-5 md:p-8 w-full rounded-md gap-2 border max-w-3xl mx-auto overflow-y-scroll "
         aria-label="Flight prediction form"
         noValidate
       >
@@ -402,8 +402,8 @@ export default function PredictForm() {
                     id="flight-distance-range"
                     className="flex justify-between text-xs text-muted-foreground"
                   >
-                    <span>Min: {formatDistance(MIN_DISTANCE)}</span>
-                    <span>Max: {formatDistance(MAX_DISTANCE)}</span>
+                    <span>Min: {formatDistance(MIN_DISTANCE, false)} a</span>
+                    <span>Max: {formatDistance(MAX_DISTANCE, false)}</span>
                   </div>
                   {fieldState.invalid && (
                     <FieldError

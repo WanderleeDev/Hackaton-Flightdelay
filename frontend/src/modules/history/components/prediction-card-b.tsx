@@ -13,11 +13,12 @@ import { cn } from "@/src/modules/shared/utils/cn";
 import { formatDelayProbability } from "@/src/modules/shared/utils/formatDelayProbability";
 import { Prediction } from "../interfaces";
 import { format } from "date-fns";
+import { HTMLAttributes } from "react";
 
 export type PredictionStatus = "succeeded" | "delayed" | "failed";
 export type AtmosphericType = "live" | "storm" | "tailwind" | "none";
 
-type HistoryCardProps = Prediction;
+type HistoryCardProps = HTMLAttributes<HTMLDivElement> & Prediction;
 
 const statusConfig = {
   succeeded: {
@@ -57,6 +58,7 @@ export default function PredictionCardB({
   departureDate,
   distanceKm,
   atmospherics,
+  ...props
 }: HistoryCardProps) {
   const config = statusConfig[status];
   const atmospheric = atmosphericConfig[atmospherics ?? "none"];
@@ -66,6 +68,7 @@ export default function PredictionCardB({
     <div
       className="bg-card/50 backdrop-blur-sm border border-border rounded-3xl p-6 transition-all duration-300 hover:border-primary/50 hover:shadow-2xl focus-within:border-primary/50 focus-within:shadow-2xl"
       tabIndex={1}
+      {...props}
     >
       <div className="flex justify-between items-center mb-6">
         <span

@@ -21,7 +21,8 @@ export const useInfinityPredictionByLoteById = (id: string) => {
 };
 
 export const useInfinitePredictionByLote = () => {
-  return useInfinityPagination<Lote>(["history-lote"], () =>
-    getAllPredictionsLote({ pageParam: 0 }),
-  );
+  return useInfinityPagination<Lote>({
+    queryKey: ["history-lote"],
+    fetchFn: (pageParam) => getAllPredictionsLote({ pageParam }),
+  });
 };

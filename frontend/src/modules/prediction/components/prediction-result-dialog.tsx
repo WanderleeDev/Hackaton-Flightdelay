@@ -63,6 +63,7 @@ export default function PredictionResultDialog({
         className="sm:max-w-md bg-stone-950 border-stone-800 text-stone-100 overflow-hidden p-0 shadow-2xl"
         onInteractOutside={(e) => e.preventDefault()}
         onEscapeKeyDown={(e) => e.preventDefault()}
+        showCloseButton={false}
       >
         <div
           className={cn(

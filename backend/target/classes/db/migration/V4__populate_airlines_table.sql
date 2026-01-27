@@ -1,0 +1,22 @@
+-- Populate airlines table with airline codes and names
+INSERT INTO airlines (name, code) VALUES
+('Continental Airlines', 'CO'),
+('US Airways', 'US'),
+('American Airlines', 'AA'),
+('Alaska Airlines', 'AS'),
+('Delta Air Lines', 'DL'),
+('JetBlue Airways', 'B6'),
+('Hawaiian Airlines', 'HA'),
+('SkyWest Airlines', 'OO'),
+('Endeavor Air', '9E'),
+('PSA Airlines', 'OH'),
+('ExpressJet', 'EV'),
+('ExpressJet Airlines', 'XE'),
+('Mesa Airlines', 'YV'),
+('United Airlines', 'UA'),
+('Envoy Air', 'MQ'),
+('AirTran Airways', 'FL'),
+('Frontier Airlines', 'F9'),
+('Southwest Airlines', 'WN'),
+('Spirit Airlines', 'NK'),
+('Virgin America', 'VX');

@@ -40,7 +40,7 @@ export default function GlobalMap({ className }: GlobalMapProps) {
     return [];
   }, [origin, destination]);
 
-  const routeColor = "var(--brand-accent)";
+  const routeColor = "#00a8e8"; // Use hex because Mapbox/MapLibre doesn't support CSS variables in layers
   const routeOpacity = resolvedTheme === "dark" ? 0.9 : 0.7;
 
   useEffect(() => {
@@ -134,8 +134,8 @@ export default function GlobalMap({ className }: GlobalMapProps) {
                   className={cn(
                     "relative size-3 bg-white rounded-full border-2 shadow-md",
                     resolvedTheme === "dark"
-                      ? "border-[var(--brand-surface)]"
-                      : "border-[var(--brand-base)]",
+                      ? "border-(--brand-surface)"
+                      : "border-(--brand-base)",
                   )}
                 />
                 <span
@@ -162,10 +162,10 @@ export default function GlobalMap({ className }: GlobalMapProps) {
             <MarkerContent className="flex items-center justify-center">
               <div className="relative flex items-center justify-center">
                 <div
-                  className="absolute size-6 bg-[var(--brand-accent)] rounded-full animate-ping opacity-75"
+                  className="absolute size-6 bg-(--brand-accent) rounded-full animate-ping opacity-75"
                   style={{ animationDelay: "1s" }}
                 />
-                <div className="relative size-3 bg-white rounded-full border-2 border-[var(--brand-accent)] shadow-[0_0_10px_rgba(0,168,232,0.8)]" />
+                <div className="relative size-3 bg-white rounded-full border-2 border-(--brand-accent) shadow-[0_0_10px_rgba(0,168,232,0.8)]" />
                 <span
                   className="absolute left-5 ml-1 text-white text-xs font-bold tracking-tight drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] whitespace-nowrap"
                   style={{ fontFamily: "Space Grotesk, sans-serif" }}

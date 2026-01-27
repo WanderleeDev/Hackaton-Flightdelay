@@ -11,11 +11,11 @@ export default function ListHistory() {
   const { data, hasNextPage, fetchNextPage } = useInfinitePrediction();
 
   return (
-    <div className="flex-1 overflow-y-auto space-y-3 custom-scrollbar  p-2 w-full rounded-md gap-2 border max-w-3xl mx-auto">
+    <div className="flex-1 overflow-y-auto space-y-3  p-2 w-full rounded-md gap-2 border max-w-3xl mx-auto">
       {match(!data?.pages.length)
         .with(false, () =>
           data?.pages.map((page, idx) =>
-            page.content.map((item) => (
+            page.content?.map((item) => (
               <motion.div
                 key={item.id}
                 initial={{ opacity: 0, y: 10 }}

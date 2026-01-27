@@ -5,13 +5,21 @@ import {
 } from "@tanstack/react-query";
 import { Pagination } from "../../history/interfaces";
 
-export function useInfinityPagination<T>(
-  queryKey: string[],
-  fetchFn: () => Promise<Pagination<T>>,
-): UseInfiniteQueryResult<InfiniteData<Pagination<T>, unknown>, Error> {
+interface UseInfinityPaginationProps<T> {
+  queryKey: string[];
+  fetchFn: (pageParam: number) => Promise<Pagination<T>>;
+}
+
+export function useInfinityPagination<T>({
+  queryKey,
+  fetchFn,
+}: UseInfinityPaginationProps<T>): UseInfiniteQueryResult<
+  InfiniteData<Pagination<T>, unknown>,
+  Error
+> {
   return useInfiniteQuery({
     queryKey,
-    queryFn: fetchFn,
+    queryFn: ({ pageParam }) => fetchFn(pageParam),
     initialPageParam: 0,
     getNextPageParam: ({ last, pageNumber }) => {
       const nextPage = !last ? pageNumber + 1 : undefined;

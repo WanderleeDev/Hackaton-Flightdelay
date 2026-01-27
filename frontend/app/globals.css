@@ -197,14 +197,14 @@
     &::-webkit-scrollbar {
       width: 5px;
     }
+
     &::-webkit-scrollbar-track {
-      background: transparent;
+      background: #00a6e838;
     }
+
     &::-webkit-scrollbar-thumb {
-      @apply bg-muted rounded-full;
-    }
-    &::-webkit-scrollbar-thumb:hover {
-      @apply bg-muted-foreground/50;
+      background: #017bac;
+      border-radius: 9999px;
     }
   }
 }

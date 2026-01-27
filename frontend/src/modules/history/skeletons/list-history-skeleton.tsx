@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function ListHistorySkeleton() {
   return (
-    <div className="flex-1 overflow-y-auto space-y-3 custom-scrollbar p-2 w-full rounded-md gap-2 border max-w-3xl mx-auto">
+    <div className="flex-1 overflow-y-auto space-y-3 p-2 w-full rounded-md gap-2 border max-w-3xl mx-auto">
       {[...Array(3)].map((_, i) => (
         <Card key={i} className="overflow-hidden border-muted/50 shadow-sm">
           <CardContent className="p-4">
@@ -26,7 +26,7 @@ export default function ListHistorySkeleton() {
 
               <div className="flex-1 flex flex-col items-center gap-1 px-4">
                 <div className="w-full relative flex items-center">
-                  <Skeleton className="h-[1px] w-full" />
+                  <Skeleton className="h-px w-full" />
                   <Skeleton className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-3 w-3 rounded-full" />
                 </div>
                 <Skeleton className="h-2 w-16 mt-1" />
@@ -41,7 +41,7 @@ export default function ListHistorySkeleton() {
               </div>
             </div>
 
-            <Skeleton className="my-4 h-[1px] w-full" />
+            <Skeleton className="my-4 h-px w-full" />
 
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-1">

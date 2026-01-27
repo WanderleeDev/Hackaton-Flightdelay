@@ -2,7 +2,7 @@ import GradientOverlayCard from "@/components/shared/gradient-overlay-card";
 import { Metadata } from "next";
 import ErrorSuspenseBoundary from "@/components/shared/error-suspense-boundary";
 import PredictionsSkeleton from "@/src/modules/history/skeletons/predictions-skeleton";
-import ListPredictions from "@/src/modules/history/components/list-predictions";
+import ListPredictions from "@/src/modules/history/components/VirtualGrid";
 
 const TITLE = "History";
 
