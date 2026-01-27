@@ -1,8 +1,4 @@
-import {
-  UseInfiniteQueryResult,
-  InfiniteData,
-  useInfiniteQuery,
-} from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { Pagination } from "../../history/interfaces";
 
 interface UseInfinityPaginationProps<T> {
@@ -13,11 +9,8 @@ interface UseInfinityPaginationProps<T> {
 export function useInfinityPagination<T>({
   queryKey,
   fetchFn,
-}: UseInfinityPaginationProps<T>): UseInfiniteQueryResult<
-  InfiniteData<Pagination<T>, unknown>,
-  Error
-> {
-  return useInfiniteQuery({
+}: UseInfinityPaginationProps<T>) {
+  return useSuspenseInfiniteQuery({
     queryKey,
     queryFn: ({ pageParam }) => fetchFn(pageParam),
     initialPageParam: 0,

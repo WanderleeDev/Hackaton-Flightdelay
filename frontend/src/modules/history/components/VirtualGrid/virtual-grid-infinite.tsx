@@ -3,6 +3,8 @@ import PredictionCardSkeleton from "../../skeletons/prediction-card-skeleton";
 import GridContainer from "./grid-container";
 import ItemContainer from "./item-container";
 import GridFooter from "./grid-footer";
+import LoaderObserver from "@/components/shared/loader-observer";
+import EmptyState from "@/components/shared/empty-state";
 
 interface VirtualGridInfiniteProps<T> {
   ref?: React.Ref<VirtuosoGridHandle>;
@@ -30,12 +32,7 @@ export default function VirtualGridInfinite<T>({
   overscan = 10,
   scrollSeekVelocity = { enter: 500, exit: 50 },
 }: VirtualGridInfiniteProps<T>) {
-  const Footer = () => (
-    <GridFooter
-      hasNextPage={hasNextPage}
-      isFetchingNextPage={isFetchingNextPage}
-    />
-  );
+  if (data.length === 0) return <EmptyState message="No lotes found" />;
 
   return (
     <VirtuosoGrid
@@ -46,7 +43,7 @@ export default function VirtualGridInfinite<T>({
       components={{
         List: GridContainer,
         Item: ItemContainer,
-        Footer,
+        Footer: () => <GridFooter {...{ hasNextPage, isFetchingNextPage }} />,
         ScrollSeekPlaceholder: PredictionCardSkeleton,
       }}
       scrollSeekConfiguration={{
@@ -54,9 +51,7 @@ export default function VirtualGridInfinite<T>({
         exit: (velocity) => Math.abs(velocity) < scrollSeekVelocity.exit,
       }}
       itemContent={renderItem}
-      endReached={() => {
-        if (hasNextPage && !isFetchingNextPage) fetchNextPage();
-      }}
+      endReached={() => hasNextPage && fetchNextPage()}
       overscan={overscan}
     />
   );

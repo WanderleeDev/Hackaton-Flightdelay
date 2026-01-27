@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getApiBaseUrl } from "@/src/modules/shared/utils/getEnv";
 import { Schema } from "../schemas/form.schema";
 
@@ -48,7 +48,14 @@ interface PredictionError {
 }
 
 export const usePrediction = () => {
+  const queryClient = useQueryClient();
+
   return useMutation<PredictionResponse, PredictionError, Schema>({
     mutationFn: fetchPrediction,
+    onSuccess: () => {
+      // Invalida todas las queries del historial para que se actualicen automáticamente
+      queryClient.invalidateQueries({ queryKey: ["history"] });
+      queryClient.invalidateQueries({ queryKey: ["histories"] });
+    },
   });
 };

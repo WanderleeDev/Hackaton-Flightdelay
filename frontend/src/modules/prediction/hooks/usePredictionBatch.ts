@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getApiBaseUrl } from "@/src/modules/shared/utils/getEnv";
 import { Lote } from "@/src/modules/history/interfaces";
 
@@ -52,7 +52,15 @@ const fetchPredictionBatch = async ({
 };
 
 export const usePredictionBatch = () => {
+  const queryClient = useQueryClient();
+
   return useMutation<Lote, BatchPredictionError, BatchPredictionParams>({
     mutationFn: fetchPredictionBatch,
+    onSuccess: () => {
+      // Invalida las queries del historial y lotes para que se actualicen automáticamente
+      queryClient.invalidateQueries({ queryKey: ["history"] });
+      queryClient.invalidateQueries({ queryKey: ["histories"] });
+      queryClient.invalidateQueries({ queryKey: ["lotes"] });
+    },
   });
 };

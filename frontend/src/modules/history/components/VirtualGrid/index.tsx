@@ -29,7 +29,6 @@ export default function ListPredictions() {
           totalCount={allPredictions.length}
           delayedCount={delayed}
           onTimeCount={succeeded}
-          isLoadingMore={hasNextPage}
         >
           <Button
             onClick={handleScrollToTop}

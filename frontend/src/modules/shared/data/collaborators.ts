@@ -28,7 +28,7 @@ export const COLLABORATORS = [
     linkedin:
       "https://www.linkedin.com/in/wanderlee-gutierrez-gamboa-6a979439b/",
     description:
-      "Graduate of the Oracle Next Education program (Backend Developer)",
+      "My goal is not only to align the Frontend with the Backend, but also to unite the team so that together we generate solutions that provide real value in what we develop.",
   },
   {
     name: "Santiago Camelo",

@@ -6,6 +6,7 @@ import PredictionCardA from "./prediction-card-a";
 import { match } from "ts-pattern";
 import { useInfinitePrediction } from "../hooks/useInfinitePrediction";
 import LoaderObserver from "@/components/shared/loader-observer";
+import EmptyState from "@/components/shared/empty-state";
 
 export default function ListHistory() {
   const { data, hasNextPage, fetchNextPage } = useInfinitePrediction();
@@ -28,12 +29,7 @@ export default function ListHistory() {
           ),
         )
         .otherwise(() => (
-          <div className="flex flex-col items-center justify-center py-12 text-center h-full">
-            <Inbox className="mb-4 size-10 text-muted-foreground/50" />
-            <p className="text-sm text-muted-foreground">
-              No predictions found
-            </p>
-          </div>
+          <EmptyState message="No predictions found" />
         ))}
 
       {hasNextPage && <LoaderObserver action={fetchNextPage} />}
