@@ -1,5 +1,6 @@
 package com.hackathon.flight_ontime.history.mapper;
 
+import com.hackathon.flight_ontime.history.dto.BatchHistoryPreviewResponseDto;
 import com.hackathon.flight_ontime.history.dto.BatchHistoryResponseDto;
 import com.hackathon.flight_ontime.history.dto.HistoryResponseDto;
 import com.hackathon.flight_ontime.history.model.History;
@@ -10,6 +11,7 @@ import com.hackathon.flight_ontime.predict.DTO.FastApiBatchResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -32,25 +34,17 @@ public interface HistoryRecordMapper {
 
     @Mapping(target = "total", expression = "java(histories != null ? histories.size() : 0)")
     @Mapping(target = "histories", source = "histories", qualifiedByName = "mapHistories")
-    BatchHistoryResponseDto toBatchDto(HistoryBatch batch);
+    BatchHistoryPreviewResponseDto toBatchPreviewDto(HistoryBatch batch);
+
+    @Mapping(target = "histories", expression = "java(mapHistoriesPage(histories))")
+    BatchHistoryResponseDto toBatchDto(HistoryBatch batch, Page<History> histories);
+
 
     @Mapping(target = "id", ignore = true)
     History toEntity(FastApiBatchResponse fastApiBatchResponse);
 
     @Mapping(target = "id", ignore = true)
     History toEntity(FastApiBatchResponse fastApiBatchResponse, UUID batchId);
-
-
-   default  List<History> toEntityList(List<FastApiBatchResponse> fastApiBatchResponses) {
-        if (fastApiBatchResponses == null || fastApiBatchResponses.isEmpty()) {
-            return null;
-        }
-
-        return fastApiBatchResponses.stream()
-                .map(this::toEntity)
-                .collect(Collectors.toList());
-    }
-
 
     @Mapping(target = "batchName", source = "batchName")
     @Mapping(target = "serialNumber", ignore = true)
@@ -69,5 +63,22 @@ public interface HistoryRecordMapper {
     @Named("mapStatus")
     default String mapStatus(Integer value) {
         return value == 1 ? "delayed" : "succeeded";
+    }
+
+    default  List<History> toEntityList(List<FastApiBatchResponse> fastApiBatchResponses) {
+        if (fastApiBatchResponses == null || fastApiBatchResponses.isEmpty()) {
+            return null;
+        }
+
+        return fastApiBatchResponses.stream()
+                .map(this::toEntity)
+                .collect(Collectors.toList());
+    }
+
+    default Page<HistoryResponseDto> mapHistoriesPage(Page<History> histories) {
+        if (histories == null) {
+            return Page.empty();
+        }
+        return histories.map(this::toDto);
     }
 }

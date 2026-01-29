@@ -1,7 +1,6 @@
 package com.hackathon.flight_ontime.predict.service;
 
-import com.hackathon.flight_ontime.history.dto.BatchHistoryResponseDto;
-import com.hackathon.flight_ontime.history.mapper.BatchHistoryMapper;
+import com.hackathon.flight_ontime.history.dto.BatchHistoryPreviewResponseDto;
 import com.hackathon.flight_ontime.history.mapper.HistoryRecordMapper;
 import com.hackathon.flight_ontime.history.model.History;
 import com.hackathon.flight_ontime.history.model.HistoryBatch;
@@ -37,7 +36,6 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA;
 
@@ -91,7 +89,7 @@ public class PredictService {
     }
 
     @Transactional
-    public BatchHistoryResponseDto processBatchPredictionsEx(MultipartFile file, String batchName) {
+    public BatchHistoryPreviewResponseDto processBatchPredictionsEx(MultipartFile file, String batchName) {
         csvService.validateCsv(file);
         byte[] enrichedCsvBytes = csvService.enrichCsv(file);
 
@@ -129,7 +127,7 @@ public class PredictService {
 
         System.out.println(batchWithGeneratedFields);
 
-        return historyRecordMapper.toBatchDto(batchWithGeneratedFields);
+        return historyRecordMapper.toBatchPreviewDto(batchWithGeneratedFields);
     }
 
 

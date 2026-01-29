@@ -1,15 +1,20 @@
 import { getApiBaseUrl } from "../../shared/utils/getEnv";
 import { Pagination, Prediction } from "../interfaces";
 
+interface PredictionLoteByIdOptions {
+  idLote: string;
+  pageParam?: number;
+  size?: number;
+}
+
 export async function getPredictionsByLoteId({
-  pageParam,
-  id,
-}: {
-  pageParam: number;
-  id: string;
-}): Promise<Pagination<Prediction>> {
+  idLote,
+  pageParam = 0,
+  size = 20,
+}: PredictionLoteByIdOptions): Promise<Pagination<Prediction>> {
   const res = await fetch(
-    `${getApiBaseUrl()}/history/batches/${id}?page=${pageParam}&size=20`,
+    `${getApiBaseUrl()}/history/batches/${idLote}?page=${pageParam}&size=${size}`,
+    { headers: { "Content-Type": "application/json" } },
   );
 
   return res.json();

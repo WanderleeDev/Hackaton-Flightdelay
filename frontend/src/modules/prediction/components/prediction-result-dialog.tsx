@@ -6,8 +6,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { PredictionResponse } from "../hooks/useprediction";
-import { Schema } from "../schemas/form.schema";
+import { PredictionResponse } from "../services/predictFlightDelay";
+import { formSchemaType } from "../schemas/form.schema";
 import {
   Plane,
   AlertCircle,
@@ -28,7 +28,7 @@ interface PredictionResultDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   result: PredictionResponse | null;
-  formData: Schema | null;
+  formData: formSchemaType | null;
 }
 
 export default function PredictionResultDialog({

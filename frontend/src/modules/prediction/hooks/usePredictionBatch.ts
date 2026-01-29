@@ -57,10 +57,8 @@ export const usePredictionBatch = () => {
   return useMutation<Lote, BatchPredictionError, BatchPredictionParams>({
     mutationFn: fetchPredictionBatch,
     onSuccess: () => {
-      // Invalida las queries del historial y lotes para que se actualicen automáticamente
-      queryClient.invalidateQueries({ queryKey: ["history"] });
       queryClient.invalidateQueries({ queryKey: ["histories"] });
-      queryClient.invalidateQueries({ queryKey: ["lotes"] });
+      queryClient.invalidateQueries({ queryKey: ["history-lote"] });
     },
   });
 };

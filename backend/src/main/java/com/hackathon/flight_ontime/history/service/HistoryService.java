@@ -1,7 +1,7 @@
 package com.hackathon.flight_ontime.history.service;
 
 import com.hackathon.flight_ontime.common.dto.PageResponseDto;
-import com.hackathon.flight_ontime.history.dto.BatchHistoryResponseDto;
+import com.hackathon.flight_ontime.history.dto.BatchHistoryPreviewResponseDto;
 import com.hackathon.flight_ontime.history.dto.HistoryResponseDto;
 import com.hackathon.flight_ontime.history.mapper.HistoryRecordMapper;
 import com.hackathon.flight_ontime.history.model.History;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -30,7 +31,7 @@ public class HistoryService implements IHistoryService {
     private final IBatchHistoryRepository batchHistoryRepository;
 
     @Override
-    public PageResponseDto<HistoryResponseDto> getAllHistories(Pageable pageable) {
+    public PageResponseDto<HistoryResponseDto> getHistories(Pageable pageable) {
         Page<History> historyPage = historyRepository.findAll(pageable);
 
         return new PageResponseDto<HistoryResponseDto>(
@@ -45,7 +46,7 @@ public class HistoryService implements IHistoryService {
     }
 
     @Override
-    public PageResponseDto<BatchHistoryResponseDto> getAllBatchHistories(Pageable pageable) {
+    public PageResponseDto<BatchHistoryPreviewResponseDto> getBatchHistories(Pageable pageable) {
         if (pageable.getSort().isUnsorted()) {
             pageable = PageRequest.of(
                     pageable.getPageNumber(),
@@ -55,11 +56,11 @@ public class HistoryService implements IHistoryService {
         }
 
         Page<HistoryBatch> batchPage = batchHistoryRepository.findAll(pageable);
-        List<BatchHistoryResponseDto> batchHistoryPreview = batchPage.getContent().stream().map(batch -> {
+        List<BatchHistoryPreviewResponseDto> batchHistoryPreview = batchPage.getContent().stream().map(batch -> {
             Pageable historyPageable = PageRequest.of(0, MAX_PREVIEW);
             Page<History> historyPreview = historyRepository.findByBatch_Id(batch.getId(), historyPageable);
 
-            return new BatchHistoryResponseDto(
+            return new BatchHistoryPreviewResponseDto(
                 batch.getId(),
                 batch.getBatchName(),
                 historyMapper.toDtoList(historyPreview.getContent()),
@@ -69,7 +70,7 @@ public class HistoryService implements IHistoryService {
             );
         }).toList();
 
-        return new PageResponseDto<BatchHistoryResponseDto>(
+        return new PageResponseDto<BatchHistoryPreviewResponseDto>(
                 batchHistoryPreview,
                 batchPage.getNumber(),
                 batchPage.getSize(),
@@ -81,16 +82,13 @@ public class HistoryService implements IHistoryService {
     }
 
     @Override
-    public PageResponseDto<HistoryResponseDto> getAllHistoryByBatchId(UUID batchId, Pageable pageable) {
-        Page<History> page = historyRepository.findByBatch_Id(batchId, pageable);
-        return new PageResponseDto<HistoryResponseDto>(
-                historyMapper.toDtoList(page.getContent()),
-                page.getNumber(),
-                page.getSize(),
-                page.getTotalElements(),
-                page.getTotalPages(),
-                page.isLast(),
-                page.isFirst()
-        );
+    public Page<History> getHistoriesById(UUID batchId, Pageable pageable) {
+        return historyRepository.findByBatch_Id(batchId, pageable);
+    }
+
+
+    @Override
+    public Optional<HistoryBatch> getBatchById(UUID batchId) {
+        return batchHistoryRepository.findById(batchId);
     }
 }

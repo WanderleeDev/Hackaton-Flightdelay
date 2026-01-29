@@ -1,14 +1,14 @@
 package com.hackathon.flight_ontime.history.dto;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+
 import java.util.UUID;
 
 public record BatchHistoryResponseDto(
         UUID id,
         String batchName,
-        List<HistoryResponseDto> histories,
+        Page<HistoryResponseDto> histories,
         Integer serialNumber,
-        Integer total,
         String createdAt
 ) {
 }

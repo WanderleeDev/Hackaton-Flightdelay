@@ -40,4 +40,4 @@ export const formSchema = z
     path: ["destination"],
   });
 
-export type Schema = z.infer<typeof formSchema>;
+export type formSchemaType = z.infer<typeof formSchema>;

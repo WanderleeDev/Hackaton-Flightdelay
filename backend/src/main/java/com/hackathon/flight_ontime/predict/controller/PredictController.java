@@ -1,13 +1,11 @@
 package com.hackathon.flight_ontime.predict.controller;
 
-import com.hackathon.flight_ontime.history.dto.BatchHistoryResponseDto;
+import com.hackathon.flight_ontime.history.dto.BatchHistoryPreviewResponseDto;
 import com.hackathon.flight_ontime.predict.DTO.BatchPredictionResponse;
 import com.hackathon.flight_ontime.predict.DTO.DataRequest;
 import com.hackathon.flight_ontime.predict.DTO.DataResponse;
 import com.hackathon.flight_ontime.predict.service.PredictService;
 import lombok.AllArgsConstructor;
-
-import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -51,7 +49,7 @@ public class PredictController {
     }
 
     @PostMapping(value = "/predict/batchEx", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<BatchHistoryResponseDto> batchPredictionEx(
+    public ResponseEntity<BatchHistoryPreviewResponseDto> batchPredictionEx(
             @RequestParam("file") MultipartFile file,
             @RequestParam("batchName") String batchName
     ) {

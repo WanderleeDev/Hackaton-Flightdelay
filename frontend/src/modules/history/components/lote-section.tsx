@@ -4,6 +4,7 @@ import { Calendar, ExternalLink, Layers } from "lucide-react";
 import { HTMLAttributes, PropsWithChildren } from "react";
 
 type LoteSectionProps = HTMLAttributes<HTMLDivElement> & {
+  id: string;
   title: string;
   date: string;
   simulationsCount: number;
@@ -16,6 +17,7 @@ export default function LoteSection({
   simulationsCount,
   serialNumber,
   children,
+  id,
   ...props
 }: PropsWithChildren<LoteSectionProps>) {
   return (
@@ -28,7 +30,7 @@ export default function LoteSection({
             <span>#{serialNumber.toString().padStart(4, "0")}</span>
           </h3>
           <ActionIcon
-            href={`/history/byLote/${serialNumber}`}
+            href={`/history/byLote/${id}`}
             target="_self"
             icon={ExternalLink}
             iconClassName="size-4"

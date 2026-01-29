@@ -1,5 +1,5 @@
 "use client";
-import { formSchema, Schema } from "../schemas/form.schema";
+import { formSchema, formSchemaType } from "../schemas/form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
@@ -53,10 +53,12 @@ const MAX_DISTANCE = 13_500;
 
 export default function PredictForm() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [submittedData, setSubmittedData] = useState<Schema | null>(null);
+  const [submittedData, setSubmittedData] = useState<formSchemaType | null>(
+    null,
+  );
   const { setOrigin, setDestination } = useMapSelection();
 
-  const form = useForm<Schema>({
+  const form = useForm<formSchemaType>({
     resolver: zodResolver(formSchema as any),
     defaultValues: {
       origin: "",
@@ -70,7 +72,7 @@ export default function PredictForm() {
 
   const { mutate, isPending, data } = usePrediction();
 
-  const handleSubmit = form.handleSubmit(async (formData: Schema) => {
+  const handleSubmit = form.handleSubmit(async (formData: formSchemaType) => {
     setSubmittedData(formData);
     mutate(formData, {
       onSuccess: () => {

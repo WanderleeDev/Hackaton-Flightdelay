@@ -1,5 +1,6 @@
 package com.hackathon.flight_ontime.history.mapper;
 
+import com.hackathon.flight_ontime.history.dto.BatchHistoryPreviewResponseDto;
 import com.hackathon.flight_ontime.history.dto.BatchHistoryResponseDto;
 import com.hackathon.flight_ontime.history.dto.HistoryResponseDto;
 import com.hackathon.flight_ontime.history.model.History;
@@ -12,12 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.annotation.processing.Generated;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-01-24T14:25:13-0500",
-    comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.45.0.v20260101-2150, environment: Java 21.0.9 (Eclipse Adoptium)"
+    date = "2026-01-29T00:39:07-0500",
+    comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.6 (Amazon.com Inc.)"
 )
 @Component
 public class HistoryRecordMapperImpl implements HistoryRecordMapper {
@@ -83,17 +85,17 @@ public class HistoryRecordMapperImpl implements HistoryRecordMapper {
         }
         if ( request != null ) {
             history.setAirline( request.airline() );
-            history.setDepartureDate( request.departureDate() );
-            history.setDestination( request.destination() );
-            history.setDistanceKm( request.distanceKm() );
             history.setOrigin( request.origin() );
+            history.setDestination( request.destination() );
+            history.setDepartureDate( request.departureDate() );
+            history.setDistanceKm( request.distanceKm() );
         }
 
         return history;
     }
 
     @Override
-    public BatchHistoryResponseDto toBatchDto(HistoryBatch batch) {
+    public BatchHistoryPreviewResponseDto toBatchPreviewDto(HistoryBatch batch) {
         if ( batch == null ) {
             return null;
         }
@@ -114,7 +116,33 @@ public class HistoryRecordMapperImpl implements HistoryRecordMapper {
 
         Integer total = histories != null ? histories.size() : 0;
 
-        BatchHistoryResponseDto batchHistoryResponseDto = new BatchHistoryResponseDto( id, batchName, histories, serialNumber, total, createdAt );
+        BatchHistoryPreviewResponseDto batchHistoryPreviewResponseDto = new BatchHistoryPreviewResponseDto( id, batchName, histories, serialNumber, total, createdAt );
+
+        return batchHistoryPreviewResponseDto;
+    }
+
+    @Override
+    public BatchHistoryResponseDto toBatchDto(HistoryBatch batch, Page<History> histories) {
+        if ( batch == null && histories == null ) {
+            return null;
+        }
+
+        UUID id = null;
+        String batchName = null;
+        Integer serialNumber = null;
+        String createdAt = null;
+        if ( batch != null ) {
+            id = batch.getId();
+            batchName = batch.getBatchName();
+            serialNumber = batch.getSerialNumber();
+            if ( batch.getCreatedAt() != null ) {
+                createdAt = DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( batch.getCreatedAt() );
+            }
+        }
+
+        Page<HistoryResponseDto> histories1 = mapHistoriesPage(histories);
+
+        BatchHistoryResponseDto batchHistoryResponseDto = new BatchHistoryResponseDto( id, batchName, histories1, serialNumber, createdAt );
 
         return batchHistoryResponseDto;
     }
@@ -128,14 +156,14 @@ public class HistoryRecordMapperImpl implements HistoryRecordMapper {
         History history = new History();
 
         history.setAirline( fastApiBatchResponse.airline() );
+        history.setOrigin( fastApiBatchResponse.origin() );
+        history.setDestination( fastApiBatchResponse.destination() );
+        history.setDepartureDate( fastApiBatchResponse.departureDate() );
+        history.setDistanceKm( fastApiBatchResponse.distanceKm() );
         if ( fastApiBatchResponse.delayPrediction() != null ) {
             history.setDelayPrediction( fastApiBatchResponse.delayPrediction().doubleValue() );
         }
         history.setDelayProbability( fastApiBatchResponse.delayProbability() );
-        history.setDepartureDate( fastApiBatchResponse.departureDate() );
-        history.setDestination( fastApiBatchResponse.destination() );
-        history.setDistanceKm( fastApiBatchResponse.distanceKm() );
-        history.setOrigin( fastApiBatchResponse.origin() );
 
         return history;
     }
@@ -150,14 +178,14 @@ public class HistoryRecordMapperImpl implements HistoryRecordMapper {
 
         if ( fastApiBatchResponse != null ) {
             history.setAirline( fastApiBatchResponse.airline() );
+            history.setOrigin( fastApiBatchResponse.origin() );
+            history.setDestination( fastApiBatchResponse.destination() );
+            history.setDepartureDate( fastApiBatchResponse.departureDate() );
+            history.setDistanceKm( fastApiBatchResponse.distanceKm() );
             if ( fastApiBatchResponse.delayPrediction() != null ) {
                 history.setDelayPrediction( fastApiBatchResponse.delayPrediction().doubleValue() );
             }
             history.setDelayProbability( fastApiBatchResponse.delayProbability() );
-            history.setDepartureDate( fastApiBatchResponse.departureDate() );
-            history.setDestination( fastApiBatchResponse.destination() );
-            history.setDistanceKm( fastApiBatchResponse.distanceKm() );
-            history.setOrigin( fastApiBatchResponse.origin() );
         }
 
         return history;

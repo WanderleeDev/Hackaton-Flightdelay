@@ -51,6 +51,7 @@ export default function ListByLote() {
             <LoteSection
               key={lote.serialNumber}
               data-idx={idx}
+              id={lote.id}
               date={lote.createdAt}
               title={lote.batchName}
               simulationsCount={lote.total}
