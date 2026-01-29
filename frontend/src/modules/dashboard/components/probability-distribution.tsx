@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { HelpTooltip } from "@/components/shared/help-tooltip";
 import { Prediction } from "@/src/modules/history/interfaces";
 
 interface ProbabilityDistributionProps {
@@ -53,7 +54,10 @@ export function ProbabilityDistribution({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Probability Distribution</CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle>Probability Distribution</CardTitle>
+          <HelpTooltip text="Distribution of flights by delay probability range" />
+        </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">

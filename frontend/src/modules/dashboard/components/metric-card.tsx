@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { HelpTooltip } from "@/components/shared/help-tooltip";
 import { LucideIcon } from "lucide-react";
 import { cn } from "@/src/modules/shared/utils/cn";
 
@@ -8,6 +9,7 @@ interface MetricCardProps {
   subtitle?: string;
   icon: LucideIcon;
   iconClassName?: string;
+  helpText?: string;
 }
 
 export function MetricCard({
@@ -16,17 +18,21 @@ export function MetricCard({
   subtitle,
   icon: Icon,
   iconClassName,
+  helpText,
 }: MetricCardProps) {
   return (
     <Card>
       <CardHeader className="pb-2">
-        <div className="flex items-center gap-2">
-          <div className={cn("p-2 rounded-lg bg-primary/10", iconClassName)}>
-            <Icon className="h-4 w-4 text-primary" />
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <div className={cn("p-2 rounded-lg bg-primary/10", iconClassName)}>
+              <Icon className="h-4 w-4 text-primary" />
+            </div>
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              {title}
+            </CardTitle>
           </div>
-          <CardTitle className="text-sm font-medium text-muted-foreground">
-            {title}
-          </CardTitle>
+          {helpText && <HelpTooltip text={helpText} />}
         </div>
       </CardHeader>
       <CardContent>

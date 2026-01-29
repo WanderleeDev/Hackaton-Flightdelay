@@ -4,16 +4,11 @@ import { MetricCard } from "./metric-card";
 
 interface LoteMetricsProps {
   predictions: Prediction[];
-  totalPredictions: number;
 }
 
-export function LoteMetrics({
-  predictions,
-  totalPredictions,
-}: LoteMetricsProps) {
+export function LoteMetrics({ predictions }: LoteMetricsProps) {
   // Calculate metrics
   const loadedCount = predictions.length;
-  const loadedPercentage = ((loadedCount / totalPredictions) * 100).toFixed(0);
 
   const avgProbability =
     predictions.reduce((sum, p) => sum + p.delayProbability, 0) /
@@ -41,14 +36,16 @@ export function LoteMetrics({
       <MetricCard
         icon={Layers}
         title="Total Loaded"
-        value={`${loadedCount} of ${totalPredictions}`}
-        subtitle={`${loadedPercentage}% loaded`}
+        value={loadedCount}
+        subtitle="predictions"
+        helpText="Number of predictions loaded in this batch"
       />
       <MetricCard
         icon={Target}
         title="Avg Probability"
         value={`${avgProbabilityPercent}%`}
         subtitle={getRiskLevel(avgProbability)}
+        helpText="Average delay probability across all flights"
       />
       <MetricCard
         icon={AlertTriangle}
@@ -56,6 +53,7 @@ export function LoteMetrics({
         value={highRiskCount}
         subtitle={`flights >50%`}
         iconClassName={highRiskCount > 0 ? "bg-destructive/10" : undefined}
+        helpText="Flights with delay probability over 50%"
       />
       <MetricCard
         icon={CheckCircle2}
@@ -63,6 +61,7 @@ export function LoteMetrics({
         value={`${successRate}%`}
         subtitle={`${succeededCount}/${loadedCount} succeeded`}
         iconClassName="bg-green-500/10"
+        helpText="Percentage of successfully processed predictions"
       />
     </div>
   );

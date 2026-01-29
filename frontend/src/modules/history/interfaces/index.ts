@@ -23,6 +23,10 @@ export interface Lote {
   createdAt: string;
 }
 
+export type LoteDetail = Omit<Lote, "histories"> & {
+  histories: Pagination<Prediction>;
+};
+
 export interface Pagination<T> {
   content: T[];
   pageNumber: number;

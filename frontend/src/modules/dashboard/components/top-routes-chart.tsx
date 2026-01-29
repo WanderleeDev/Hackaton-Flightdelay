@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { HelpTooltip } from "@/components/shared/help-tooltip";
 import { Prediction } from "@/src/modules/history/interfaces";
 
 interface TopRoutesChartProps {
@@ -49,7 +50,10 @@ export function TopRoutesChart({ predictions }: TopRoutesChartProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Top Routes by Probability</CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle>Top Routes by Probability</CardTitle>
+          <HelpTooltip text="Top 5 routes with highest average delay probability" />
+        </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">

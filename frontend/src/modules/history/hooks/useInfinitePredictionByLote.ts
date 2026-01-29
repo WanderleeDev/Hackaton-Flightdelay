@@ -7,7 +7,8 @@ import { getAllPredictionsLote } from "../services/getAllPredictionsLote";
 export const useInfinityPredictionByLoteById = (id: string) => {
   return useInfiniteQuery({
     queryKey: ["history-lote", id],
-    queryFn: () => getPredictionsByLoteId({ pageParam: 0, id }),
+    queryFn: ({ pageParam }) =>
+      getPredictionsByLoteId({ pageParam, idLote: id }),
     initialPageParam: 0,
     getNextPageParam: ({ last, pageNumber }) => {
       const nextPage = !last ? pageNumber + 1 : undefined;
@@ -23,6 +24,6 @@ export const useInfinityPredictionByLoteById = (id: string) => {
 export const useInfinitePredictionByLote = () => {
   return useInfinityPagination<Lote>({
     queryKey: ["history-lote"],
-    fetchFn: (pageParam) => getAllPredictionsLote({ pageParam }),
+    fetchFn: (pageParam) => getAllPredictionsLote({ pageParam, size: 4 }),
   });
 };
