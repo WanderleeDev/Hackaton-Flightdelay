@@ -14,7 +14,6 @@ export default function HeaderPage() {
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-8">
         <BrandLogo />
-
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="h-4 w-px bg-muted mx-1 sm:mx-2 hidden sm:block" />
           <ModeToggle />

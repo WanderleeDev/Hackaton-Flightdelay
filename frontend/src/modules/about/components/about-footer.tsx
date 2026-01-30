@@ -1,8 +1,18 @@
 import Link from "next/link";
+import { HTMLAttributes } from "react";
+import { cn } from "../../shared/utils/cn";
 
-export default function AboutFooter() {
+type AboutFooterProps = HTMLAttributes<HTMLDivElement>;
+
+export default function AboutFooter({ className, ...props }: AboutFooterProps) {
   return (
-    <footer className="p-12 md:p-16 rounded-[48px] bg-primary/5 border border-primary/20 text-center space-y-8 relative overflow-hidden">
+    <footer
+      className={cn(
+        "p-12 md:p-16 rounded-[48px] bg-primary/5 border border-primary/20 text-center space-y-8 relative overflow-hidden",
+        className,
+      )}
+      {...props}
+    >
       <div className="absolute -top-24 -left-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
       <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
 
