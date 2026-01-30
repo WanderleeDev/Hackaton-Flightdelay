@@ -1,0 +1,49 @@
+.stack {
+  --card-height: calc(100% / var(--total-cards));
+  --target-brightness: 50%;
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: clip;
+  gap: calc(8vw + 1rem);
+  view-timeline-name: --container-cards;
+
+  & .stack-item {
+    position: sticky;
+    top: 4rem;
+    transform-origin: top center;
+    animation: stacking linear forwards;
+    animation-timeline: --container-cards;
+    animation-range-start: exit-crossing
+      calc(var(--card-height) * (var(--index) - 1));
+    animation-range-end: exit-crossing calc(var(--card-height) * var(--index));
+  }
+
+  & .stack-image {
+    object-fit: cover;
+    transform-origin: center;
+    scale: 1.5;
+    animation: scaling linear forwards;
+    animation-timeline: --container-cards;
+    animation-range-start: exit-crossing
+      calc(var(--card-height) * (var(--index) - 1));
+    animation-range-end: exit-crossing calc(var(--card-height) * var(--index));
+  }
+}
+
+@keyframes stacking {
+  to {
+    transform: scale(calc(1 - 0.1 * (var(--total-cards) - var(--index))));
+    filter: brightness(var(--target-brightness));
+    rotate: var(--rotate-card);
+    translate: 0 20%;
+    border-radius: 5rem;
+  }
+}
+
+@keyframes scaling {
+  to {
+    scale: 1;
+  }
+}

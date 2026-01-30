@@ -1,6 +1,6 @@
 "use client";
 
-import { Logs, History, Plane, Waypoints } from "lucide-react";
+import { Logs, History, Plane, Waypoints, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -30,6 +30,11 @@ const sections = [
     name: "About",
     href: "/about",
     icon: Waypoints,
+  },
+  {
+    name: "Features",
+    href: "/features",
+    icon: Sparkles,
   },
 ] as const;
 

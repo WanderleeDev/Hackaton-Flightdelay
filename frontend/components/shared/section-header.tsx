@@ -3,7 +3,7 @@ import { cn } from "@/src/modules/shared/utils/cn";
 interface SectionHeaderProps {
   title: string;
   accentText: string;
-  label: string;
+  label?: string;
   icon?: React.ReactNode;
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   size?: "sm" | "md" | "lg" | "xl";
@@ -50,24 +50,27 @@ export default function SectionHeader({
 
   return (
     <div className={cn(variant.container, className)}>
-      <div
-        className={cn(
-          "flex items-center text-primary font-bold tracking-widest uppercase",
-          variant.label,
-        )}
-      >
-        {icon && (
+      {icon ||
+        (label && (
           <div
             className={cn(
-              "flex items-center justify-center shrink-0",
-              variant.icon,
+              "flex items-center text-primary font-bold tracking-widest uppercase",
+              variant.label,
             )}
           >
-            {icon}
+            {icon && (
+              <div
+                className={cn(
+                  "flex items-center justify-center shrink-0",
+                  variant.icon,
+                )}
+              >
+                {icon}
+              </div>
+            )}
+            {label && <span className="leading-none">{label}</span>}
           </div>
-        )}
-        <span className="leading-none">{label}</span>
-      </div>
+        ))}
       <Tag
         className={cn(
           "font-bold tracking-tight text-foreground leading-[1.1]",
