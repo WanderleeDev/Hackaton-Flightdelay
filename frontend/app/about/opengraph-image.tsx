@@ -41,7 +41,6 @@ export default async function Image() {
         The talented minds behind the Flight Prediction AI Engine
       </OgDescription>
 
-      {/* Team avatars */}
       <div style={{ display: "flex", marginTop: 48 }}>
         {TEAM_AVATARS.map((member, i) => (
           <div
@@ -66,7 +65,6 @@ export default async function Image() {
         ))}
       </div>
 
-      {/* Collaborators badge */}
       <div
         style={{
           display: "flex",

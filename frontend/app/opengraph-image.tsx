@@ -20,7 +20,6 @@ export const contentType = "image/png";
 export default async function Image() {
   return new ImageResponse(
     <OgContainer>
-      {/* Globe decoration */}
       <div
         style={{
           position: "absolute",
@@ -60,7 +59,6 @@ export default async function Image() {
         intelligence and real-time atmospheric data
       </OgDescription>
 
-      {/* Feature pills */}
       <OgPreviewGroup>
         <FeaturePill color={ogColors.brandAccent} label="Real-time Data" />
         <FeaturePill color={ogColors.cyan400} label="Delay Prediction" />
@@ -73,7 +71,6 @@ export default async function Image() {
   );
 }
 
-// Componente local para pills de características
 function FeaturePill({ color, label }: { color: string; label: string }) {
   return (
     <div

@@ -7,12 +7,15 @@ import {
   ExternalLink,
   ArrowLeft,
   Mail,
+  ArrowUp,
 } from "lucide-react";
 import { ActionIcon } from "@/components/shared/action-icon";
 import Link from "next/link";
 import Image from "next/image";
 import { getRepositoriesByTopic } from "@/src/modules/about/services/getRepositoriesByTopic";
 import { getUserGithubData } from "@/src/modules/about/services/getUserGithubData";
+import { randomGradientGenerator } from "@/src/modules/shared/utils/gradientGenerator";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   params: Promise<{ username: string }>;
@@ -39,42 +42,27 @@ export default async function UserPage({ params }: Props) {
     getRepositoriesByTopic(username),
   ]);
 
+  const bannerGradient = randomGradientGenerator({
+    type: "complex",
+    opacity: 0.6,
+  });
+
   return (
     <main className="min-h-screen text-foreground pb-20 overflow-x-hidden relative">
-      {/* Dynamic Background Elements */}
-      <div className="fixed inset-0 overflow-hidden -z-10 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-20%] w-[70%] h-[70%] bg-primary/15 rounded-full blur-[120px] motion-safe:animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[100px]" />
-      </div>
-
       <div className="max-w-6xl mx-auto px-6">
-        {/* Navigation / Back Button */}
-        <div className="py-8">
-          <Link
-            href="/about"
-            className="group flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm font-medium w-fit"
-          >
-            <div className="p-2 rounded-full bg-secondary/50 group-hover:bg-primary/10 transition-colors">
-              <ArrowLeft size={16} />
-            </div>
-            Back to Collaborators
-          </Link>
-        </div>
-
-        {/* Profile Card Shell */}
         <div className="relative group motion-safe:animate-in fade-in slide-in-from-bottom-8 duration-700">
           {/* Banner */}
-          <div className="h-48 md:h-72 w-full rounded-[40px] bg-linear-to-br from-primary/20 via-primary/5 to-card border border-border overflow-hidden relative shadow-2xl shadow-primary/5">
+          <div
+            className="h-48 md:h-72 w-full rounded-[40px] border border-border overflow-hidden relative shadow-2xl shadow-primary/5"
+            style={bannerGradient}
+          >
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
             <div className="absolute inset-0 bg-linear-to-t from-background/80 to-transparent" />
           </div>
 
-          {/* Profile Info Overlay */}
           <div className="px-8 md:px-12 -mt-24 md:-mt-32 relative z-10">
             <div className="flex flex-col md:flex-row gap-8 items-end">
-              {/* Avatar */}
               <div className="relative shrink-0">
-                <div className="absolute inset-0 bg-primary/30 rounded-[40px] rotate-6 group-hover:rotate-12 transition-transform duration-500 blur-sm" />
                 <div className="w-32 h-32 md:w-56 md:h-56 rounded-[40px] border-8 border-background bg-secondary relative overflow-hidden group-hover:scale-[1.02] transition-transform duration-500 shadow-2xl">
                   <Image
                     src={avatar_url}
@@ -87,7 +75,6 @@ export default async function UserPage({ params }: Props) {
                 </div>
               </div>
 
-              {/* Identity Info */}
               <div className="flex-1 space-y-4 pb-4">
                 <div className="space-y-2">
                   {name && (
@@ -144,7 +131,29 @@ export default async function UserPage({ params }: Props) {
               </div>
 
               {/* Social Actions */}
-              <div className="flex gap-3 pb-6">
+              <div className="flex items-center gap-3 pb-6">
+                <Link
+                  href="/about"
+                  className="h-14 px-6 rounded-2xl bg-secondary/50 hover:bg-secondary border border-border flex items-center gap-3 text-sm font-bold text-foreground transition-all hover:scale-105 active:scale-95 group/back"
+                >
+                  <ArrowLeft
+                    size={20}
+                    className="group-hover/back:-translate-x-1 transition-transform"
+                  />
+                  <span>Back</span>
+                </Link>
+                <ActionIcon
+                  href="/about"
+                  icon={ArrowLeft}
+                  className="size-14 rounded-2xl"
+                  iconClassName="size-7"
+                />
+
+                <Button size="icon-sm" className="rounded-xl cursor-pointer">
+                  <span className="sr-only">Scroll to top</span>
+                  <ArrowUp className="h-4 w-4" />
+                </Button>
+                <div className="w-px h-8 bg-border/50 mx-1" />
                 <ActionIcon
                   href={`https://github.com/${username}`}
                   icon={Github}
