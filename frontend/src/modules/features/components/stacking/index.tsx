@@ -1,41 +1,6 @@
+import { features } from "../../data/features";
 import styles from "./styles.module.css";
-import { Bell, Brain, CloudSun, ShieldCheck } from "lucide-react";
 import Image from "next/image";
-
-const features = [
-  {
-    icon: Brain,
-    title: "MCP Integration",
-    description:
-      "Creation of our own MCP, use our services with your favorite AI provider",
-    bg: "bg-sky-600",
-    image: "/feature-mcp.png",
-  },
-  {
-    icon: Bell,
-    title: "Real-time Notifications",
-    description:
-      "Receive instant notifications for flight delays, cancellations, and other critical updates.",
-    bg: "bg-red-500",
-    image: "/feature-notifications.png",
-  },
-  {
-    icon: ShieldCheck,
-    title: "User & Role Management",
-    description:
-      "Secure authentication and granular role-based access control for all users.",
-    bg: "bg-emerald-500",
-    image: "/feature-security.png",
-  },
-  {
-    icon: CloudSun,
-    title: "Automated Weather Alerts",
-    description:
-      "Hyper-local forecasts and automated flight plan adjustments for severe weather.",
-    bg: "bg-indigo-500",
-    image: "/feature-weather.png",
-  },
-];
 
 export default function StackingCards() {
   return (

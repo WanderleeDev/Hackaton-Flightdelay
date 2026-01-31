@@ -56,7 +56,7 @@ export default function CollaboratorCard({
           <ActionIcon href={linkedin} icon={Linkedin} />
           <ActionIcon
             target="_self"
-            href={`/about/${username}`}
+            href={`/collaborators/${username}`}
             icon={ExternalLink}
             iconClassName="size-4"
             className="ml-auto"

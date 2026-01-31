@@ -2,15 +2,16 @@ import { Users } from "lucide-react";
 import SectionHeaders from "@/components/shared/section-header";
 
 import { COLLABORATORS } from "@/src/modules/shared/data/collaborators";
-import CollaboratorCard from "@/src/modules/about/components/collaborator-card";
-import AboutFooter from "@/src/modules/about/components/about-footer";
+import CollaboratorCard from "@/src/modules/collaborators/components/collaborator-card";
+import CollaboratorsFooter from "@/src/modules/collaborators/components/collaborators-footer";
 
-const TITLE = "About Us";
+const TITLE = "Collaborators";
 export const metadata = {
   title: TITLE,
-  description: "Learn more about the Flight Search Engine and our team.",
+  description:
+    "Learn more about the Flight Search Engine collaborators and our team.",
   alternates: {
-    canonical: "/about",
+    canonical: "/collaborators",
   },
   openGraph: {
     title: TITLE,
@@ -20,7 +21,7 @@ export const metadata = {
   },
 };
 
-export default function AboutPage() {
+export default function CollaboratorsPage() {
   return (
     <section className="bg-background min-h-screen pb-20 px-6 md:px-12">
       <div className="max-w-[1400px] mx-auto space-y-24">
@@ -40,7 +41,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <AboutFooter />
+        <CollaboratorsFooter />
       </div>
     </section>
   );

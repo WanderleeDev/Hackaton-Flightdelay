@@ -12,8 +12,8 @@ import {
 import { ActionIcon } from "@/components/shared/action-icon";
 import Link from "next/link";
 import Image from "next/image";
-import { getRepositoriesByTopic } from "@/src/modules/about/services/getRepositoriesByTopic";
-import { getUserGithubData } from "@/src/modules/about/services/getUserGithubData";
+import { getRepositoriesByTopic } from "@/src/modules/collaborators/services/getRepositoriesByTopic";
+import { getUserGithubData } from "@/src/modules/collaborators/services/getUserGithubData";
 import { randomGradientGenerator } from "@/src/modules/shared/utils/gradientGenerator";
 import { Button } from "@/components/ui/button";
 
@@ -133,7 +133,7 @@ export default async function UserPage({ params }: Props) {
               {/* Social Actions */}
               <div className="flex items-center gap-3 pb-6">
                 <Link
-                  href="/about"
+                  href="/collaborators"
                   className="h-14 px-6 rounded-2xl bg-secondary/50 hover:bg-secondary border border-border flex items-center gap-3 text-sm font-bold text-foreground transition-all hover:scale-105 active:scale-95 group/back"
                 >
                   <ArrowLeft
@@ -143,7 +143,7 @@ export default async function UserPage({ params }: Props) {
                   <span>Back</span>
                 </Link>
                 <ActionIcon
-                  href="/about"
+                  href="/collaborators"
                   icon={ArrowLeft}
                   className="size-14 rounded-2xl"
                   iconClassName="size-7"

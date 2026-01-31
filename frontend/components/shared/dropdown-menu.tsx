@@ -27,8 +27,8 @@ const sections = [
     icon: History,
   },
   {
-    name: "About",
-    href: "/about",
+    name: "Collaborators",
+    href: "/collaborators",
     icon: Waypoints,
   },
   {

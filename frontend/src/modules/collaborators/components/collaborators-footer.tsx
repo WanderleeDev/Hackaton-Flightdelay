@@ -2,9 +2,12 @@ import Link from "next/link";
 import { HTMLAttributes } from "react";
 import { cn } from "../../shared/utils/cn";
 
-type AboutFooterProps = HTMLAttributes<HTMLDivElement>;
+type CollaboratorsFooterProps = HTMLAttributes<HTMLDivElement>;
 
-export default function AboutFooter({ className, ...props }: AboutFooterProps) {
+export default function CollaboratorsFooter({
+  className,
+  ...props
+}: CollaboratorsFooterProps) {
   return (
     <footer
       className={cn(
