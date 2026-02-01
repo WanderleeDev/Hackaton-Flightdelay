@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode } from "react";
-import { Airport } from "../../shared/data/airports";
+import { Airport } from "../data/airports";
 
 interface MapContextType {
   origin: Airport | null;

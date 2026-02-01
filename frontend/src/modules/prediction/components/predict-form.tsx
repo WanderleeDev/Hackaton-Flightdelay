@@ -43,8 +43,8 @@ import { Label } from "@/components/ui/label";
 import { usePrediction } from "../hooks/useprediction";
 import PredictionResultDialog from "./prediction-result-dialog";
 import { toast } from "sonner";
-import { AIRLINES } from "../../shared/data/airlines";
-import { AIRPORTS } from "../../shared/data/airports";
+import { AIRLINES } from "../data/airlines";
+import { AIRPORTS } from "../data/airports";
 import { useMapSelection } from "../context/map-context";
 import { formatDistance } from "../../../utils/formatDistance";
 

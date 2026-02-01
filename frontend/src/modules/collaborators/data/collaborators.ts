@@ -54,8 +54,7 @@ export const COLLABORATORS = [
     name: "Brayan Hernández",
     role: "Data Scientist",
     username: "HakeBM",
-    avatar:
-      "http://localhost:3000/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F195684228%3Fv%3D4&w=256&q=75",
+    avatar: "https://avatars.githubusercontent.com/u/195684228?v=4",
     github: "https://github.com/HakeBM",
     linkedin: "https://www.linkedin.com/in/brayan-hernández-292832346",
     description: "Graduate of the Oracle Next Education program",

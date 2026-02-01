@@ -1,4 +1,4 @@
-import { COLLABORATORS } from "@/src/modules/shared/data/collaborators";
+import { COLLABORATORS } from "@/src/modules/collaborators/data/collaborators";
 import Image from "next/image";
 
 export function CollaboratorsStatus() {
