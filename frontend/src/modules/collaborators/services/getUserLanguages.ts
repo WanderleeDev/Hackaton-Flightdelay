@@ -7,10 +7,7 @@ export async function getUserLanguages(username: string): Promise<string[]> {
       `${getEnv("API_BASE_URL_GITHUB")}/users/${username}/repos?per_page=100&sort=updated`,
     );
 
-    if (!response.ok) {
-      console.error("Error fetching user repos for languages");
-      return [];
-    }
+    if (!response.ok) return [];
 
     const repos: Repository[] = await response.json();
 
