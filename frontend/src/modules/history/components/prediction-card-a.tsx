@@ -4,7 +4,7 @@ import { Clock, PlaneTakeoff, PlaneLanding, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { Prediction } from "../interfaces";
-import { formatDelayProbability } from "@/src/modules/shared/utils/formatDelayProbability";
+import { formatDelayProbability } from "@/src/utils/formatDelayProbability";
 
 type PredictionCardAProps = Prediction;
 

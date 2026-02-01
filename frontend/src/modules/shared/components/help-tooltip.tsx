@@ -1,6 +1,6 @@
 import { HelpCircle } from "lucide-react";
 import { HTMLAttributes } from "react";
-import { cn } from "@/src/modules/shared/utils/cn";
+import { cn } from "@/src/utils/cn";
 
 type HelpTooltipProps = HTMLAttributes<HTMLDivElement> & {
   text: string;

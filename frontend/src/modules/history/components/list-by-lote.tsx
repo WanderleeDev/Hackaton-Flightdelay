@@ -6,10 +6,10 @@ import PredictionCardB from "@/src/modules/history/components/prediction-card-b"
 import PredictionStatsHeader from "@/src/modules/history/components/VirtualGrid/prediction-stats-header";
 import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
 import { Button } from "@/components/ui/button";
-import LoaderStatic from "@/components/shared/loader-static";
+import LoaderStatic from "@/src/modules/shared/components/loader-static";
 import { ArrowUp } from "lucide-react";
 import { useRef } from "react";
-import EmptyState from "@/components/shared/empty-state";
+import EmptyState from "@/src/modules/shared/components/empty-state";
 import { Lote } from "../interfaces";
 import LoteSectionSkeleton from "../skeletons/lote-section-skeleton";
 import ByLoteSkeleton from "../skeletons/by-lote-skeleton";

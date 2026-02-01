@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { HelpTooltip } from "@/components/shared/help-tooltip";
+import { HelpTooltip } from "@/src/modules/shared/components/help-tooltip";
 import { Prediction } from "@/src/modules/history/interfaces";
 
 interface ProbabilityDistributionProps {

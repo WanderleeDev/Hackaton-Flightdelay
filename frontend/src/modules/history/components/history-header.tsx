@@ -1,9 +1,9 @@
 "use client";
 import { History, LayoutGrid, User } from "lucide-react";
-import { cn } from "@/src/modules/shared/utils/cn";
+import { cn } from "@/src/utils/cn";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import SectionHeader from "@/components/shared/section-header";
+import SectionHeader from "@/src/modules/shared/components/section-header";
 
 const links = [
   { href: "/history", label: "Individual", icon: <User className="size-4" /> },

@@ -34,7 +34,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/src/modules/shared/utils/cn";
+import { cn } from "@/src/utils/cn";
 import { Calendar } from "@/components/ui/calendar";
 import { Calendar as CalendarIcon, X } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
@@ -46,7 +46,7 @@ import { toast } from "sonner";
 import { AIRLINES } from "../../shared/data/airlines";
 import { AIRPORTS } from "../../shared/data/airports";
 import { useMapSelection } from "../context/map-context";
-import { formatDistance } from "../../shared/utils/formatDistance";
+import { formatDistance } from "../../../utils/formatDistance";
 
 const MIN_DISTANCE = 3_000;
 const MAX_DISTANCE = 13_500;

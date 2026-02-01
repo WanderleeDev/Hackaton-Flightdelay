@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { getApiBaseUrl } from "@/src/modules/shared/utils/getEnv";
+import { getApiBaseUrl } from "@/src/utils/getEnv";
 import { Lote } from "@/src/modules/history/interfaces";
 
 interface BatchPredictionParams {

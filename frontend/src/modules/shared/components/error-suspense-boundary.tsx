@@ -3,8 +3,9 @@
 import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { Button } from "../ui/button";
+
 import { RotateCcw, TriangleAlert } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   children: React.ReactNode;

@@ -1,6 +1,6 @@
 "use client";
 
-import { BrandLogo } from "@/components/shared/brand-logo";
+import { BrandLogo } from "@/src/modules/shared/components/brand-logo";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, RefreshCcw, ChevronLeft } from "lucide-react";
 import Link from "next/link";

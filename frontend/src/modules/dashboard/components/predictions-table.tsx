@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Prediction } from "@/src/modules/history/interfaces";
 import { CheckCircle2, XCircle, Plane } from "lucide-react";
-import { cn } from "@/src/modules/shared/utils/cn";
+import { cn } from "@/src/utils/cn";
 
 interface PredictionsTableProps {
   predictions: Prediction[];

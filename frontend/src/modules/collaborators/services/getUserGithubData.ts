@@ -1,4 +1,4 @@
-import { getEnv } from "../../shared/utils/getEnv";
+import { getEnv } from "../../../utils/getEnv";
 import { GitHubUser } from "../interfaces";
 
 export async function getUserGithubData(nameUser: string): Promise<GitHubUser> {

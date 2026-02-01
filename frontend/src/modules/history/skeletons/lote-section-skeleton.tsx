@@ -1,4 +1,4 @@
-import GradientOverlayCard from "@/components/shared/gradient-overlay-card";
+import GradientOverlayCard from "@/src/modules/shared/components/gradient-overlay-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import PredictionCardSkeleton from "./prediction-card-skeleton";
 

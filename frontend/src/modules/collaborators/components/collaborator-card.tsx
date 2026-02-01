@@ -1,5 +1,5 @@
 import { Github, Linkedin, ExternalLink } from "lucide-react";
-import { ActionIcon } from "@/components/shared/action-icon";
+import { ActionIcon } from "@/src/modules/shared/components/action-icon";
 import Image from "next/image";
 
 interface CollaboratorCardProps {

@@ -1,7 +1,7 @@
 import { Github, ArrowLeft, Mail, ArrowUp } from "lucide-react";
 import Link from "next/link";
-import { ActionIcon } from "@/components/shared/action-icon";
 import { Button } from "@/components/ui/button";
+import { ActionIcon } from "../../shared/components/action-icon";
 
 interface ProfileActionsProps {
   username: string;

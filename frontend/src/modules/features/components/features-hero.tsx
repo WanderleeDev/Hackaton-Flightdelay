@@ -1,4 +1,4 @@
-import SectionHeader from "@/components/shared/section-header";
+import SectionHeader from "@/src/modules/shared/components/section-header";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles } from "lucide-react";
 import Image from "next/image";

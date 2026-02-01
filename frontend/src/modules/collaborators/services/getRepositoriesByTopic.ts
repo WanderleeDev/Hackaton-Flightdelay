@@ -1,4 +1,4 @@
-import { getEnv } from "../../shared/utils/getEnv";
+import { getEnv } from "../../../utils/getEnv";
 import { GithubRepositories, Repository } from "../interfaces";
 
 export async function getRepositoriesByTopic(

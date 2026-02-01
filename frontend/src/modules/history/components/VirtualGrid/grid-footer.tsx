@@ -1,4 +1,4 @@
-import LoaderStatic from "@/components/shared/loader-static";
+import LoaderStatic from "@/src/modules/shared/components/loader-static";
 
 interface GridFooterProps {
   hasNextPage: boolean;

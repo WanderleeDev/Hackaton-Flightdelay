@@ -1,4 +1,4 @@
-import { cn } from "@/src/modules/shared/utils/cn";
+import { cn } from "@/src/utils/cn";
 
 interface SectionHeaderProps {
   title: string;

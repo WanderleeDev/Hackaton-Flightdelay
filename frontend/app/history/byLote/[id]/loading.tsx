@@ -1,4 +1,4 @@
-import { BrandLogo } from "@/components/shared/brand-logo";
+import { BrandLogo } from "@/src/modules/shared/components/brand-logo";
 
 export default function LoadingByLoteId() {
   return (

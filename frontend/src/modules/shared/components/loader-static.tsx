@@ -1,4 +1,4 @@
-import { cn } from "@/src/modules/shared/utils/cn";
+import { cn } from "@/src/utils/cn";
 import { Loader2 } from "lucide-react";
 
 interface LoaderStaticProps {

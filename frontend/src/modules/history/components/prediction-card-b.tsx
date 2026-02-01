@@ -9,8 +9,8 @@ import {
   CircleOff,
   Percent,
 } from "lucide-react";
-import { cn } from "@/src/modules/shared/utils/cn";
-import { formatDelayProbability } from "@/src/modules/shared/utils/formatDelayProbability";
+import { cn } from "@/src/utils/cn";
+import { formatDelayProbability } from "@/src/utils/formatDelayProbability";
 import { Prediction } from "../interfaces";
 import { format } from "date-fns";
 import { HTMLAttributes } from "react";

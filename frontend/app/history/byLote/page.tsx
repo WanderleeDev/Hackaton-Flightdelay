@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ErrorSuspenseBoundary from "@/components/shared/error-suspense-boundary";
+import ErrorSuspenseBoundary from "@/src/modules/shared/components/error-suspense-boundary";
 import ByLoteSkeleton from "@/src/modules/history/skeletons/by-lote-skeleton";
 import ListByLote from "@/src/modules/history/components/list-by-lote";
 

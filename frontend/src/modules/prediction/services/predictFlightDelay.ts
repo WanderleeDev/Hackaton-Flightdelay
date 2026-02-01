@@ -1,5 +1,5 @@
 import { formSchemaType } from "../schemas/form.schema";
-import { getApiBaseUrl } from "../../shared/utils/getEnv";
+import { getApiBaseUrl } from "../../../utils/getEnv";
 
 export interface PredictionResponse {
   delay_prediction: number;

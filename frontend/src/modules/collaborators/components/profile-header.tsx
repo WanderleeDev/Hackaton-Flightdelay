@@ -1,7 +1,7 @@
 import { MapPin, Calendar, Link as LinkIcon } from "lucide-react";
 import Image from "next/image";
 import { GitHubUser } from "../interfaces";
-import { randomGradientGenerator } from "@/src/modules/shared/utils/gradientGenerator";
+import { randomGradientGenerator } from "@/src/utils/gradientGenerator";
 
 interface ProfileHeaderProps {
   user: GitHubUser;

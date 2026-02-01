@@ -1,5 +1,5 @@
 import { Users } from "lucide-react";
-import SectionHeaders from "@/components/shared/section-header";
+import SectionHeaders from "@/src/modules/shared/components/section-header";
 
 import { COLLABORATORS } from "@/src/modules/shared/data/collaborators";
 import CollaboratorCard from "@/src/modules/collaborators/components/collaborator-card";

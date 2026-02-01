@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import { cn } from "../../../shared/utils/cn";
+import { cn } from "../../../../utils/cn";
 import { BarChart3, Clock, CheckCircle2, Loader2 } from "lucide-react";
 
 type PredictionStatsHeaderProps = HTMLAttributes<HTMLDivElement> & {

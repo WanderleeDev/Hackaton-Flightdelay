@@ -1,12 +1,12 @@
 import { AnimatePresence } from "motion/react";
 import { Download } from "lucide-react";
-import { cn } from "@/src/modules/shared/utils/cn";
+import { cn } from "@/src/utils/cn";
 import { Lote } from "@/src/modules/history/interfaces";
 import BatchUploadEmptyState from "./batch-upload-empty-state";
 import BatchUploadSuccess from "./batch-upload-success";
 import BatchFilePreview from "./batch-file-preview";
 import Link from "next/link";
-import { getApiBaseUrl } from "@/src/modules/shared/utils/getEnv";
+import { getApiBaseUrl } from "@/src/utils/getEnv";
 
 interface BatchDropZoneProps {
   file: File | null;

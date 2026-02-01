@@ -3,7 +3,7 @@
 import { Plane, FileSpreadsheet, Sparkles } from "lucide-react";
 import PredictForm from "./predict-form";
 import CSVBatchPredictor from "./csv-batch-predictor";
-import AccordionItem from "@/components/shared/accordion-item";
+import AccordionItem from "@/src/modules/shared/components/accordion-item";
 import FeaturesSidebarCard from "@/src/modules/features/components/features-sidebar-card";
 
 export default function PredictionSidebar() {

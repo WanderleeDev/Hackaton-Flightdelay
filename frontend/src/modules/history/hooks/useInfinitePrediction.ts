@@ -1,5 +1,5 @@
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
-import { getApiBaseUrl } from "../../shared/utils/getEnv";
+import { getApiBaseUrl } from "../../../utils/getEnv";
 import { Pagination, Prediction } from "../interfaces";
 
 const fetchPrediction = async ({

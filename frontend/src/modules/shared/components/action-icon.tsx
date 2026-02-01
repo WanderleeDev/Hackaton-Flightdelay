@@ -1,4 +1,4 @@
-import { cn } from "@/src/modules/shared/utils/cn";
+import { cn } from "@/src/utils/cn";
 import { type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { ComponentProps } from "react";

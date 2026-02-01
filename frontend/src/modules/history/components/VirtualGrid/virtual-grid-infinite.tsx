@@ -3,8 +3,8 @@ import PredictionCardSkeleton from "../../skeletons/prediction-card-skeleton";
 import GridContainer from "./grid-container";
 import ItemContainer from "./item-container";
 import GridFooter from "./grid-footer";
-import LoaderObserver from "@/components/shared/loader-observer";
-import EmptyState from "@/components/shared/empty-state";
+import LoaderObserver from "@/src/modules/shared/components/loader-observer";
+import EmptyState from "@/src/modules/shared/components/empty-state";
 
 interface VirtualGridInfiniteProps<T> {
   ref?: React.Ref<VirtuosoGridHandle>;

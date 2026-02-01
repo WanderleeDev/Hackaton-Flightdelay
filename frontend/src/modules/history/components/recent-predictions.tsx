@@ -1,9 +1,9 @@
-import SectionHeader from "@/components/shared/section-header";
+import SectionHeader from "@/src/modules/shared/components/section-header";
 import { History } from "lucide-react";
-import { cn } from "@/src/modules/shared/utils/cn";
+import { cn } from "@/src/utils/cn";
 import ListHistory from "./list-history";
 import ListHistorySkeleton from "../skeletons/list-history-skeleton";
-import ErrorSuspenseBoundary from "@/components/shared/error-suspense-boundary";
+import ErrorSuspenseBoundary from "@/src/modules/shared/components/error-suspense-boundary";
 
 interface Props {
   className?: string;

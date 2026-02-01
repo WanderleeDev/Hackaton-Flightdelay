@@ -1,4 +1,4 @@
-import { getApiBaseUrl } from "../../shared/utils/getEnv";
+import { getApiBaseUrl } from "../../../utils/getEnv";
 import { Lote, Pagination } from "../interfaces";
 
 interface PredictionLoteOptions {

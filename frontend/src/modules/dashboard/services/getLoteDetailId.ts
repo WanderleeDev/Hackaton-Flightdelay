@@ -1,5 +1,5 @@
 import { LoteDetail } from "../../history/interfaces";
-import { getApiBaseUrl } from "../../shared/utils/getEnv";
+import { getApiBaseUrl } from "../../../utils/getEnv";
 
 interface PredictionLoteByIdOptions {
   idLote: string;

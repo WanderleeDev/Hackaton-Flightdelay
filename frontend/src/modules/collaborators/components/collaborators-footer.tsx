@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { HTMLAttributes } from "react";
-import { cn } from "../../shared/utils/cn";
+import { cn } from "../../../utils/cn";
 
 type CollaboratorsFooterProps = HTMLAttributes<HTMLDivElement>;
 

@@ -5,7 +5,7 @@ import { TopRoutesChart } from "@/src/modules/dashboard/components/top-routes-ch
 import { LotePredictionsTable } from "@/src/modules/dashboard/components/lote-detail-content";
 import { ArrowLeft, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import SectionHeaderB from "@/components/shared/section-header-b";
+import SectionHeaderB from "@/src/modules/shared/components/section-header-b";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";

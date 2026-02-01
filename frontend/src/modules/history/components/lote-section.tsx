@@ -1,6 +1,6 @@
-import { ActionIcon } from "@/components/shared/action-icon";
-import GradientOverlayCard from "@/components/shared/gradient-overlay-card";
-import SectionHeaderB from "@/components/shared/section-header-b";
+import { ActionIcon } from "@/src/modules/shared/components/action-icon";
+import GradientOverlayCard from "@/src/modules/shared/components/gradient-overlay-card";
+import SectionHeaderB from "@/src/modules/shared/components/section-header-b";
 import { ExternalLink, Package } from "lucide-react";
 import { HTMLAttributes, PropsWithChildren } from "react";
 

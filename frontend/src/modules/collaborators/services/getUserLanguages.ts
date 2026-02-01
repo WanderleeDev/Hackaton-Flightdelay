@@ -1,4 +1,4 @@
-import { getEnv } from "../../shared/utils/getEnv";
+import { getEnv } from "../../../utils/getEnv";
 import { Repository } from "../interfaces";
 
 export async function getUserLanguages(username: string): Promise<string[]> {

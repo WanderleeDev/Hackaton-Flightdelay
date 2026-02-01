@@ -1,4 +1,4 @@
-import { cn } from "@/src/modules/shared/utils/cn";
+import { cn } from "@/src/utils/cn";
 import { formatDate } from "date-fns";
 import { Calendar, Layers, LucideIcon, Package } from "lucide-react";
 import { PropsWithChildren } from "react";
