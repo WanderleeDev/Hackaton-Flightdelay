@@ -1,5 +1,6 @@
 import { Github, Linkedin, ExternalLink } from "lucide-react";
 import { ActionIcon } from "@/components/shared/action-icon";
+import Image from "next/image";
 
 interface CollaboratorCardProps {
   name: string;
@@ -30,11 +31,13 @@ export default function CollaboratorCard({
       <div className="p-8 space-y-6 flex flex-col min-h-full">
         <div className="relative w-24 h-24">
           <div className="absolute inset-0 bg-primary/20 rounded-3xl rotate-6 group-hover:rotate-12 transition-transform duration-500" />
-          <img
+          <Image
             src={avatar}
             alt={name}
             loading="lazy"
             className="relative w-full h-full object-cover rounded-3xl"
+            fill
+            unoptimized
           />
         </div>
 

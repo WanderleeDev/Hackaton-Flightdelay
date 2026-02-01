@@ -1,6 +1,6 @@
 import PlaneIconBox from "./plane-icon-box";
 
-export function FooterBrandInfo() {
+export function BrandInfo() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-2 cursor-default">

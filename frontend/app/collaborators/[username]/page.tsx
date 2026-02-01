@@ -1,21 +1,11 @@
-import {
-  Github,
-  Link as LinkIcon,
-  MapPin,
-  Calendar,
-  Book,
-  ExternalLink,
-  ArrowLeft,
-  Mail,
-  ArrowUp,
-} from "lucide-react";
-import { ActionIcon } from "@/components/shared/action-icon";
-import Link from "next/link";
-import Image from "next/image";
 import { getRepositoriesByTopic } from "@/src/modules/collaborators/services/getRepositoriesByTopic";
 import { getUserGithubData } from "@/src/modules/collaborators/services/getUserGithubData";
-import { randomGradientGenerator } from "@/src/modules/shared/utils/gradientGenerator";
-import { Button } from "@/components/ui/button";
+import { getUserLanguages } from "@/src/modules/collaborators/services/getUserLanguages";
+import ProfileHeader from "@/src/modules/collaborators/components/profile-header";
+import ProfileActions from "@/src/modules/collaborators/components/profile-actions";
+import ProfileBio from "@/src/modules/collaborators/components/profile-bio";
+import ProfileTechStack from "@/src/modules/collaborators/components/profile-tech-stack";
+import ProfileProjects from "@/src/modules/collaborators/components/profile-projects";
 
 type Props = {
   params: Promise<{ username: string }>;
@@ -23,286 +13,27 @@ type Props = {
 
 export default async function UserPage({ params }: Props) {
   const { username } = await params;
-  const [
-    {
-      avatar_url,
-      bio,
-      blog,
-      name,
-      location,
-      email,
-      created_at,
-      public_repos,
-      followers,
-      following,
-    },
-    { items, total_count },
-  ] = await Promise.all([
+  const [user, { items, total_count }, languages] = await Promise.all([
     getUserGithubData(username),
     getRepositoriesByTopic(username),
+    getUserLanguages(username),
   ]);
-
-  const bannerGradient = randomGradientGenerator({
-    type: "complex",
-    opacity: 0.6,
-  });
 
   return (
     <main className="min-h-screen text-foreground pb-20 overflow-x-hidden relative">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="relative group motion-safe:animate-in fade-in slide-in-from-bottom-8 duration-700">
-          {/* Banner */}
-          <div
-            className="h-48 md:h-72 w-full rounded-[40px] border border-border overflow-hidden relative shadow-2xl shadow-primary/5"
-            style={bannerGradient}
-          >
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
-            <div className="absolute inset-0 bg-linear-to-t from-background/80 to-transparent" />
-          </div>
+        <ProfileHeader user={user}>
+          <ProfileActions username={username} email={user.email} />
+        </ProfileHeader>
 
-          <div className="px-8 md:px-12 -mt-24 md:-mt-32 relative z-10">
-            <div className="flex flex-col md:flex-row gap-8 items-end">
-              <div className="relative shrink-0">
-                <div className="w-32 h-32 md:w-56 md:h-56 rounded-[40px] border-8 border-background bg-secondary relative overflow-hidden group-hover:scale-[1.02] transition-transform duration-500 shadow-2xl">
-                  <Image
-                    src={avatar_url}
-                    alt={`${name || username}'s avatar`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 128px, 224px"
-                    priority
-                  />
-                </div>
-              </div>
-
-              <div className="flex-1 space-y-4 pb-4">
-                <div className="space-y-2">
-                  {name && (
-                    <h1 className="text-3xl md:text-4xl font-bold text-foreground">
-                      {name}
-                    </h1>
-                  )}
-                  <p className="text-xl text-primary font-semibold tracking-tight">
-                    @{username}
-                  </p>
-                  <div className="flex items-center gap-4 text-sm font-medium">
-                    <span className="text-muted-foreground">
-                      <strong className="text-foreground">
-                        {public_repos}
-                      </strong>{" "}
-                      repos
-                    </span>
-                    <span className="text-muted-foreground">
-                      <strong className="text-foreground">{followers}</strong>{" "}
-                      followers
-                    </span>
-                    <span className="text-muted-foreground">
-                      <strong className="text-foreground">{following}</strong>{" "}
-                      following
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-6 text-sm text-muted-foreground font-medium">
-                  {location && (
-                    <span className="flex items-center gap-2 pt-2">
-                      <MapPin size={18} className="text-primary" /> {location}
-                    </span>
-                  )}
-                  {blog && (
-                    <a
-                      href={blog.startsWith("http") ? blog : `https://${blog}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 pt-2 hover:text-primary transition-colors"
-                    >
-                      <LinkIcon size={18} className="text-primary" />{" "}
-                      {blog.replace(/^https?:\/\//, "")}
-                    </a>
-                  )}
-                  <span className="flex items-center gap-2 pt-2">
-                    <Calendar size={18} className="text-primary" /> Joined{" "}
-                    {new Date(created_at).toLocaleDateString("en-US", {
-                      month: "short",
-                      year: "numeric",
-                    })}
-                  </span>
-                </div>
-              </div>
-
-              {/* Social Actions */}
-              <div className="flex items-center gap-3 pb-6">
-                <Link
-                  href="/collaborators"
-                  className="h-14 px-6 rounded-2xl bg-secondary/50 hover:bg-secondary border border-border flex items-center gap-3 text-sm font-bold text-foreground transition-all hover:scale-105 active:scale-95 group/back"
-                >
-                  <ArrowLeft
-                    size={20}
-                    className="group-hover/back:-translate-x-1 transition-transform"
-                  />
-                  <span>Back</span>
-                </Link>
-                <ActionIcon
-                  href="/collaborators"
-                  icon={ArrowLeft}
-                  className="size-14 rounded-2xl"
-                  iconClassName="size-7"
-                />
-
-                <Button size="icon-sm" className="rounded-xl cursor-pointer">
-                  <span className="sr-only">Scroll to top</span>
-                  <ArrowUp className="h-4 w-4" />
-                </Button>
-                <div className="w-px h-8 bg-border/50 mx-1" />
-                <ActionIcon
-                  href={`https://github.com/${username}`}
-                  icon={Github}
-                  className="size-14 rounded-2xl"
-                  iconClassName="size-7"
-                />
-                {email && (
-                  <ActionIcon
-                    href={`mailto:${email}`}
-                    icon={Mail}
-                    className="size-14 rounded-2xl"
-                    iconClassName="size-7"
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Detailed Content Sections */}
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-12 gap-12 motion-safe:animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-300">
-          {/* Left Column: Bio & Skills */}
           <div className="lg:col-span-4 space-y-8">
-            {bio && (
-              <section className="bg-card/40 backdrop-blur-sm border border-border rounded-[32px] p-8 space-y-6 hover:border-primary/20 transition-colors">
-                <h2 className="text-xl font-bold flex items-center gap-3 text-foreground">
-                  <span className="w-1.5 h-6 bg-primary rounded-full" />
-                  Biography
-                </h2>
-                <p className="text-muted-foreground leading-relaxed">{bio}</p>
-              </section>
-            )}
-
-            <section className="bg-card/40 backdrop-blur-sm border border-border rounded-[32px] p-8 space-y-6 hover:border-primary/20 transition-colors">
-              <h2 className="text-xl font-bold flex items-center gap-3 text-foreground">
-                <span className="w-1.5 h-6 bg-primary rounded-full" />
-                Tech Stack
-              </h2>
-              <div className="flex flex-wrap gap-2">
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                  <div
-                    key={i}
-                    className="h-8 w-20 bg-primary/5 border border-primary/10 rounded-lg motion-safe:animate-pulse"
-                  />
-                ))}
-              </div>
-            </section>
+            {user.bio && <ProfileBio bio={user.bio} />}
+            <ProfileTechStack languages={languages} />
           </div>
 
-          {/* Right Column: Key Activity / Featured Repos */}
           <div className="lg:col-span-8 space-y-8">
-            <section className="space-y-8">
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold flex items-center gap-3 text-foreground">
-                  <Book className="text-primary" size={28} />
-                  Featured Projects
-                </h2>
-                <div className="h-px flex-1 mx-6 bg-border/50" />
-                {total_count > 0 && (
-                  <span className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold">
-                    {total_count} {total_count === 1 ? "repo" : "repos"}
-                  </span>
-                )}
-              </div>
-
-              {items.length === 0 ? (
-                <div className="text-center py-16 px-6">
-                  <Book
-                    className="mx-auto text-muted-foreground/30 mb-4"
-                    size={64}
-                  />
-                  <p className="text-xl text-muted-foreground font-medium">
-                    No pinned repositories found
-                  </p>
-                  <p className="text-sm text-muted-foreground/60 mt-2">
-                    This user hasn't pinned any repositories yet
-                  </p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {items.map((repo) => (
-                    <Link
-                      key={repo.id}
-                      href={repo.html_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group h-auto min-h-[14rem] bg-card/40 backdrop-blur-sm rounded-[32px] border border-border p-8 flex flex-col justify-between hover:border-primary/30 hover:bg-card/60 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 hover:scale-[1.02]"
-                    >
-                      <div className="space-y-4">
-                        <div className="flex items-start justify-between gap-4">
-                          <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
-                            {repo.name}
-                          </h3>
-                          <div className="p-2 rounded-lg bg-secondary/50 group-hover:bg-primary/10 transition-colors shrink-0">
-                            <ExternalLink
-                              size={14}
-                              className="text-muted-foreground group-hover:text-primary transition-colors"
-                            />
-                          </div>
-                        </div>
-                        {repo.description && (
-                          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
-                            {repo.description}
-                          </p>
-                        )}
-                        {repo.topics && repo.topics.length > 0 && (
-                          <div className="flex flex-wrap gap-2">
-                            {repo.topics.slice(0, 3).map((topic) => (
-                              <span
-                                key={topic}
-                                className="px-3 py-1 bg-primary/5 border border-primary/10 rounded-full text-xs font-medium text-primary"
-                              >
-                                {topic}
-                              </span>
-                            ))}
-                            {repo.topics.length > 3 && (
-                              <span className="px-3 py-1 bg-secondary/50 rounded-full text-xs font-medium text-muted-foreground">
-                                +{repo.topics.length - 3}
-                              </span>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-4 border-t border-border/50 pt-6 mt-4">
-                        {repo.language && (
-                          <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-primary" />
-                            <span className="text-sm font-medium text-muted-foreground">
-                              {repo.language}
-                            </span>
-                          </div>
-                        )}
-                        <span className="text-xs text-muted-foreground/60 ml-auto">
-                          Updated{" "}
-                          {new Date(repo.updated_at).toLocaleDateString(
-                            "en-US",
-                            {
-                              month: "short",
-                              day: "numeric",
-                              year: "numeric",
-                            },
-                          )}
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </section>
+            <ProfileProjects items={items} total_count={total_count} />
           </div>
         </div>
       </div>

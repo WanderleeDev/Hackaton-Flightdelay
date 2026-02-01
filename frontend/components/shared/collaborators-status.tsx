@@ -1,4 +1,5 @@
 import { COLLABORATORS } from "@/src/modules/shared/data/collaborators";
+import Image from "next/image";
 
 export function CollaboratorsStatus() {
   return (
@@ -10,10 +11,13 @@ export function CollaboratorsStatus() {
               key={collaborator.name}
               className="group relative transition-transform hover:scale-110 hover:z-10"
             >
-              <img
+              <Image
                 src={collaborator.avatar}
                 alt={collaborator.name}
                 loading="lazy"
+                width={32}
+                height={32}
+                unoptimized
                 className="size-8 rounded-full border-2 border-background object-cover bg-muted transition-all duration-300 group-hover:border-primary/50"
               />
               <span className="absolute left-1/2 -translate-x-1/2 top-full mt-1 text-[9px] font-medium text-foreground bg-background/90 backdrop-blur-sm px-1.5 py-0.5 rounded shadow-sm opacity-0 scale-95 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100 whitespace-nowrap pointer-events-none">

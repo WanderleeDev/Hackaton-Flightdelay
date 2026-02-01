@@ -50,27 +50,26 @@ export default function SectionHeader({
 
   return (
     <div className={cn(variant.container, className)}>
-      {icon ||
-        (label && (
-          <div
-            className={cn(
-              "flex items-center text-primary font-bold tracking-widest uppercase",
-              variant.label,
-            )}
-          >
-            {icon && (
-              <div
-                className={cn(
-                  "flex items-center justify-center shrink-0",
-                  variant.icon,
-                )}
-              >
-                {icon}
-              </div>
-            )}
-            {label && <span className="leading-none">{label}</span>}
-          </div>
-        ))}
+      {icon && label && (
+        <div
+          className={cn(
+            "flex items-center text-primary font-bold tracking-widest uppercase",
+            variant.label,
+          )}
+        >
+          {icon && (
+            <div
+              className={cn(
+                "flex items-center justify-center shrink-0",
+                variant.icon,
+              )}
+            >
+              {icon}
+            </div>
+          )}
+          {label && <span className="leading-none">{label}</span>}
+        </div>
+      )}
       <Tag
         className={cn(
           "font-bold tracking-tight text-foreground leading-[1.1]",
