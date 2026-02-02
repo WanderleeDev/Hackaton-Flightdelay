@@ -48,7 +48,12 @@ export default function ListPredictions() {
         isFetchingNextPage={isFetchingNextPage}
         fetchNextPage={fetchNextPage}
         renderItem={(index: number, item: any) => (
-          <PredictionCardB {...item} data-index={index} />
+          <div
+            className="animate-staggered-fade-in"
+            style={{ animationDelay: `${(index % 20) * 50}ms` }}
+          >
+            <PredictionCardB {...item} />
+          </div>
         )}
       />
     </div>

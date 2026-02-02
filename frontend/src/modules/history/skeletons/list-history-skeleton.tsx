@@ -1,57 +1,52 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { Card, CardContent } from "@/components/ui/card";
+import PredictionCardWrapper from "../../shared/components/prediction-card-wrapper";
 
 export default function ListHistorySkeleton() {
   return (
-    <div className="flex-1 overflow-y-auto space-y-3 p-2 w-full rounded-md gap-2 border max-w-3xl mx-auto">
+    <div className="flex-1 space-y-3 w-full max-w-3xl mx-auto">
       {[...Array(3)].map((_, i) => (
-        <Card key={i} className="overflow-hidden border-muted/50 shadow-sm">
-          <CardContent className="p-4">
-            <div className="flex justify-between items-center mb-4">
-              <Skeleton className="h-5 w-16 rounded-full" />
-              <div className="flex items-center gap-1.5">
-                <Skeleton className="h-3.5 w-3.5 rounded-full" />
-                <Skeleton className="h-3 w-10" />
+        <PredictionCardWrapper key={i} className="p-4 @container opacity-50">
+          <div className="flex justify-between items-center mb-4 gap-2">
+            <Skeleton className="h-6 w-24 rounded-full" />
+            <div className="flex items-center gap-1.5">
+              <Skeleton className="h-3.5 w-3.5 rounded-full" />
+              <Skeleton className="h-3 w-10" />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between gap-2 min-w-0">
+            <div className="flex flex-col gap-1 min-w-0 flex-1">
+              <div className="flex items-center gap-2 min-w-0">
+                <Skeleton className="size-6 sm:size-8 rounded-full shrink-0" />
+                <Skeleton className="h-5 w-16 hidden @min-[200px]:block" />
               </div>
+              <Skeleton className="h-2 w-10 ml-1" />
             </div>
 
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex flex-col gap-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  <Skeleton className="h-8 w-8 rounded-full" />
-                  <Skeleton className="h-5 w-12" />
-                </div>
-                <Skeleton className="h-2 w-10 ml-1" />
-              </div>
-
-              <div className="flex-1 flex flex-col items-center gap-1 px-4">
-                <div className="w-full relative flex items-center">
-                  <Skeleton className="h-px w-full" />
-                  <Skeleton className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-3 w-3 rounded-full" />
-                </div>
-                <Skeleton className="h-2 w-16 mt-1" />
-              </div>
-
-              <div className="flex flex-col gap-1 items-end min-w-0">
-                <div className="flex items-center gap-2">
-                  <Skeleton className="h-5 w-12" />
-                  <Skeleton className="h-8 w-8 rounded-full" />
-                </div>
-                <Skeleton className="h-2 w-10 mr-1" />
-              </div>
+            <div className="shrink-0 flex flex-col items-center gap-1 px-2 sm:px-4 flex-1">
+              <Skeleton className="h-px w-full" />
+              <Skeleton className="h-2 w-12 hidden sm:block mt-1" />
             </div>
 
-            <Skeleton className="my-4 h-px w-full" />
-
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-1">
-                <Skeleton className="h-3 w-3" />
-                <Skeleton className="h-2 w-24" />
+            <div className="flex flex-col gap-1 items-end min-w-0 text-right flex-1">
+              <div className="flex items-center gap-2 min-w-0">
+                <Skeleton className="h-5 w-16 hidden @min-[200px]:block" />
+                <Skeleton className="size-6 sm:size-8 rounded-full shrink-0" />
               </div>
-              <Skeleton className="h-2 w-20" />
+              <Skeleton className="h-2 w-10 mr-1" />
             </div>
-          </CardContent>
-        </Card>
+          </div>
+
+          <Skeleton className="my-4 h-px w-full opacity-20" />
+
+          <div className="flex justify-between items-center gap-2">
+            <div className="flex items-center gap-1 min-w-0">
+              <Skeleton className="h-3 w-3 shrink-0" />
+              <Skeleton className="h-2 w-24 truncate" />
+            </div>
+            <Skeleton className="h-2 w-20 shrink-0" />
+          </div>
+        </PredictionCardWrapper>
       ))}
     </div>
   );

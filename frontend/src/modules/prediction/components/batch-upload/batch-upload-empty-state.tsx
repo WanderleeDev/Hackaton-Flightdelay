@@ -18,7 +18,7 @@ export default function BatchUploadEmptyState({
       animate={{ opacity: 1 }}
       className="flex flex-col items-center gap-4 text-center"
     >
-      <div className="p-4 rounded-2xl bg-primary/10 text-primary group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-500">
+      <div className="p-4 rounded-lg bg-primary/10 text-primary group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
         <UploadCloud className="size-10" />
       </div>
       <div className="space-y-1">

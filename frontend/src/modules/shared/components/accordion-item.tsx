@@ -29,9 +29,9 @@ export default function AccordionItem({
       )}
       open={defaultOpen}
     >
-      <summary className="flex items-center justify-between gap-2 p-4 md:p-6 cursor-pointer list-none hover:bg-secondary/20 transition-all duration-300">
+      <summary className="flex items-center justify-between gap-2 p-4 md:p-6 cursor-pointer list-none hover:bg-secondary/50 transition-all duration-300 group-open:bg-secondary/50">
         <div className="flex items-center gap-4">
-          <div className="p-2.5 rounded-full bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+          <div className="p-2.5 rounded-full bg-primary/10 text-primary group-hover:bg-primary/20 group-open:bg-primary/20 transition-colors">
             <Icon className="size-5" />
           </div>
           <div className="flex flex-col">

@@ -19,7 +19,7 @@ export function ActionIcon({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "p-2 rounded-xl bg-secondary/50 hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300 inline-flex items-center justify-center",
+        "p-2 rounded-xl bg-secondary/50 hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300 inline-flex items-center justify-center cursor-pointer",
         className,
       )}
       {...props}

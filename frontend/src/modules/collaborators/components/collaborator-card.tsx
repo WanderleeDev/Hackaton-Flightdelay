@@ -1,6 +1,7 @@
 import { Github, Linkedin, ExternalLink } from "lucide-react";
 import { ActionIcon } from "@/src/modules/shared/components/action-icon";
 import Image from "next/image";
+import PredictionCardWrapper from "../../shared/components/prediction-card-wrapper";
 
 interface CollaboratorCardProps {
   name: string;
@@ -25,7 +26,7 @@ export default function CollaboratorCard({
   description,
 }: CollaboratorCardProps) {
   return (
-    <div className="group relative bg-card/40 rounded-xl border border-border overflow-hidden transition-[transform,border-color,box-shadow] duration-300 hover:border-primary/40 hover:shadow-lg hover:-translate-y-1 focus-within:ring-2 focus-within:ring-primary/50">
+    <PredictionCardWrapper className="group relative overflow-hidden transition-all duration-300">
       <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] -z-10 group-hover:bg-primary/20 transition-colors duration-300" />
 
       <div className="p-6 space-y-5 flex flex-col min-h-full">
@@ -66,6 +67,6 @@ export default function CollaboratorCard({
           />
         </div>
       </div>
-    </div>
+    </PredictionCardWrapper>
   );
 }

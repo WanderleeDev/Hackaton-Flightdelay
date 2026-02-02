@@ -42,7 +42,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { usePrediction } from "../hooks/useprediction";
 import PredictionResultDialog from "./prediction-result-dialog";
-import { toast } from "sonner";
+import { showCustomToast } from "@/src/modules/shared/components/custom-toast";
 import { AIRLINES } from "../data/airlines";
 import { AIRPORTS } from "../data/airports";
 import { useMapSelection } from "../context/map-context";
@@ -56,10 +56,17 @@ export default function PredictForm() {
   const [submittedData, setSubmittedData] = useState<formSchemaType | null>(
     null,
   );
-  const { setOrigin, setDestination } = useMapSelection();
-
-  const form = useForm<formSchemaType>({
+  const { setOrigin, setDestination, restoreDefaultValues } = useMapSelection();
+  const {
+    handleSubmit,
+    formState: { isValid, isSubmitting },
+    control,
+    resetField,
+    reset,
+    setValue,
+  } = useForm<formSchemaType>({
     resolver: zodResolver(formSchema as any),
+    mode: "onChange",
     defaultValues: {
       origin: "",
       destination: "",
@@ -71,41 +78,40 @@ export default function PredictForm() {
   });
 
   const { mutate, isPending, data } = usePrediction();
-
-  const handleSubmit = form.handleSubmit(async (formData: formSchemaType) => {
-    setSubmittedData(formData);
-    mutate(formData, {
-      onSuccess: () => {
-        setIsDialogOpen(true);
-        setOrigin(null);
-        setDestination(null);
-      },
-      onError: (error) => {
-        toast.error(error.message, {
-          position: "bottom-left",
-        });
-      },
-    });
-  });
+  const onSubmit = handleSubmit(
+    async (formData: formSchemaType) => {
+      setSubmittedData(formData);
+      mutate(formData, {
+        onSuccess: () => {
+          setIsDialogOpen(true);
+          restoreDefaultValues();
+        },
+      });
+    },
+    () => {
+      showCustomToast("Validation Error", {
+        description: "Please check the form for errors before submitting.",
+        type: "error",
+      });
+    },
+  );
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
     setSubmittedData(null);
-    setOrigin(null);
-    setDestination(null);
-    form.reset();
+    restoreDefaultValues();
+    reset();
   };
 
   const handleReset = () => {
-    setOrigin(null);
-    setDestination(null);
-    form.reset();
+    restoreDefaultValues();
+    reset();
   };
   return (
     <aside className="flex flex-col gap-4">
       <form
-        onSubmit={handleSubmit}
-        className="@container p-2 sm:p-5 md:p-8 w-full rounded-md gap-2 border max-w-3xl mx-auto overflow-y-scroll "
+        onSubmit={onSubmit}
+        className="@container p-2 sm:p-5 md:p-8 w-full gap-2 max-w-3xl mx-auto"
         aria-label="Flight prediction form"
         noValidate
       >
@@ -116,7 +122,7 @@ export default function PredictForm() {
 
           <Controller
             name="origin"
-            control={form.control}
+            control={control}
             render={({ field, fieldState }) => {
               const options = AIRPORTS;
               return (
@@ -172,7 +178,7 @@ export default function PredictForm() {
 
           <Controller
             name="destination"
-            control={form.control}
+            control={control}
             render={({ field, fieldState }) => {
               const options = AIRPORTS;
               return (
@@ -231,7 +237,7 @@ export default function PredictForm() {
 
           <Controller
             name="departureDate"
-            control={form.control}
+            control={control}
             render={({ field, fieldState }) => {
               const selectedDate = field.value;
               return (
@@ -259,7 +265,7 @@ export default function PredictForm() {
                               : undefined
                           }
                           className={cn(
-                            "w-full justify-start text-start font-normal active:scale-none",
+                            "w-full justify-start text-start font-normal active:scale-100",
                             !selectedDate &&
                               "text-muted-foreground font-medium",
                           )}
@@ -277,7 +283,7 @@ export default function PredictForm() {
                           mode="single"
                           selected={selectedDate}
                           onSelect={(newDate) => {
-                            form.setValue(field.name, newDate!, {
+                            setValue(field.name, newDate!, {
                               shouldDirty: true,
                             });
                           }}
@@ -292,7 +298,7 @@ export default function PredictForm() {
                         className="absolute top-1/2 end-0 -translate-y-1/2 rounded-full"
                         onClick={(e) => {
                           e.stopPropagation();
-                          form.resetField("departureDate");
+                          resetField("departureDate");
                         }}
                         aria-label="Clear departure date"
                       >
@@ -316,7 +322,7 @@ export default function PredictForm() {
 
           <Controller
             name="airline"
-            control={form.control}
+            control={control}
             render={({ field, fieldState }) => {
               const options = AIRLINES;
               return (
@@ -362,7 +368,7 @@ export default function PredictForm() {
 
           <Controller
             name="flightDistance"
-            control={form.control}
+            control={control}
             render={({ field, fieldState }) => {
               return (
                 <Field
@@ -424,7 +430,7 @@ export default function PredictForm() {
 
           <Controller
             name="atmospherics"
-            control={form.control}
+            control={control}
             render={({ field, fieldState }) => {
               const options = [
                 { value: "live", label: "live", icon: CloudRain },
@@ -461,9 +467,9 @@ export default function PredictForm() {
                         <Label
                           htmlFor={`atmospherics-${value}`}
                           className={cn(
-                            "flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 border-muted bg-popover hover:bg-accent hover:text-accent-foreground cursor-pointer transition-all duration-200",
+                            "flex flex-col items-center justify-center gap-2 p-4 rounded-lg border-2 border-muted bg-popover hover:bg-accent/50 hover:border-accent active:scale-95 cursor-pointer transition-all duration-200",
                             field.value === value &&
-                              "border-primary bg-primary/5 text-primary shadow-sm",
+                              "border-primary bg-primary/5 text-primary shadow-md",
                           )}
                         >
                           <Icon className="size-6" aria-hidden="true" />
@@ -489,8 +495,8 @@ export default function PredictForm() {
           <Button
             size="lg"
             type="submit"
-            className="w-full"
-            disabled={isPending}
+            className="w-full transition-all duration-300 group"
+            disabled={isPending || isSubmitting || !isValid}
           >
             {isPending ? (
               <>
@@ -511,7 +517,7 @@ export default function PredictForm() {
             size="lg"
             className="w-full"
             variant={"secondary"}
-            disabled={isPending}
+            disabled={isPending || isSubmitting}
             type="reset"
             onClick={handleReset}
           >

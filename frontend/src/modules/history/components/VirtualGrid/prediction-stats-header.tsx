@@ -21,7 +21,7 @@ export default function PredictionStatsHeader({
   return (
     <div
       className={cn(
-        "sticky top-0 z-10 bg-card/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-border/50 mb-6 shadow-sm",
+        "sticky top-0 z-10 bg-card/90 backdrop-blur-md px-4 py-3 rounded-xl border border-border/50 mb-6 shadow-sm",
         props.className,
       )}
       {...props}

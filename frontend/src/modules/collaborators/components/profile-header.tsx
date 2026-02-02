@@ -29,7 +29,7 @@ export default function ProfileHeader({ user, children }: ProfileHeaderProps) {
   return (
     <div className="relative group motion-safe:animate-in fade-in slide-in-from-bottom-8 duration-700">
       <div
-        className="h-48 md:h-72 w-full rounded-[40px] border border-border overflow-hidden relative shadow-2xl shadow-primary/5"
+        className="h-48 md:h-72 w-full rounded-3xl border border-border overflow-hidden relative shadow-2xl shadow-primary/5"
         style={bannerGradient}
       >
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
@@ -39,7 +39,7 @@ export default function ProfileHeader({ user, children }: ProfileHeaderProps) {
       <div className="px-8 md:px-12 -mt-24 md:-mt-32 relative z-10">
         <div className="flex flex-col md:flex-row gap-8 items-end">
           <div className="relative shrink-0">
-            <div className="w-32 h-32 md:w-56 md:h-56 rounded-[40px] border-8 border-background bg-secondary relative overflow-hidden group-hover:scale-[1.02] transition-transform duration-500 shadow-2xl">
+            <div className="w-32 h-32 md:w-56 md:h-56 rounded-3xl border-8 border-background bg-secondary relative overflow-hidden transition-transform duration-500 shadow-2xl">
               <Image
                 src={avatar_url}
                 alt={`${name || username}'s avatar`}

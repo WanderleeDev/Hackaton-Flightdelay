@@ -1,10 +1,11 @@
 interface ProfileTechStackProps {
   languages: string[];
 }
+import PredictionCardWrapper from "../../shared/components/prediction-card-wrapper";
 
 export default function ProfileTechStack({ languages }: ProfileTechStackProps) {
   return (
-    <section className="bg-card/40 backdrop-blur-sm border border-border rounded-[32px] p-8 space-y-6 hover:border-primary/20 transition-colors">
+    <PredictionCardWrapper className="p-8 space-y-6">
       <h2 className="text-xl font-bold flex items-center gap-3 text-foreground">
         <span className="w-1.5 h-6 bg-primary rounded-full" />
         Tech Stack
@@ -25,6 +26,6 @@ export default function ProfileTechStack({ languages }: ProfileTechStackProps) {
           </p>
         )}
       </div>
-    </section>
+    </PredictionCardWrapper>
   );
 }

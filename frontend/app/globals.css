@@ -182,7 +182,20 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
   }
+
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 9999px;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -195,18 +208,19 @@
 }
 
 @layer utilities {
-  .custom-scrollbar {
-    &::-webkit-scrollbar {
-      width: 5px;
-    }
+  .animate-staggered-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
+  }
 
-    &::-webkit-scrollbar-track {
-      background: #00a6e838;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
     }
-
-    &::-webkit-scrollbar-thumb {
-      background: #017bac;
-      border-radius: 9999px;
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }

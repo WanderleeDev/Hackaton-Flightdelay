@@ -1,4 +1,10 @@
-import { Brain, Bell, ShieldCheck, CloudSun } from "lucide-react";
+import {
+  Brain,
+  Bell,
+  ShieldCheck,
+  CloudSun,
+  MessageSquare,
+} from "lucide-react";
 
 export const features = [
   {
@@ -8,6 +14,14 @@ export const features = [
       "Creation of our own MCP, use our services with your favorite AI provider",
     bg: "bg-sky-600",
     image: "/feature-mcp.png",
+  },
+  {
+    icon: MessageSquare,
+    title: "AI Chatbot Assistant",
+    description:
+      "24/7 intelligent assistance for flight queries, rebooking, and personalized travel updates.",
+    bg: "bg-violet-600",
+    image: "/feature-chatbot.png",
   },
   {
     icon: Bell,

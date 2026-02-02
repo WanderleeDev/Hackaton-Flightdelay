@@ -1,6 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { HelpTooltip } from "@/src/modules/shared/components/help-tooltip";
 import { Prediction } from "@/src/modules/history/interfaces";
+import PredictionCardWrapper from "@/src/modules/shared/components/prediction-card-wrapper";
 
 interface TopRoutesChartProps {
   predictions: Prediction[];
@@ -48,14 +48,14 @@ export function TopRoutesChart({ predictions }: TopRoutesChartProps) {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle>Top Routes by Probability</CardTitle>
+    <PredictionCardWrapper>
+      <div className="p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-lg font-bold text-foreground">
+            Top Routes by Probability
+          </h3>
           <HelpTooltip text="Top 5 routes with highest average delay probability" />
         </div>
-      </CardHeader>
-      <CardContent>
         <div className="space-y-4">
           {routes.map((route) => {
             const widthPercent = (route.avgProbability / maxProb) * 100;
@@ -79,7 +79,7 @@ export function TopRoutesChart({ predictions }: TopRoutesChartProps) {
             );
           })}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </PredictionCardWrapper>
   );
 }

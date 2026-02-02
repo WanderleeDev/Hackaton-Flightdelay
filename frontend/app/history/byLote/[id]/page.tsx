@@ -29,9 +29,12 @@ export default async function ByLoteIdPage({ params }: Props) {
         icon={Database}
       >
         <Link href="/history/byLote" className="ml-auto">
-          <Button variant="default" size="sm" className="gap-2">
+          <Button
+            variant="secondary"
+            className="h-10 px-4 rounded-xl flex items-center gap-2 text-xs font-bold border border-border"
+          >
             <ArrowLeft className="h-4 w-4" />
-            Back to Batches
+            <span>Back to Batches</span>
           </Button>
         </Link>
       </SectionHeaderB>

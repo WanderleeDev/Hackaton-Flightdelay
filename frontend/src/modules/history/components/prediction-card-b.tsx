@@ -14,6 +14,7 @@ import { formatDelayProbability } from "@/src/utils/formatDelayProbability";
 import { Prediction } from "../interfaces";
 import { format } from "date-fns";
 import { HTMLAttributes } from "react";
+import PredictionCardWrapper from "../../shared/components/prediction-card-wrapper";
 
 export type PredictionStatus = "succeeded" | "delayed" | "failed";
 export type AtmosphericType = "live" | "storm" | "tailwind" | "none";
@@ -65,11 +66,7 @@ export default function PredictionCardB({
   const WeatherIcon = atmospheric.icon;
 
   return (
-    <div
-      className="bg-card/50 backdrop-blur-sm border border-border rounded-3xl p-6 transition-all duration-300 hover:border-primary/50 hover:shadow-2xl focus-within:border-primary/50 focus-within:shadow-2xl"
-      tabIndex={1}
-      {...props}
-    >
+    <PredictionCardWrapper className="p-6 overflow-hidden" {...props}>
       <div className="flex justify-between items-center mb-6">
         <span
           className={cn(
@@ -160,6 +157,6 @@ export default function PredictionCardB({
           </span>
         </div>
       </div>
-    </div>
+    </PredictionCardWrapper>
   );
 }

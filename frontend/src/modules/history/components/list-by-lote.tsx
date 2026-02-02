@@ -57,8 +57,14 @@ export default function ListByLote() {
               simulationsCount={lote.total}
               serialNumber={lote.serialNumber}
             >
-              {lote.histories.map((prediction) => (
-                <PredictionCardB key={prediction.id} {...prediction} />
+              {lote.histories.map((prediction, pIdx) => (
+                <div
+                  key={prediction.id}
+                  className="animate-staggered-fade-in"
+                  style={{ animationDelay: `${pIdx * 50}ms` }}
+                >
+                  <PredictionCardB {...prediction} />
+                </div>
               ))}
             </LoteSection>
           </div>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function FeaturesSidebarCard() {
   return (
@@ -19,9 +20,12 @@ export default function FeaturesSidebarCard() {
         </div>
       </div>
       <Link href="/features" className="block">
-        <button className="w-full py-2.5 rounded-xl bg-primary text-primary-foreground font-bold text-xs hover:bg-primary/90 transition-all active:scale-95 shadow-lg shadow-primary/20">
+        <Button
+          className="w-full font-bold text-xs shadow-lg shadow-primary/20"
+          size="lg"
+        >
           Explore Our Features
-        </button>
+        </Button>
       </Link>
     </div>
   );

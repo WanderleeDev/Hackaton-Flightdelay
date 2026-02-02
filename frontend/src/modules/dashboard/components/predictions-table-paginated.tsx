@@ -19,6 +19,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { cn } from "@/src/utils/cn";
+import PredictionCardWrapper from "@/src/modules/shared/components/prediction-card-wrapper";
 
 interface PredictionsTablePaginatedProps {
   predictions: Prediction[];
@@ -188,7 +189,7 @@ export function PredictionsTablePaginated({
 
   return (
     <div className="space-y-4">
-      <div className="rounded-lg border bg-card overflow-hidden">
+      <PredictionCardWrapper className="overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -230,7 +231,7 @@ export function PredictionsTablePaginated({
             </tbody>
           </table>
         </div>
-      </div>
+      </PredictionCardWrapper>
 
       {/* Pagination Controls */}
       {totalPages > 1 && (

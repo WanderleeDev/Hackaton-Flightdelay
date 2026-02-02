@@ -16,7 +16,7 @@ export function HelpTooltip({ text, className, ...props }: HelpTooltipProps) {
         <HelpCircle className="h-4 w-4" />
       </button>
 
-      <p className="absolute top-0 right-0 text-xs min-w-48 bg-black text-white p-2 rounded-xl -translate-y-[120%] transition-discrete opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:-translate-y-[110%] group-focus-within:-translate-y-[110%] group-focus-within:opacity-100 pointer-events-none z-50">
+      <p className="absolute top-0 right-0 text-xs min-w-48 bg-black text-white p-2 rounded-lg -translate-y-[120%] transition-discrete opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:-translate-y-[110%] group-focus-within:-translate-y-[110%] group-focus-within:opacity-100 pointer-events-none z-50">
         {text}
       </p>
     </div>

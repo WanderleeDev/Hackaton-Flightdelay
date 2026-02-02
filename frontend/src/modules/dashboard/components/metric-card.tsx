@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { HelpTooltip } from "@/src/modules/shared/components/help-tooltip";
 import { LucideIcon } from "lucide-react";
 import { cn } from "@/src/utils/cn";
+import PredictionCardWrapper from "@/src/modules/shared/components/prediction-card-wrapper";
 
 interface MetricCardProps {
   title: string;
@@ -21,26 +21,28 @@ export function MetricCard({
   helpText,
 }: MetricCardProps) {
   return (
-    <Card>
-      <CardHeader className="pb-2">
+    <PredictionCardWrapper className="flex flex-col">
+      <div className="p-6 pb-2">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <div className={cn("p-2 rounded-lg bg-primary/10", iconClassName)}>
               <Icon className="h-4 w-4 text-primary" />
             </div>
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">
               {title}
-            </CardTitle>
+            </h3>
           </div>
           {helpText && <HelpTooltip text={helpText} />}
         </div>
-      </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
+      </div>
+      <div className="p-6 pt-0">
+        <div className="text-2xl font-bold text-foreground">{value}</div>
         {subtitle && (
-          <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>
+          <p className="text-xs text-muted-foreground mt-1 uppercase font-semibold opacity-70">
+            {subtitle}
+          </p>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </PredictionCardWrapper>
   );
 }

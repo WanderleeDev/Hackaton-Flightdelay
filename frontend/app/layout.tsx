@@ -41,7 +41,7 @@ export default function RootLayout({
               {children}
               <FooterPage />
             </main>
-            <Toaster richColors closeButton position="top-right" />
+            <Toaster richColors closeButton position="top-center" />
           </QueryProvider>
         </ThemeProvider>
       </body>

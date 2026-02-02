@@ -11,7 +11,7 @@ export default function ListHistory() {
   const { data, hasNextPage, fetchNextPage } = useInfinitePrediction();
 
   return (
-    <div className="flex-1 overflow-y-auto space-y-3  p-2 w-full rounded-md gap-2 border max-w-3xl mx-auto">
+    <div className="flex-1 overflow-y-auto space-y-3 w-full max-w-3xl mx-auto">
       {match(!data?.pages.length)
         .with(false, () =>
           data?.pages.map((page, idx) =>
@@ -20,7 +20,11 @@ export default function ListHistory() {
                 key={item.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
+                transition={{
+                  duration: 0.4,
+                  ease: [0.21, 1.11, 0.81, 0.99],
+                  delay: idx * 0.05,
+                }}
               >
                 <PredictionCardA {...item} />
               </motion.div>

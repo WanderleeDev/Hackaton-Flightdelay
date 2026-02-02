@@ -42,7 +42,7 @@ export default function BatchDropZone({
   onRemove,
 }: BatchDropZoneProps) {
   return (
-    <div className="p-4 sm:p-6 w-full rounded-2xl border bg-card/40 backdrop-blur-sm transition-all duration-300">
+    <div className="p-4 sm:p-6 w-full">
       <div
         className={cn(
           "relative group flex flex-col items-center justify-center p-8 border-2 border-dashed rounded-xl transition-all duration-300",

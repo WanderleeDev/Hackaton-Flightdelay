@@ -34,8 +34,9 @@ export default function HistoryHeader() {
             href={link.href}
             className={cn(
               "flex-1 md:flex-none flex items-center justify-center gap-2 px-4 md:px-6 py-2.5 md:py-2 rounded-xl md:rounded-full text-sm font-bold transition-all duration-300",
-              pathname === link.href
-                ? "bg-accent text-white  shadow-lg shadow-primary/10"
+              pathname === link.href ||
+                (link.href !== "/history" && pathname.startsWith(link.href))
+                ? "bg-accent text-white shadow-lg shadow-primary/10"
                 : "text-muted-foreground hover:text-foreground hover:bg-secondary/50",
             )}
           >
@@ -43,7 +44,10 @@ export default function HistoryHeader() {
             <span
               className={cn(
                 "whitespace-nowrap",
-                pathname === link.href ? "" : "hidden sm:block",
+                pathname === link.href ||
+                  (link.href !== "/history" && pathname.startsWith(link.href))
+                  ? ""
+                  : "hidden sm:block",
               )}
             >
               {link.label}

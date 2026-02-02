@@ -35,7 +35,7 @@ export default function BatchFilePreview({
       animate={{ opacity: 1, y: 0 }}
       className="flex flex-col items-center gap-4 w-full"
     >
-      <div className="flex items-center gap-4 p-4 rounded-xl bg-secondary/50 border w-full">
+      <div className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 border w-full transition-colors duration-200">
         <div className="p-2 rounded-lg bg-primary/10 text-primary">
           <FileSpreadsheet className="size-6" />
         </div>
