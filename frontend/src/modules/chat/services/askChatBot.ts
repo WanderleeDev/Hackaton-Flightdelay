@@ -1,6 +1,6 @@
-import { type LanguageModel, streamText } from "ai";
+import { LanguageModel, streamText } from "ai";
 
-const prompt = "Take a bad joke" as const;
+const prompt = "Take a bad joke";
 
 export async function askChatBot(model: LanguageModel) {
   const { textStream } = await streamText({
