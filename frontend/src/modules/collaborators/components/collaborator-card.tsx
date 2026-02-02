@@ -25,17 +25,17 @@ export default function CollaboratorCard({
   description,
 }: CollaboratorCardProps) {
   return (
-    <div className="group relative bg-card/40 rounded-[40px] border border-border overflow-hidden transition-all duration-500 hover:border-primary/30">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] -z-10 group-hover:bg-primary/10 transition-colors duration-500" />
+    <div className="group relative bg-card/40 rounded-xl border border-border overflow-hidden transition-[transform,border-color,box-shadow] duration-300 hover:border-primary/40 hover:shadow-lg hover:-translate-y-1 focus-within:ring-2 focus-within:ring-primary/50">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] -z-10 group-hover:bg-primary/20 transition-colors duration-300" />
 
-      <div className="p-8 space-y-6 flex flex-col min-h-full">
+      <div className="p-6 space-y-5 flex flex-col min-h-full">
         <div className="relative w-24 h-24">
           <div className="absolute inset-0 bg-primary/20 rounded-3xl rotate-6 group-hover:rotate-12 transition-transform duration-500" />
           <Image
             src={avatar}
             alt={name}
             loading="lazy"
-            className="relative w-full h-full object-cover rounded-3xl"
+            className="relative w-full h-full object-cover rounded-2xl transition-transform duration-300 group-hover:scale-105"
             fill
             unoptimized
           />
