@@ -7,7 +7,6 @@ export interface Airport {
 }
 
 export const AIRPORTS: Airport[] = [
-  // --- NORTH AMERICA ---
   {
     value: "ATL",
     label: "Hartsfield-Jackson Atlanta Int'l",
@@ -65,7 +64,6 @@ export const AIRPORTS: Airport[] = [
     lng: -79.6248,
   },
 
-  // --- SOUTH AMERICA ---
   {
     value: "GRU",
     label: "São Paulo/Guarulhos Int'l",
@@ -102,7 +100,6 @@ export const AIRPORTS: Airport[] = [
     lng: -77.1143,
   },
 
-  // --- EUROPE ---
   {
     value: "LHR",
     label: "London Heathrow",
@@ -139,7 +136,6 @@ export const AIRPORTS: Airport[] = [
     lng: 4.7683,
   },
 
-  // --- ASIA / OCEANIA ---
   {
     value: "HND",
     label: "Tokyo Haneda",

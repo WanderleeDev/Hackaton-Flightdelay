@@ -2,7 +2,7 @@ import LoteSectionSkeleton from "@/src/modules/history/skeletons/lote-section-sk
 
 export default function ByLoteSkeleton() {
   return (
-    <div className="flex flex-col gap-8 relative z-10">
+    <div className="flex flex-col gap-8 sm:gap-12 relative z-10">
       <LoteSectionSkeleton />
       <LoteSectionSkeleton />
     </div>

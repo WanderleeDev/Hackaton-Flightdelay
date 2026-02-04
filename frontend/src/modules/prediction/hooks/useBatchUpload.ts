@@ -71,7 +71,7 @@ export const useBatchUpload = () => {
   const removeFile = () => {
     setFile(null);
     setBatchName("");
-    reset(); // Reset TanStack Query mutation state
+    reset();
     closeDialog();
   };
 

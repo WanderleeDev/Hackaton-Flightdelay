@@ -49,7 +49,7 @@ export default function ListPredictions() {
         fetchNextPage={fetchNextPage}
         renderItem={(index: number, item: any) => (
           <div
-            className="animate-staggered-fade-in"
+            className="animate-staggered-fade-in pt-4"
             style={{ animationDelay: `${(index % 20) * 50}ms` }}
           >
             <PredictionCardB {...item} />

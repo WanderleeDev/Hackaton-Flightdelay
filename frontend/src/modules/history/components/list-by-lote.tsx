@@ -46,8 +46,9 @@ export default function ListByLote() {
         style={{ height: "90dvh" }}
         totalCount={allLotes.length}
         data={allLotes}
+        className="mask-[linear-gradient(to_bottom,transparent,black_40px,black_calc(100%-40px),transparent)]"
         itemContent={(idx, lote) => (
-          <div className="mb-12">
+          <div className="mb-8 sm:mb-12 translate-y-4">
             <LoteSection
               key={lote.serialNumber}
               data-idx={idx}

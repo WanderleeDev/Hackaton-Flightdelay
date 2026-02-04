@@ -40,7 +40,7 @@ export default function GlobalMap({ className }: GlobalMapProps) {
     return [];
   }, [origin, destination]);
 
-  const routeColor = "#00a8e8"; // Use hex because Mapbox/MapLibre doesn't support CSS variables in layers
+  const routeColor = "#00a8e8";
   const routeOpacity = resolvedTheme === "dark" ? 0.9 : 0.7;
 
   useEffect(() => {

@@ -495,7 +495,7 @@ export default function PredictForm() {
           <Button
             size="lg"
             type="submit"
-            className="w-full transition-all duration-300 group"
+            className="w-full transition-all duration-300"
             disabled={isPending || isSubmitting || !isValid}
           >
             {isPending ? (

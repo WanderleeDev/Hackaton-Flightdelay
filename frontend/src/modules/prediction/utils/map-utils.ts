@@ -1,9 +1,5 @@
-export type Coordinate = [number, number]; // [lng, lat]
+export type Coordinate = [number, number];
 
-/**
- * Generates points along a Great Circle path between two points.
- * Uses the Haversine formula and spherical interpolation.
- */
 export function getGreatCirclePoints(
   start: Coordinate,
   end: Coordinate,

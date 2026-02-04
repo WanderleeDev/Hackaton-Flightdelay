@@ -38,6 +38,7 @@ export default function VirtualGridInfinite<T>({
     <VirtuosoGrid
       ref={ref}
       style={{ height }}
+      className="mask-[linear-gradient(to_bottom,transparent,black_40px,black_calc(100%-40px),transparent)]"
       totalCount={data.length}
       data={data}
       components={{

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function FeaturesHero() {
   return (
-    <section className="flex flex-col justify-center items-center h-[calc(100vh-4rem)] relative px-6 text-center overflow-hidden">
+    <section className="flex flex-col justify-center items-center h-[calc(100vh-4rem)] relative px-6 text-center">
       <div className="absolute top-0 left-1/4 w-[30vw] h-[30vw] bg-primary/20 blur-[120px] rounded-full pointer-events-none -z-10" />
       <div className="absolute bottom-1/4 right-1/4 w-[25vw] h-[25vw] bg-accent/10 blur-[100px] rounded-full pointer-events-none -z-10" />
 

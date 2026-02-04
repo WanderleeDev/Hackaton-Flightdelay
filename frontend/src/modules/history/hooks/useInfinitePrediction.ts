@@ -1,23 +1,10 @@
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
-import { getApiBaseUrl } from "../../../utils/getEnv";
-import { Pagination, Prediction } from "../interfaces";
-
-const fetchPrediction = async ({
-  pageParam,
-}: {
-  pageParam: number;
-}): Promise<Pagination<Prediction>> => {
-  const res = await fetch(
-    `${getApiBaseUrl()}/history?page=${pageParam}&size=8`,
-  );
-
-  return res.json();
-};
+import { getPredictions } from "../services/getPredictions";
 
 export function useInfinitePrediction() {
   return useSuspenseInfiniteQuery({
     queryKey: ["histories"],
-    queryFn: fetchPrediction,
+    queryFn: getPredictions,
     initialPageParam: 0,
     getNextPageParam: ({ last, pageNumber }) => {
       const nextPage = !last ? pageNumber + 1 : undefined;

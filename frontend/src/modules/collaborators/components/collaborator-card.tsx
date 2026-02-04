@@ -31,7 +31,6 @@ export default function CollaboratorCard({
 
       <div className="p-6 space-y-5 flex flex-col min-h-full">
         <div className="relative w-24 h-24">
-          <div className="absolute inset-0 bg-primary/20 rounded-3xl rotate-6 group-hover:rotate-12 transition-transform duration-500" />
           <Image
             src={avatar}
             alt={name}

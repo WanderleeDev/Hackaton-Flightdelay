@@ -21,13 +21,13 @@ export default function PredictionStatsHeader({
   return (
     <div
       className={cn(
-        "sticky top-0 z-10 bg-card/90 backdrop-blur-md px-4 py-3 rounded-xl border border-border/50 mb-6 shadow-sm",
+        "sticky top-0 z-10 bg-card/90 backdrop-blur-md px-3 py-2 sm:px-4 sm:py-3 rounded-xl border border-border/50 mb-4 md:mb-6 shadow-sm",
         props.className,
       )}
       {...props}
     >
-      <div className="flex flex-wrap items-center gap-6 text-sm">
-        <div className="flex items-center gap-3 text-foreground font-semibold">
+      <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-sm">
+        <div className="flex items-center gap-2 sm:gap-3 text-foreground font-semibold">
           <div className="p-1.5 rounded-lg bg-primary/10 ">
             <BarChart3 className="size-4 text-primary" />
           </div>

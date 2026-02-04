@@ -29,16 +29,16 @@ export default function SectionHeaderB({
             <Icon className="size-5 text-primary" />
           </div>
         </div>
-        <h3 className="flex items-baseline gap-4 md:gap-6 text-2xl md:text-3xl font-bold text-foreground tracking-tight">
+        <h3 className="flex items-baseline gap-2 sm:gap-4 md:gap-6 text-xl sm:text-2xl md:text-3xl font-bold text-foreground tracking-tight">
           <span className="capitalize">{title}</span>
-          <span className="text-muted-foreground/50 text-xl md:text-2xl font-mono">
+          <span className="text-muted-foreground/50 text-lg sm:text-xl md:text-2xl font-mono">
             #{serialNumber.toString().padStart(4, "0")}
           </span>
         </h3>
         {children}
       </div>
 
-      <div className="flex flex-wrap items-center gap-x-8 gap-y-4 text-muted-foreground/80">
+      <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-8 gap-y-2 sm:gap-y-4 text-muted-foreground/80">
         <div className="flex items-center gap-2.5 group">
           <div className="p-1.5 rounded-lg bg-secondary/50 group-hover:bg-primary/10 transition-colors">
             <Calendar className="size-4 text-primary" />
