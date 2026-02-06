@@ -2,13 +2,11 @@ import { getLoteDetailId } from "@/src/modules/dashboard/services/getLoteDetailI
 import { LoteMetrics } from "@/src/modules/dashboard/components/lote-metrics";
 import { ProbabilityDistribution } from "@/src/modules/dashboard/components/probability-distribution";
 import { TopRoutesChart } from "@/src/modules/dashboard/components/top-routes-chart";
-import { LotePredictionsTable } from "@/src/modules/dashboard/components/lote-detail-content";
+import { LotePredictionsTable } from "@/src/modules/dashboard/components/LotePredictionsTable";
 import { ArrowLeft, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeaderB from "@/src/modules/shared/components/section-header-b";
 import Link from "next/link";
-
-export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -16,16 +14,20 @@ type Props = {
 
 export default async function ByLoteIdPage({ params }: Props) {
   const { id } = await params;
-  const lote = await getLoteDetailId({ idLote: id, size: 100 });
-  const predictions = lote.histories.content;
+  const {
+    batchName,
+    serialNumber,
+    createdAt,
+    histories: { content, totalElements },
+  } = await getLoteDetailId({ idLote: id, size: 100 });
 
   return (
     <div className="space-y-6">
       <SectionHeaderB
-        title={lote.batchName}
-        serialNumber={lote.serialNumber}
-        date={lote.createdAt}
-        simulationsCount={lote.histories.totalElements}
+        title={batchName}
+        serialNumber={serialNumber}
+        date={createdAt}
+        simulationsCount={totalElements}
         icon={Database}
       >
         <Link href="/history/byLote" className="ml-auto">
@@ -39,14 +41,14 @@ export default async function ByLoteIdPage({ params }: Props) {
         </Link>
       </SectionHeaderB>
 
-      <LoteMetrics predictions={predictions} />
+      <LoteMetrics predictions={content} />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ProbabilityDistribution predictions={predictions} />
-        <TopRoutesChart predictions={predictions} />
+        <ProbabilityDistribution predictions={content} />
+        <TopRoutesChart predictions={content} />
       </div>
 
-      <LotePredictionsTable predictions={predictions} />
+      <LotePredictionsTable data={content} />
     </div>
   );
 }

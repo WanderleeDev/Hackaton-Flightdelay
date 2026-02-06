@@ -7,7 +7,6 @@ interface LoteMetricsProps {
 }
 
 export function LoteMetrics({ predictions }: LoteMetricsProps) {
-  // Calculate metrics
   const loadedCount = predictions.length;
 
   const avgProbability =

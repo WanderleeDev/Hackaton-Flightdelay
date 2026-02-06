@@ -8,7 +8,7 @@
   --brand-accent: #00a8e8;
   --brand-surface: #f4f7f9;
 
-  --background: #ffffff;
+  --background: #f4f7f9;
   --foreground: var(--brand-base);
   --card: #ffffff;
   --card-foreground: var(--brand-base);
@@ -81,9 +81,9 @@
   --brand-accent: #00a8e8;
   --brand-surface: #f4f7f9;
 
-  --background: var(--brand-base);
+  --background: #0b1221;
   --foreground: var(--brand-surface);
-  --card: #223354;
+  --card: #121e33;
   --card-foreground: var(--brand-surface);
   --popover: #223354;
   --popover-foreground: var(--brand-surface);

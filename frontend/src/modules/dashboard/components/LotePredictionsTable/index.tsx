@@ -1,33 +1,48 @@
 "use client";
 
+import {
+  getPaginationRowModel,
+  PaginationState,
+  useReactTable,
+  getCoreRowModel,
+} from "@tanstack/react-table";
+import columns from "./columns";
+import { Prediction } from "@/src/modules/history/interfaces";
+import LegendPredictions from "./LegendPredictions";
+import PredictionsFilters from "./PredictionsFilters";
 import { useState, useMemo } from "react";
-import { PredictionsFilters } from "./predictions-filters";
-import { PredictionsTablePaginated } from "./predictions-table-paginated";
-import type { Prediction } from "@/src/modules/history/interfaces";
+import { DataTablePagination } from "./DataTablePagination";
+import { DataTableContent } from "./DataTableContent";
 
 interface LotePredictionsTableProps {
-  predictions: Prediction[];
+  data: Prediction[];
 }
 
-export function LotePredictionsTable({
-  predictions,
-}: LotePredictionsTableProps) {
+const PAGE_INDEX = 0;
+const PAGE_SIZE = 10;
+
+export function LotePredictionsTable({ data }: LotePredictionsTableProps) {
+  // Filter States
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedAirline, setSelectedAirline] = useState("all");
   const [selectedRiskLevel, setSelectedRiskLevel] = useState("all");
   const [sortBy, setSortBy] = useState("date-newest");
 
-  // Get unique airlines
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: PAGE_INDEX,
+    pageSize: PAGE_SIZE,
+  });
+
+  // Get unique airlines for filter
   const airlines = useMemo(() => {
-    const uniqueAirlines = new Set(predictions.map((p) => p.airline));
+    const uniqueAirlines = new Set(data.map((p) => p.airline));
     return Array.from(uniqueAirlines).sort();
-  }, [predictions]);
+  }, [data]);
 
-  // Filter and sort predictions
-  const filteredPredictions = useMemo(() => {
-    let filtered = [...predictions];
+  // Filter and Sort Logic
+  const filteredData = useMemo(() => {
+    let filtered = [...data];
 
-    // Search filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(
@@ -38,12 +53,10 @@ export function LotePredictionsTable({
       );
     }
 
-    // Airline filter
     if (selectedAirline !== "all") {
       filtered = filtered.filter((p) => p.airline === selectedAirline);
     }
 
-    // Risk level filter
     if (selectedRiskLevel !== "all") {
       filtered = filtered.filter((p) => {
         const prob = p.delayProbability;
@@ -62,7 +75,6 @@ export function LotePredictionsTable({
       });
     }
 
-    // Sort
     filtered.sort((a, b) => {
       switch (sortBy) {
         case "date-newest":
@@ -79,43 +91,35 @@ export function LotePredictionsTable({
           return b.delayProbability - a.delayProbability;
         case "probability-low":
           return a.delayProbability - b.delayProbability;
-        case "distance-long": {
-          const distA =
-            typeof a.distanceKm === "string"
-              ? parseFloat(a.distanceKm)
-              : a.distanceKm;
-          const distB =
-            typeof b.distanceKm === "string"
-              ? parseFloat(b.distanceKm)
-              : b.distanceKm;
-          return distB - distA;
-        }
-        case "distance-short": {
-          const distA =
-            typeof a.distanceKm === "string"
-              ? parseFloat(a.distanceKm)
-              : a.distanceKm;
-          const distB =
-            typeof b.distanceKm === "string"
-              ? parseFloat(b.distanceKm)
-              : b.distanceKm;
-          return distA - distB;
-        }
+        case "distance-long":
+          return Number(b.distanceKm) - Number(a.distanceKm);
+        case "distance-short":
+          return Number(a.distanceKm) - Number(b.distanceKm);
         default:
           return 0;
       }
     });
 
     return filtered;
-  }, [predictions, searchQuery, selectedAirline, selectedRiskLevel, sortBy]);
+  }, [data, searchQuery, selectedAirline, selectedRiskLevel, sortBy]);
+
+  const table = useReactTable({
+    data: filteredData,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
+    state: { pagination },
+  });
 
   const handleExport = () => {
-    // TODO: Implement CSV export
     console.log("Exporting CSV...");
+    // Future export implementation
   };
 
   return (
-    <div className="space-y-6">
+    <section className="space-y-6">
+      <h3 className="sr-only">Predictions table</h3>
       <PredictionsFilters
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
@@ -128,28 +132,9 @@ export function LotePredictionsTable({
         airlines={airlines}
         onExport={handleExport}
       />
-
-      <PredictionsTablePaginated predictions={filteredPredictions} />
-
-      {/* Legend */}
-      <div className="flex flex-wrap gap-4 justify-end text-xs text-muted-foreground">
-        <div className="flex items-center gap-2">
-          <div className="size-3 rounded-full bg-green-500" />
-          <span>Low Risk (0-25%)</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="size-3 rounded-full bg-yellow-500" />
-          <span>Medium (25-50%)</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="size-3 rounded-full bg-orange-500" />
-          <span>High (50-75%)</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="size-3 rounded-full bg-red-500" />
-          <span>Very High (75-100%)</span>
-        </div>
-      </div>
-    </div>
+      <DataTableContent table={table} />
+      <DataTablePagination table={table} />
+      <LegendPredictions />
+    </section>
   );
 }

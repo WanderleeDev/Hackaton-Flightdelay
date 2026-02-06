@@ -1,3 +1,5 @@
+"use client";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,7 +24,7 @@ interface PredictionsFiltersProps {
   onExport?: () => void;
 }
 
-export function PredictionsFilters({
+export default function PredictionsFilters({
   searchQuery,
   onSearchChange,
   selectedAirline,
@@ -36,20 +38,18 @@ export function PredictionsFilters({
 }: PredictionsFiltersProps) {
   return (
     <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-      {/* Search */}
       <div className="relative flex-1 w-full sm:w-auto">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
           placeholder="Search by route or airline..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="pl-9"
+          className="pl-9 h-9"
         />
       </div>
 
-      {/* Airline Filter */}
       <Select value={selectedAirline} onValueChange={onAirlineChange}>
-        <SelectTrigger className="w-full sm:w-[150px]">
+        <SelectTrigger className="w-full sm:w-[150px] h-9">
           <SelectValue placeholder="All Airlines" />
         </SelectTrigger>
         <SelectContent>
@@ -62,9 +62,8 @@ export function PredictionsFilters({
         </SelectContent>
       </Select>
 
-      {/* Risk Level Filter */}
       <Select value={selectedRiskLevel} onValueChange={onRiskLevelChange}>
-        <SelectTrigger className="w-full sm:w-[150px]">
+        <SelectTrigger className="w-full sm:w-[150px] h-9">
           <SelectValue placeholder="All Risk Levels" />
         </SelectTrigger>
         <SelectContent>
@@ -76,9 +75,8 @@ export function PredictionsFilters({
         </SelectContent>
       </Select>
 
-      {/* Sort */}
       <Select value={sortBy} onValueChange={onSortChange}>
-        <SelectTrigger className="w-full sm:w-[180px]">
+        <SelectTrigger className="w-full sm:w-[180px] h-9">
           <SelectValue placeholder="Sort by" />
         </SelectTrigger>
         <SelectContent>
@@ -91,11 +89,10 @@ export function PredictionsFilters({
         </SelectContent>
       </Select>
 
-      {/* Export Button */}
       {onExport && (
-        <Button variant="outline" onClick={onExport} className="gap-2">
+        <Button variant="outline" onClick={onExport} className="gap-2 h-9">
           <Download className="h-4 w-4" />
-          Export CSV
+          <span className="hidden lg:inline">Export CSV</span>
         </Button>
       )}
     </div>
