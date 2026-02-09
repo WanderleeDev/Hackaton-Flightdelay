@@ -12,6 +12,7 @@ const columns = [
     id: "index",
     header: "#",
     cell: ({ row }) => row.index + 1,
+    enableGlobalFilter: false,
   }),
 
   columnHelper.display({
@@ -19,28 +20,32 @@ const columns = [
     header: "Route",
     cell: ({ row }) => (
       <div className="flex items-center gap-2">
-        <MapPin className="h-4 w-4 text-muted-foreground" />
+        <MapPin aria-hidden="true" className="h-4 w-4 text-muted-foreground" />
         <span className="font-medium">
           {row.original.origin} - {row.original.destination}
         </span>
       </div>
     ),
+    enableGlobalFilter: false,
   }),
 
   columnHelper.accessor("airline", {
     header: "Airline",
     cell: ({ row }) => <Badge variant="outline">{row.original.airline}</Badge>,
+    enableColumnFilter: true,
   }),
 
   columnHelper.accessor("departureDate", {
     header: "Departure",
     cell: ({ row }) =>
       format(row.original.departureDate, "MMM dd, yyyy , hh:mm a"),
+    enableGlobalFilter: false,
   }),
 
   columnHelper.accessor("distanceKm", {
     header: "Distance",
     cell: ({ row }) => `${row.original.distanceKm.toLocaleString()} km`,
+    enableGlobalFilter: false,
   }),
 
   columnHelper.accessor("delayProbability", {
@@ -55,6 +60,15 @@ const columns = [
         {(row.original.delayProbability * 100).toFixed(1)}%
       </Badge>
     ),
+    filterFn: (row, columnId, filterValue) => {
+      if (!filterValue || filterValue === "all") return true;
+      const max = Number(filterValue);
+      const min = max - 25;
+      const value = row.getValue(columnId) as number;
+      const percentage = value * 100;
+      return percentage >= min && percentage <= max;
+    },
+    enableGlobalFilter: false,
   }),
 
   columnHelper.accessor("status", {
@@ -70,11 +84,12 @@ const columns = [
           </>
         ) : (
           <>
-            <XCircle className="h-3 w-3" /> Failed
+            <XCircle className="h-3 w-3" /> Delayed
           </>
         )}
       </Badge>
     ),
+    enableColumnFilter: true,
   }),
 ];
 

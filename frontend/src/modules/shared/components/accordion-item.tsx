@@ -24,7 +24,7 @@ export default function AccordionItem({
     <details
       name={name}
       className={cn(
-        "group border border-border/50 rounded-[32px] overflow-hidden bg-card/20 backdrop-blur-sm",
+        "group border border-border/50 rounded-[32px] overflow-hidden h-fit bg-card/20 backdrop-blur-sm",
         className,
       )}
       open={defaultOpen}
