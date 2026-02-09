@@ -7,24 +7,21 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   ColumnFiltersState,
+  SortingState,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 import columns from "./columns";
 import { Prediction } from "@/src/modules/history/interfaces";
 import LegendPredictions from "./legend-predictions";
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableContent } from "./data-table-content";
-import { Download, Search } from "lucide-react";
+import { Download, Search, RotateCcw } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { SelectItem } from "@/components/ui/select";
 import BaseSelectFilter from "./base-select-filter";
+import { useDebounce } from "@/src/modules/shared/hooks/use-debounce";
 
 interface LotePredictionsTableProps {
   data: Prediction[];
@@ -54,35 +51,105 @@ export function LotePredictionsTable({ data }: LotePredictionsTableProps) {
     pageIndex: PAGE_INDEX,
     pageSize: PAGE_SIZE,
   });
-  const [globalFilter, setGlobalFilter] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const debouncedSearchValue = useDebounce(searchValue, 300);
+
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const uniqueAirlines = Array.from(new Set(data.map((d) => d.airline))).sort();
+  const [sorting, setSorting] = useState<SortingState>([]);
+
   const table = useReactTable({
     data,
     columns,
+    state: {
+      pagination,
+      globalFilter: debouncedSearchValue,
+      columnFilters,
+      sorting,
+    },
+    onPaginationChange: setPagination,
+    onColumnFiltersChange: setColumnFilters,
+    onSortingChange: setSorting,
+    onGlobalFilterChange: setSearchValue,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    onPaginationChange: setPagination,
-    onGlobalFilterChange: setGlobalFilter,
-    onColumnFiltersChange: setColumnFilters,
-    state: { pagination, globalFilter, columnFilters },
+    getSortedRowModel: getSortedRowModel(),
   });
 
-  const handleAirlineChange = (value: string) => {
-    if (value === "all") {
-      return table.getColumn("airline")?.setFilterValue(undefined);
-    }
-    table.getColumn("airline")?.setFilterValue(value);
-  };
+  const uniqueAirlines = useMemo(
+    () => Array.from(new Set(data.map((d) => d.airline))).sort(),
+    [data],
+  );
 
-  const handleRiskLevelChange = (value: string) => {
-    if (value === "all") {
-      return table.getColumn("delayProbability")?.setFilterValue(undefined);
-    }
-    table.getColumn("delayProbability")?.setFilterValue(value);
-  };
+  const handleAirlineChange = useCallback((value: string) => {
+    const filterValue = value === "all" ? undefined : value;
+    setColumnFilters((prev) => {
+      const otherFilters = prev.filter((f) => f.id !== "airline");
+      return filterValue
+        ? [...otherFilters, { id: "airline", value: filterValue }]
+        : otherFilters;
+    });
+  }, []);
 
+  const handleRiskLevelChange = useCallback((value: string) => {
+    const filterValue = value === "all" ? undefined : value;
+    setColumnFilters((prev) => {
+      const otherFilters = prev.filter((f) => f.id !== "delayProbability");
+      return filterValue
+        ? [...otherFilters, { id: "delayProbability", value: filterValue }]
+        : otherFilters;
+    });
+  }, []);
+
+  const handleSortChange = useCallback((value: string) => {
+    let newSorting: SortingState = [];
+    switch (value) {
+      case "date-newest":
+        newSorting = [{ id: "departureDate", desc: true }];
+        break;
+      case "date-oldest":
+        newSorting = [{ id: "departureDate", desc: false }];
+        break;
+      case "probability-high":
+        newSorting = [{ id: "delayProbability", desc: true }];
+        break;
+      case "probability-low":
+        newSorting = [{ id: "delayProbability", desc: false }];
+        break;
+      case "distance-long":
+        newSorting = [{ id: "distanceKm", desc: true }];
+        break;
+      case "distance-short":
+        newSorting = [{ id: "distanceKm", desc: false }];
+        break;
+      default:
+        newSorting = [];
+    }
+    setSorting(newSorting);
+  }, []);
+
+  const currentSortValue = useMemo(() => {
+    const sort = sorting[0];
+    if (!sort) return "all";
+    if (sort.id === "departureDate")
+      return sort.desc ? "date-newest" : "date-oldest";
+    if (sort.id === "delayProbability")
+      return sort.desc ? "probability-high" : "probability-low";
+    if (sort.id === "distanceKm")
+      return sort.desc ? "distance-long" : "distance-short";
+    return "all";
+  }, [sorting]);
+
+  const handleReset = useCallback(() => {
+    setColumnFilters([]);
+    setSorting([]);
+    setSearchValue("");
+    setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+  }, []);
+
+  const handleExport = () => {
+    // TODO : backend need to implement export csv
+  };
   return (
     <section className="space-y-6">
       <h3 className="sr-only">Predictions table</h3>
@@ -92,8 +159,8 @@ export function LotePredictionsTable({ data }: LotePredictionsTableProps) {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="Search by airline or status..."
-            value={globalFilter}
-            onChange={(e) => setGlobalFilter(e.target.value)}
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
             className="pl-9 h-9"
           />
         </div>
@@ -126,13 +193,11 @@ export function LotePredictionsTable({ data }: LotePredictionsTableProps) {
         </BaseSelectFilter>
 
         <BaseSelectFilter
-          value={
-            (table.getColumn("delayProbability")?.getFilterValue() as string) ??
-            "all"
-          }
-          onValueChange={handleRiskLevelChange}
+          value={currentSortValue}
+          onValueChange={handleSortChange}
           placeholder="Sort by"
         >
+          <SelectItem value="all">Default Sort</SelectItem>
           {sortOptions.map((option) => (
             <SelectItem key={option.value} value={option.value}>
               {option.label}
@@ -140,7 +205,16 @@ export function LotePredictionsTable({ data }: LotePredictionsTableProps) {
           ))}
         </BaseSelectFilter>
 
-        <Button variant="outline" className="gap-2 h-9">
+        <Button
+          variant="outline"
+          className="gap-2 h-9 border-dashed"
+          onClick={handleReset}
+          title="Reset filters and sorting"
+        >
+          <RotateCcw className="h-4 w-4" />
+          <span className="hidden lg:inline">Reset</span>
+        </Button>
+        <Button variant="outline" className="gap-2 h-9" onClick={handleExport}>
           <Download className="h-4 w-4" />
           <span className="hidden lg:inline">Export CSV</span>
         </Button>
