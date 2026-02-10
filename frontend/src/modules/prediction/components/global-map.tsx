@@ -40,9 +40,6 @@ export default function GlobalMap({ className }: GlobalMapProps) {
     return [];
   }, [origin, destination]);
 
-  const routeColor = "#00a8e8";
-  const routeOpacity = resolvedTheme === "dark" ? 0.9 : 0.7;
-
   useEffect(() => {
     if (!mapRef) return;
 
@@ -123,8 +120,11 @@ export default function GlobalMap({ className }: GlobalMapProps) {
         ref={(ref) => setMapRef(ref as MapLibreGL.Map)}
         center={DEFAULT_CENTER}
         zoom={1}
+        interactive={false}
+        doubleClickZoom={false}
+        dragRotate={false}
       >
-        <MapControls showLocate showFullscreen />
+        <MapControls showFullscreen />
 
         {origin && (
           <MapMarker longitude={origin.lng} latitude={origin.lat}>
@@ -189,9 +189,9 @@ export default function GlobalMap({ className }: GlobalMapProps) {
           <MapRoute
             id={`flight-route-${resolvedTheme}`}
             coordinates={routeCoordinates}
-            color={routeColor}
+            color={"#00a8e8"}
             width={3}
-            opacity={routeOpacity}
+            opacity={resolvedTheme === "dark" ? 0.9 : 0.7}
             dashArray={[3, 2]}
           />
         )}
