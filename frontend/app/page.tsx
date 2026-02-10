@@ -26,15 +26,15 @@ import { MapProvider } from "@/src/modules/prediction/context/map-context";
 export default function Home() {
   return (
     <MapProvider>
-      <section className="grid grid-cols-1 gap-8 md:grid-cols-[.6fr_1fr] lg:grid-cols-[.7fr_1fr_.7fr] xl:grid-cols-[.5fr_1fr_.5fr] md:gap-2 px-4 md:px-0 xl:px-4 overflow-x-hidden md:overflow-x-visible">
-        <div className="order-2 md:order-1">
+      <section className="grid grid-cols-1 md:grid-cols-[.6fr_1fr] lg:grid-cols-[.7fr_1fr_.7fr] xl:grid-cols-[.5fr_1fr_.5fr] overflow-x-hidden md:overflow-x-visible min-h-screen">
+        <div className="order-2 md:order-1 bg-secondary/15 dark:bg-secondary/5 px-4 py-8 md:px-6 md:border-r border-border/40">
           <PredictionSidebar />
         </div>
-        <div className="order-1 md:order-2">
-          <GlobalMap className="md:sticky md:top-16" />
+        <div className="order-1 md:order-2 px-4 md:pt-8">
+          <GlobalMap className="md:sticky md:top-20" />
         </div>
-        <div className="hidden lg:block lg:order-3">
-          <RecentPredictions className="md:sticky md:top-16" />
+        <div className="hidden lg:block lg:order-3 bg-secondary/15 dark:bg-secondary/5 px-4 py-8 md:px-6 border-l border-border/40">
+          <RecentPredictions className="md:sticky md:top-20" />
         </div>
       </section>
     </MapProvider>

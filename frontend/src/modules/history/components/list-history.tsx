@@ -16,6 +16,7 @@ export default function ListHistory() {
     <div className="flex-1 w-full max-w-3xl mx-auto h-full min-h-0">
       <Virtuoso
         style={{ height: "100%" }}
+        className="mask-[linear-gradient(to_bottom,black_calc(100%-40px),transparent)]"
         data={allItems}
         endReached={() => {
           if (hasNextPage) fetchNextPage();
