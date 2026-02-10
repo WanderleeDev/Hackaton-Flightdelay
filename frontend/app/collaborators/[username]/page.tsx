@@ -6,10 +6,20 @@ import ProfileActions from "@/src/modules/collaborators/components/profile-actio
 import ProfileBio from "@/src/modules/collaborators/components/profile-bio";
 import ProfileTechStack from "@/src/modules/collaborators/components/profile-tech-stack";
 import ProfileProjects from "@/src/modules/collaborators/components/profile-projects";
+import { COLLABORATORS } from "@/src/modules/collaborators/data/collaborators";
 
 type Props = {
   params: Promise<{ username: string }>;
 };
+
+export const revalidate = 604800;
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  return COLLABORATORS.map((user) => ({
+    username: user.username,
+  }));
+}
 
 export default async function UserPage({ params }: Props) {
   const { username } = await params;
