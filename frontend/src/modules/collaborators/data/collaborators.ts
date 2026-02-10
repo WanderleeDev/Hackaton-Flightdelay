@@ -34,8 +34,7 @@ export const COLLABORATORS = [
     name: "Santiago Camelo",
     role: "Backend Developer",
     username: "scamelo520",
-    avatar:
-      "http://localhost:3000/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F196546316%3Fv%3D4&w=256&q=75",
+    avatar: "https://avatars.githubusercontent.com/u/196546316?v=4",
     github: "https://github.com/scamelo520",
     linkedin: "https://www.linkedin.com/in/santiago-camelo-68b1ab27a/",
     description: "Graduate of the Oracle Next Education program",
