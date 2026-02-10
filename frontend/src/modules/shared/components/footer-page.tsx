@@ -8,7 +8,7 @@ export default function FooterPage() {
 
   return (
     <footer className="border-t border-muted/40 bg-background/50 backdrop-blur-sm mt-8">
-      <div className="container mx-auto py-10 px-4 sm:px-8">
+      <div className="container mx-auto py-10 px-6 sm:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
           <BrandInfo />
           <CollaboratorsStatus />

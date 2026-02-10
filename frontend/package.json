@@ -44,7 +44,6 @@
     "react-virtuoso": "^4.18.1",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
-    "ts-pattern": "^5.9.0",
     "zod": "^4.3.5"
   },
   "devDependencies": {

@@ -21,7 +21,7 @@ export default async function UserPage({ params }: Props) {
 
   return (
     <main className="min-h-screen text-foreground pb-20 overflow-x-hidden relative">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="container mx-auto px-4">
         <ProfileHeader user={user}>
           <ProfileActions username={username} email={user.email} />
         </ProfileHeader>

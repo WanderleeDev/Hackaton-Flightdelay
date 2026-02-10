@@ -15,7 +15,7 @@ export default function ProfileProjects({
     <section className="space-y-8">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold flex items-center gap-3 text-foreground">
-          <Book className="text-primary" size={28} />
+          <Book className="text-primary hidden sm:block" size={28} />
           Featured Projects
         </h2>
         <div className="h-px flex-1 mx-6 bg-border/50" />

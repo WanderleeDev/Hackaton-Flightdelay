@@ -13,7 +13,7 @@ export default function RecentPredictions({ className }: Props) {
   return (
     <aside
       className={cn(
-        "h-[600px] lg:h-[600px] flex flex-col gap-4 overflow-y-auto",
+        "h-[600px] lg:h-[600px] flex flex-col gap-4 min-h-0",
         className,
       )}
     >
