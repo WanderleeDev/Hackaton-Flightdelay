@@ -1,7 +1,9 @@
 package com.hackathon.flight_ontime.predict.service;
 
+import com.hackathon.flight_ontime.history.model.History;
 import com.hackathon.flight_ontime.predict.exceptions.CsvInvalidException;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
@@ -17,16 +19,40 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CsvService {
 
     private static final int MAX_BATCH_SIZE = 100;
-    private static final List<String> VALID_CSV_HEADERS = List.of(
-            "airline", "origin", "destination", "departureDate", "distance_km"
-    );
 
+    private static final List<String> VALID_CSV_HEADERS = List.of(
+            "airline", "origin", "destination", "departureDate", "distance_km");
+
+    private static final String[] HISTORY_EXPORT_HEADERS = {
+            "airline", "origin", "destination", "departureDate", "distance_km", "delay_probability"
+    };
+
+    public void exportHistoryToCsv(Stream<History> historyStream, OutputStream outputStream) throws IOException {
+        try (Writer writer = new BufferedWriter(
+                new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
+                CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.builder()
+                        .setHeader(HISTORY_EXPORT_HEADERS)
+                        .build())) {
+
+            for (History history : (Iterable<History>) historyStream::iterator) {
+                csvPrinter.printRecord(
+                        history.getAirline(),
+                        history.getOrigin(),
+                        history.getDestination(),
+                        history.getDepartureDate(),
+                        history.getDistanceKm(),
+                        history.getDelayProbability());
+            }
+            csvPrinter.flush();
+        }
+    };
 
     public void validateCsv(MultipartFile file) {
         var isValidExtension = "text/csv".equalsIgnoreCase(file.getContentType()) ||
@@ -38,13 +64,12 @@ public class CsvService {
 
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8));
-             CSVParser csvParser = new CSVParser(reader,
-                     CSVFormat.DEFAULT.builder()
-                             .setHeader()
-                             .setSkipHeaderRecord(true)
-                             .setTrim(true)
-                             .build()
-             )) {
+                CSVParser csvParser = new CSVParser(reader,
+                        CSVFormat.DEFAULT.builder()
+                                .setHeader()
+                                .setSkipHeaderRecord(true)
+                                .setTrim(true)
+                                .build())) {
 
             Set<String> actualHeaders = new HashSet<>(csvParser.getHeaderNames());
             System.out.println(csvParser.getHeaderNames());
@@ -56,7 +81,8 @@ public class CsvService {
 
             long rowsCount = csvParser.stream().count();
             if (rowsCount == 0 || rowsCount > MAX_BATCH_SIZE) {
-                throw new CsvInvalidException("CSV must contain at least one data row and must not exceed " + MAX_BATCH_SIZE + " rows.");
+                throw new CsvInvalidException(
+                        "CSV must contain at least one data row and must not exceed " + MAX_BATCH_SIZE + " rows.");
             }
 
         } catch (Exception e) {
@@ -68,27 +94,19 @@ public class CsvService {
         }
     }
 
-    public int getMaxBatchSize() {
-        return MAX_BATCH_SIZE;
-    }
-
-    public List<String> getValidCsvHeaders() {
-        return VALID_CSV_HEADERS;
-    }
-
     public byte[] enrichCsv(MultipartFile file) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        
+
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8));
-             CSVParser csvParser = new CSVParser(reader,
-                     CSVFormat.DEFAULT.builder()
-                             .setHeader()
-                             .setSkipHeaderRecord(true)
-                             .setTrim(true)
-                             .build());
-             OutputStreamWriter writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
-             CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)) {
+                CSVParser csvParser = new CSVParser(reader,
+                        CSVFormat.DEFAULT.builder()
+                                .setHeader()
+                                .setSkipHeaderRecord(true)
+                                .setTrim(true)
+                                .build());
+                OutputStreamWriter writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
+                CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)) {
 
             List<String> enrichedHeaders = new ArrayList<>(csvParser.getHeaderNames());
             enrichedHeaders.add("day_of_week");
@@ -97,7 +115,7 @@ public class CsvService {
 
             for (CSVRecord record : csvParser) {
                 List<String> enrichedRecord = new ArrayList<>();
-                
+
                 for (String header : csvParser.getHeaderNames()) {
                     enrichedRecord.add(record.get(header));
                 }

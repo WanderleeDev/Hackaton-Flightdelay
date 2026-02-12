@@ -7,9 +7,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public interface AirportRepository extends JpaRepository<Airport, String> {
+public interface AirportRepository extends JpaRepository<Airport, UUID> {
 
     /**
      * Find all distinct destination airports from flights originating at the given

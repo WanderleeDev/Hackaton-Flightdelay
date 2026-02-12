@@ -8,6 +8,8 @@ import com.hackathon.flight_ontime.history.model.HistoryBatch;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,4 +22,6 @@ public interface IHistoryService {
     Page<History> getHistoriesById(UUID batchId, Pageable pageable);
 
     Optional<HistoryBatch> getBatchById(UUID batchId);
+
+    StreamingResponseBody exportHistoriesByBatchId(UUID batchId);
 }

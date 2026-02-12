@@ -18,8 +18,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-01-29T00:39:07-0500",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.6 (Amazon.com Inc.)"
+    date = "2026-02-11T21:56:42-0500",
+    comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
 )
 @Component
 public class HistoryRecordMapperImpl implements HistoryRecordMapper {
@@ -85,10 +85,10 @@ public class HistoryRecordMapperImpl implements HistoryRecordMapper {
         }
         if ( request != null ) {
             history.setAirline( request.airline() );
-            history.setOrigin( request.origin() );
-            history.setDestination( request.destination() );
             history.setDepartureDate( request.departureDate() );
+            history.setDestination( request.destination() );
             history.setDistanceKm( request.distanceKm() );
+            history.setOrigin( request.origin() );
         }
 
         return history;
@@ -156,14 +156,14 @@ public class HistoryRecordMapperImpl implements HistoryRecordMapper {
         History history = new History();
 
         history.setAirline( fastApiBatchResponse.airline() );
-        history.setOrigin( fastApiBatchResponse.origin() );
-        history.setDestination( fastApiBatchResponse.destination() );
-        history.setDepartureDate( fastApiBatchResponse.departureDate() );
-        history.setDistanceKm( fastApiBatchResponse.distanceKm() );
         if ( fastApiBatchResponse.delayPrediction() != null ) {
             history.setDelayPrediction( fastApiBatchResponse.delayPrediction().doubleValue() );
         }
         history.setDelayProbability( fastApiBatchResponse.delayProbability() );
+        history.setDepartureDate( fastApiBatchResponse.departureDate() );
+        history.setDestination( fastApiBatchResponse.destination() );
+        history.setDistanceKm( fastApiBatchResponse.distanceKm() );
+        history.setOrigin( fastApiBatchResponse.origin() );
 
         return history;
     }
@@ -178,14 +178,14 @@ public class HistoryRecordMapperImpl implements HistoryRecordMapper {
 
         if ( fastApiBatchResponse != null ) {
             history.setAirline( fastApiBatchResponse.airline() );
-            history.setOrigin( fastApiBatchResponse.origin() );
-            history.setDestination( fastApiBatchResponse.destination() );
-            history.setDepartureDate( fastApiBatchResponse.departureDate() );
-            history.setDistanceKm( fastApiBatchResponse.distanceKm() );
             if ( fastApiBatchResponse.delayPrediction() != null ) {
                 history.setDelayPrediction( fastApiBatchResponse.delayPrediction().doubleValue() );
             }
             history.setDelayProbability( fastApiBatchResponse.delayProbability() );
+            history.setDepartureDate( fastApiBatchResponse.departureDate() );
+            history.setDestination( fastApiBatchResponse.destination() );
+            history.setDistanceKm( fastApiBatchResponse.distanceKm() );
+            history.setOrigin( fastApiBatchResponse.origin() );
         }
 
         return history;
