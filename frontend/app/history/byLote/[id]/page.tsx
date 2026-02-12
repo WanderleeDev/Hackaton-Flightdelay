@@ -3,13 +3,7 @@ import { LoteMetrics } from "@/src/modules/dashboard/components/lote-metrics";
 import { ProbabilityDistribution } from "@/src/modules/dashboard/components/probability-distribution";
 import { TopRoutesChart } from "@/src/modules/dashboard/components/top-routes-chart";
 import { LotePredictionsTable } from "@/src/modules/dashboard/components/lote-predictions-table";
-import {
-  AlertTriangle,
-  ArrowLeft,
-  BarChart,
-  Database,
-  Route,
-} from "lucide-react";
+import { ArrowLeft, BarChart, Database, Route } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeaderB from "@/src/modules/shared/components/section-header-b";
 import Link from "next/link";
@@ -69,7 +63,7 @@ export default async function ByLoteIdPage({ params }: Props) {
         </AccordionItem>
       </div>
 
-      <LotePredictionsTable data={content} />
+      <LotePredictionsTable data={content} idLote={id} />
     </div>
   );
 }

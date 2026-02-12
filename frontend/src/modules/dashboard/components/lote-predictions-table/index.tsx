@@ -22,9 +22,11 @@ import { Button } from "@/components/ui/button";
 import { SelectItem } from "@/components/ui/select";
 import BaseSelectFilter from "./base-select-filter";
 import { useDebounce } from "@/src/modules/shared/hooks/use-debounce";
+import { useStreamingCsv } from "../../hooks/useStreamingCsv";
 
 interface LotePredictionsTableProps {
   data: Prediction[];
+  idLote: string;
 }
 
 const PAGE_INDEX = 0;
@@ -46,16 +48,19 @@ const sortOptions = [
   { value: "distance-short", label: "Distance (Shortest)" },
 ];
 
-export function LotePredictionsTable({ data }: LotePredictionsTableProps) {
+export function LotePredictionsTable({
+  data,
+  idLote,
+}: LotePredictionsTableProps) {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: PAGE_INDEX,
     pageSize: PAGE_SIZE,
   });
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearchValue = useDebounce(searchValue, 300);
-
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
+  const { isExporting, handleExportStream } = useStreamingCsv();
 
   const table = useReactTable({
     data,
@@ -147,9 +152,12 @@ export function LotePredictionsTable({ data }: LotePredictionsTableProps) {
     setPagination((prev) => ({ ...prev, pageIndex: 0 }));
   }, []);
 
-  const handleExport = () => {
-    // TODO : backend need to implement export csv
+  const handleExport = (idLote: string) => {
+    if (isExporting) return;
+
+    handleExportStream(idLote, `predictions-batch-${idLote}.csv`);
   };
+
   return (
     <section className="space-y-6">
       <h3 className="sr-only">Predictions table</h3>
@@ -214,9 +222,16 @@ export function LotePredictionsTable({ data }: LotePredictionsTableProps) {
           <RotateCcw className="h-4 w-4" />
           <span className="hidden lg:inline">Reset</span>
         </Button>
-        <Button variant="outline" className="gap-2 h-9" onClick={handleExport}>
+        <Button
+          variant="outline"
+          className="gap-2 h-9"
+          onClick={() => handleExport(idLote)}
+          disabled={isExporting}
+        >
           <Download className="h-4 w-4" />
-          <span className="hidden lg:inline">Export CSV</span>
+          <span className="hidden lg:inline">
+            {isExporting ? "Exporting..." : "Export CSV"}
+          </span>
         </Button>
       </div>
 
