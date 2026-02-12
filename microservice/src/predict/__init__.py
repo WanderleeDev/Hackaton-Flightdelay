@@ -1,5 +1,5 @@
 from .router import predict_router
-from .execptions import CSVValidationException
+from .exceptions import CSVValidationException
 
 __all__ = [
     "predict_router",

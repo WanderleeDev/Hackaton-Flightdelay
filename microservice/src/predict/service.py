@@ -1,7 +1,7 @@
 from typing import List
 
 from fastapi import UploadFile
-from src.predict.execptions import CSVValidationException
+from src.predict.exceptions import CSVValidationException
 from src.predict.schema import PredictionRequest, ResponsePrediction, ResponsePredictionBatch
 from src.core.logger import log_event, EventLog
 from pathlib import Path
