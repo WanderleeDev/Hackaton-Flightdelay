@@ -49,7 +49,7 @@ runs:
       shell: bash
       run: |
         curl -X POST "https://dockploy.wanderlee.site/api/redeploy" \
-          -H "Authorization: Bearer ${{ inputs.dokploy-token }}" \
+          -H "Authorization: ${{ inputs.dokploy-token }}" \
           -H "Content-Type: application/json" \
           -d "{\"service\":\"${{ inputs.service-name }}\",\"version\":\"${{ inputs.version }}\"}"
 
