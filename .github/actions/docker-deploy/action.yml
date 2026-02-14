@@ -54,6 +54,24 @@ runs:
         docker push ${{ inputs.docker-image }}:${{ inputs.version }}
         docker push ${{ inputs.docker-image }}:latest
 
+    - name: Update Image in Dokploy
+      shell: bash
+      run: |
+        echo "🔄 Updating Dokploy application to image: ${{ inputs.docker-image }}:${{ inputs.version }}"
+        curl -X 'POST' \
+          '${{ inputs.dokploy-url }}/api/trpc/application.update?batch=1' \
+          -H 'accept: application/json' \
+          -H 'Content-Type: application/json' \
+          -H 'Authorization: Bearer ${{ inputs.dokploy-token }}' \
+          -d '{
+            "0": {
+              "json": {
+                "applicationId": "${{ inputs.application-id }}",
+                "dockerImage": "${{ inputs.docker-image }}:${{ inputs.version }}"
+              }
+            }
+          }'
+
     - name: Deploy to Dokploy
       shell: bash
       run: |
