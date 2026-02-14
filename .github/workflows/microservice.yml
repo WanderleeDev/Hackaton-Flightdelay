@@ -35,7 +35,7 @@ jobs:
              echo "📦 Manual Input: $VERSION"
              
           else
-             VERSION="$(date +%Y%m%d)-${GITHUB_SHA::7}"
+             VERSION="$(date -u +%Y%m%d)-${GITHUB_SHA:0:7}"
              echo "🚀 Auto Gen: $VERSION"
           fi
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
@@ -43,10 +43,12 @@ jobs:
       - name: Build and Deploy
         uses: ./.github/actions/docker-deploy
         with:
-          service-name: microservice
-          docker-image: ${{ secrets.DOCKER_USERNAME }}/fastapi-service
+          project-name: "flight_prediction"
+          application-name: microservice
+          application-id: ${{ secrets.DOKPLOY_MICROSERVICE_ID }}
+          docker-image: ${{ secrets.DOCKER_USERNAME }}/microservice-api
+          dokploy-token: ${{ secrets.DOKPLOY_TOKEN }}
           service-path: ./microservice
           version: ${{ steps.version.outputs.VERSION }}
           docker-username: ${{ secrets.DOCKER_USERNAME }}
           docker-password: ${{ secrets.DOCKER_PASSWORD }}
-          dokploy-token: ${{ secrets.DOKPLOY_TOKEN }}

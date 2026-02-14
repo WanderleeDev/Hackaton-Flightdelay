@@ -2,7 +2,7 @@ name: "Docker Build and Deploy"
 description: "Builds, pushes Docker image and deploys to Dokploy"
 
 inputs:
-  service-name:
+  application-name:
     description: "Name of the service (backend, microservice)"
     required: true
   docker-image:
@@ -23,6 +23,12 @@ inputs:
   dokploy-token:
     description: "Dokploy API token"
     required: true
+  project-name:
+    description: "Dokploy project name"
+    required: true
+  application-id:
+    description: "Dokploy application ID (found in URL)"
+    required: false
 
 runs:
   using: "composite"
@@ -45,18 +51,35 @@ runs:
         docker push ${{ inputs.docker-image }}:${{ inputs.version }}
         docker push ${{ inputs.docker-image }}:latest
 
-    - name: Deploy to Dokploy
+    - name: Update Tag in Dokploy (Optional)
+      if: ${{ inputs.application-id != '' }}
       shell: bash
       run: |
-        curl -X POST "https://dockploy.wanderlee.site/api/redeploy" \
-          -H "Authorization: ${{ inputs.dokploy-token }}" \
+        echo "Updating Dokploy application ${{ inputs.application-id }} to use image ${{ inputs.docker-image }}:${{ inputs.version }}"
+        curl -X POST "https://dokploy.wanderlee.site/api/trpc/application.update?batch=1" \
+          -H "Authorization: Bearer ${{ inputs.dokploy-token }}" \
           -H "Content-Type: application/json" \
-          -d "{\"service\":\"${{ inputs.service-name }}\",\"version\":\"${{ inputs.version }}\"}"
+          -d '{
+            "0": {
+              "json": {
+                "applicationId": "${{ inputs.application-id }}",
+                "dockerImage": "${{ inputs.docker-image }}:${{ inputs.version }}"
+              }
+            }
+          }'
+
+    - name: Deploy to Dokploy
+      uses: Crokily/dokploy-deploy-action@v1.0.1
+      with:
+        dokploy_url: "https://dokploy.wanderlee.site/"
+        api_key: ${{ inputs.dokploy-token }}
+        project_name: ${{ inputs.project-name }}
+        application_name: ${{ inputs.application-name }}
 
     - name: Deployment Summary
       shell: bash
       run: |
-        echo "### ✅ ${{ inputs.service-name }} Deployed" >> $GITHUB_STEP_SUMMARY
+        echo "### ✅ ${{ inputs.application-name }} Deployed" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "**Version:** \`${{ inputs.version }}\`" >> $GITHUB_STEP_SUMMARY
         echo "**Image:** \`${{ inputs.docker-image }}:${{ inputs.version }}\`" >> $GITHUB_STEP_SUMMARY

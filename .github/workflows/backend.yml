@@ -45,10 +45,12 @@ jobs:
       - name: Build and Deploy
         uses: ./.github/actions/docker-deploy
         with:
-          service-name: backend
+          application-name: backend
           docker-image: ${{ secrets.DOCKER_USERNAME }}/backend-api
           service-path: ./backend
           version: ${{ steps.version.outputs.VERSION }}
           docker-username: ${{ secrets.DOCKER_USERNAME }}
           docker-password: ${{ secrets.DOCKER_PASSWORD }}
           dokploy-token: ${{ secrets.DOKPLOY_TOKEN }}
+          project-name: "flight_prediction"
+          application-id: ${{ secrets.DOKPLOY_BACKEND_ID }}
