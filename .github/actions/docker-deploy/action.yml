@@ -71,7 +71,7 @@ runs:
     - name: Deploy to Dokploy
       uses: Crokily/dokploy-deploy-action@v1.0.1
       with:
-        dokploy_url: "https://dokploy.wanderlee.site/"
+        dokploy_url: "https://dokploy.wanderlee.site"
         api_key: ${{ inputs.dokploy-token }}
         project_name: ${{ inputs.project-name }}
         application_name: ${{ inputs.application-name }}
