@@ -61,7 +61,7 @@ runs:
         curl -X 'POST' \
           '${{ inputs.dokploy-url }}/api/trpc/application.update?batch=1' \
           -H 'accept: application/json' \
-          -H 'Content-Type: application/json' \
+          -H 'Content-Type: application/j son' \
           -H 'Authorization: Bearer ${{ inputs.dokploy-token }}' \
           -d '{
             "0": {
