@@ -51,23 +51,6 @@ runs:
         docker push ${{ inputs.docker-image }}:${{ inputs.version }}
         docker push ${{ inputs.docker-image }}:latest
 
-    - name: Update Tag in Dokploy (Optional)
-      if: ${{ inputs.application-id != '' }}
-      shell: bash
-      run: |
-        echo "Updating Dokploy application ${{ inputs.application-id }} to use image ${{ inputs.docker-image }}:${{ inputs.version }}"
-        curl -X POST "https://dokploy.wanderlee.site/api/trpc/application.update?batch=1" \
-          -H "Authorization: Bearer ${{ inputs.dokploy-token }}" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "0": {
-              "json": {
-                "applicationId": "${{ inputs.application-id }}",
-                "dockerImage": "${{ inputs.docker-image }}:${{ inputs.version }}"
-              }
-            }
-          }'
-
     - name: Deploy to Dokploy
       uses: Crokily/dokploy-deploy-action@v1.0.1
       with:
