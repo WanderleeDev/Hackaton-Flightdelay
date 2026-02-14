@@ -48,6 +48,7 @@ jobs:
           application-id: ${{ secrets.DOKPLOY_MICROSERVICE_ID }}
           docker-image: ${{ secrets.DOCKER_USERNAME }}/microservice-api
           dokploy-token: ${{ secrets.DOKPLOY_TOKEN }}
+          dokploy-url: ${{ secrets.DOKPLOY_URL }}
           service-path: ./microservice
           version: ${{ steps.version.outputs.VERSION }}
           docker-username: ${{ secrets.DOCKER_USERNAME }}

@@ -52,5 +52,6 @@ jobs:
           docker-username: ${{ secrets.DOCKER_USERNAME }}
           docker-password: ${{ secrets.DOCKER_PASSWORD }}
           dokploy-token: ${{ secrets.DOKPLOY_TOKEN }}
+          dokploy-url: ${{ secrets.DOKPLOY_URL }}
           project-name: "flight_prediction"
           application-id: ${{ secrets.DOKPLOY_BACKEND_ID }}

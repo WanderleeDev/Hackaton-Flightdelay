@@ -28,7 +28,10 @@ inputs:
     required: true
   application-id:
     description: "Dokploy application ID (found in URL)"
-    required: false
+    required: true
+  dokploy-url:
+    description: "Dokploy base URL (e.g., https://dokploy.example.com)"
+    required: true
 
 runs:
   using: "composite"
@@ -52,12 +55,17 @@ runs:
         docker push ${{ inputs.docker-image }}:latest
 
     - name: Deploy to Dokploy
-      uses: Crokily/dokploy-deploy-action@v1.0.1
-      with:
-        dokploy_url: "https://dokploy.wanderlee.site"
-        api_key: ${{ inputs.dokploy-token }}
-        project_name: ${{ inputs.project-name }}
-        application_name: ${{ inputs.application-name }}
+      shell: bash
+      run: |
+        echo "🚀 Triggering deployment for ${{ inputs.application-name }} (ID: ${{ inputs.application-id }})"
+        curl -X 'POST' \
+          '${{ inputs.dokploy-url }}/api/application.deploy' \
+          -H 'accept: application/json' \
+          -H 'Content-Type: application/json' \
+          -H 'x-api-key: ${{ inputs.dokploy-token }}' \
+          -d '{
+            "applicationId": "${{ inputs.application-id }}"
+          }'
 
     - name: Deployment Summary
       shell: bash
