@@ -8,13 +8,13 @@ import io.swagger.v3.oas.annotations.info.Info;
 
 
 @OpenAPIDefinition(
-	info = @Info(title = "Flight On-Time API", version = "0.0.1",
-		description = "APIs para la predicción de retrasos | APIs for delay prediction",
-		contact = @Contact(name = "Hackathon Flight On-Time", email = "")
-	)
+		info = @Info(
+				title = "Flight On-Time API",
+				version = "0.0.1",
+				description = "APIs para la predicción de retrasos | APIs for delay prediction",
+				contact = @Contact(name = "Hackathon Flight On-Time")
+		)
 )
-
-
 @SpringBootApplication
 public class FlightOntimeApplication {
 

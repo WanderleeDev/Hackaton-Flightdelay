@@ -1,12 +1,12 @@
-package com.hackathon.flight_ontime.predict.DTO;
+package com.hackathon.flight_ontime.predict.dto;
 
 import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.OffsetDateTime;
 
-@Schema(description = "Request for prediction", name = "DataRequest")
-public record DataRequest(
+@Schema(description = "Request for prediction", name = "FlightPredictionRequest")
+public record FlightPredictionRequest(
         @Schema(description = "Airline name", example = "AA", requiredMode = Schema.RequiredMode.REQUIRED)
         @NotBlank
         @Size(max = 100)

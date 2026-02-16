@@ -1,7 +1,7 @@
 package com.hackathon.flight_ontime.history.mapper;
 
 import com.hackathon.flight_ontime.history.model.HistoryBatch;
-import com.hackathon.flight_ontime.predict.DTO.FastApiBatchResponse;
+import com.hackathon.flight_ontime.predict.dto.FastApiBatchResponse;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

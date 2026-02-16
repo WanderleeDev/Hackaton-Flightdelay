@@ -1,38 +1,40 @@
 package com.hackathon.flight_ontime.predict.controller;
 
 import com.hackathon.flight_ontime.history.dto.BatchHistoryPreviewResponseDto;
-import com.hackathon.flight_ontime.predict.DTO.DataRequest;
-import com.hackathon.flight_ontime.predict.DTO.DataResponse;
+import com.hackathon.flight_ontime.history.dto.HistoryResponseDto;
+import com.hackathon.flight_ontime.history.mapper.HistoryRecordMapper;
+import com.hackathon.flight_ontime.history.model.History;
+import com.hackathon.flight_ontime.history.model.HistoryBatch;
+import com.hackathon.flight_ontime.predict.dto.FlightPredictionRequest;
 import com.hackathon.flight_ontime.predict.service.PredictService;
-import lombok.AllArgsConstructor;
-
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import jakarta.validation.Valid;
-import io.swagger.v3.oas.annotations.tags.Tag;
-
 
 @RestController
 @RequestMapping("/predict")
-@Tag(name = "Predict Controller", description = "Delay prediction endpoint")
-@AllArgsConstructor
-public class PredictController {
-    private PredictService predictService;
+@RequiredArgsConstructor
+public class PredictController implements PredictApi {
+    private final PredictService predictService;
+    private final HistoryRecordMapper historyRecordMapper;
 
-    @PostMapping("")
-    public ResponseEntity<DataResponse> predictionResult(@RequestBody @Valid DataRequest request){
-        DataResponse prediction = predictService.getPredictionAndSave(request);
-        return ResponseEntity.ok().body(prediction);
+    @PostMapping
+    @Override
+    public ResponseEntity<HistoryResponseDto> predictFlightDelay(@Valid @RequestBody FlightPredictionRequest request) {
+        History history = predictService.predict(request);
+        return ResponseEntity.ok(historyRecordMapper.toDto(history));
     }
 
-    @PostMapping(value = "/batchEx", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<BatchHistoryPreviewResponseDto> batchPredictionEx(
+    @PostMapping(value = "/batch", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Override
+    public ResponseEntity<BatchHistoryPreviewResponseDto> predictBatchFlightDelays(
             @RequestParam("file") MultipartFile file,
             @RequestParam("batchName") String batchName
     ) {
-        var batchPredictionsResult = predictService.processBatchPredictionsEx(file, batchName);
-        return ResponseEntity.ok().body(batchPredictionsResult);
+        HistoryBatch batch = predictService.processBatchPredictions(file, batchName);
+        return ResponseEntity.ok(historyRecordMapper.toBatchPreviewDto(batch));
     }
 }

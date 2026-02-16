@@ -1,4 +1,4 @@
-package com.hackathon.flight_ontime.predict.DTO;
+package com.hackathon.flight_ontime.predict.dto;
 
 import jakarta.validation.constraints.NotNull;
 

@@ -5,9 +5,9 @@ import com.hackathon.flight_ontime.history.dto.BatchHistoryResponseDto;
 import com.hackathon.flight_ontime.history.dto.HistoryResponseDto;
 import com.hackathon.flight_ontime.history.model.History;
 import com.hackathon.flight_ontime.history.model.HistoryBatch;
-import com.hackathon.flight_ontime.predict.DTO.DataRequest;
-import com.hackathon.flight_ontime.predict.DTO.DataResponse;
-import com.hackathon.flight_ontime.predict.DTO.FastApiBatchResponse;
+import com.hackathon.flight_ontime.predict.dto.FastApiPredictionResponse;
+import com.hackathon.flight_ontime.predict.dto.FlightPredictionRequest;
+import com.hackathon.flight_ontime.predict.dto.FastApiBatchResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -30,7 +30,7 @@ public interface HistoryRecordMapper {
     @Named("mapHistories")
     List<HistoryResponseDto> toDtoList(List<History> historyList);
 
-    History toEntity(DataResponse dataResponse, DataRequest request);
+    History toEntity(FastApiPredictionResponse fastApiPredictionResponse, FlightPredictionRequest request);
 
     @Mapping(target = "total", expression = "java(histories != null ? histories.size() : 0)")
     @Mapping(target = "histories", source = "histories", qualifiedByName = "mapHistories")

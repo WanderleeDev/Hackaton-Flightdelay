@@ -1,13 +1,9 @@
-package com.hackathon.flight_ontime.predict.DTO;
+package com.hackathon.flight_ontime.predict.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.OffsetDateTime;
 
-/**
- * DTO for batch prediction response from FastAPI microservice.
- * Maps to ResponsePredictionBatch schema in FastAPI.
- */
 public record FastApiBatchResponse(
         String airline,
         String origin,

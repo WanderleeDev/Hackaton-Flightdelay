@@ -1,9 +1,7 @@
-package com.hackathon.flight_ontime.predict.DTO;
+package com.hackathon.flight_ontime.predict.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
-
-import java.time.OffsetDateTime;
 
 public record FastApiRequest(
         @JsonProperty("airline") @NotNull String airline,

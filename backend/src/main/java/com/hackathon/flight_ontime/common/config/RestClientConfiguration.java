@@ -12,7 +12,7 @@ public class RestClientConfiguration {
     private String fastApiBaseUrl;
 
     @Bean
-    public RestClient getRestClient(){
+    public RestClient fastApiRestClient(){
         return RestClient.builder()
                 .baseUrl(fastApiBaseUrl)
                 .build();
