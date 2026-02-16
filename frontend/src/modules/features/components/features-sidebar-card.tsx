@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export default function FeaturesSidebarCard() {
   return (
-    <div className="p-6 pt-0">
+    <div className="p-6">
       <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/50 mb-4 shadow-sm bg-black/20">
         <Image
           src="/app-features-logo-base.png"

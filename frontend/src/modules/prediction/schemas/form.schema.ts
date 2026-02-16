@@ -20,16 +20,15 @@ export const formSchema = z
       .min(1, "Please select an item")
       .toUpperCase()
       .pipe(z.string().regex(/^[A-Z]{3,4}$/, "Must be 3-4 uppercase letters")),
-    departureDate: z.date({ error: "This field is required" }).refine(
+    departureDate: z.date({ error: "Date and time are required" }).refine(
       (date) => {
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        tomorrow.setHours(0, 0, 0, 0);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
         const selectedDate = new Date(date);
         selectedDate.setHours(0, 0, 0, 0);
-        return selectedDate >= tomorrow;
+        return selectedDate >= today;
       },
-      { message: "Departure date must be at least tomorrow" },
+      { message: "Date must be today or later" },
     ),
     airline: z.string().min(1, "Please select an item"),
     flightDistance: z.coerce.number({ error: "This field is required" }),
