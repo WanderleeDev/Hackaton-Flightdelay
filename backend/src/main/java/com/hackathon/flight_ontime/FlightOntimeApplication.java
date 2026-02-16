@@ -21,5 +21,4 @@ public class FlightOntimeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FlightOntimeApplication.class, args);
 	}
-
 }
